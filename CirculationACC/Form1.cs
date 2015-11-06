@@ -33,9 +33,8 @@ namespace Circulation
         //_BarcScan sc;
         //private string WasFirstScan = "";
         public string EmpID;
-        private Form2 f2;
-        private Form4 f4;
-        private Form5 f5;
+        private Auth f2;
+        private Prolong f4;
         SerialPort port;
 
         public DBWork.dbReader ReaderRecord, ReaderRecordWork, ReaderRecordFormular;
@@ -47,7 +46,7 @@ namespace Circulation
         {
             //System.Collections.Generic.List<int> f = new List<int>(3);
 
-            f2 = new Form2(this);
+            f2 = new Auth(this);
             InitializeComponent();
             dbw = new DBWork(this);
             dbw.SetPenaltyAll();
@@ -123,19 +122,19 @@ namespace Circulation
         }
         public static void FireAbon(object sender, EventArgs ev)
         {
-            if (AbonChanged != null)
-            {
-                AbonChanged(sender, ev);
-            }
+            //if (AbonChanged != null)
+            //{
+            //    AbonChanged(sender, ev);
+            //}
         }
 
 
         void Form1_AbonChanged(object sender, EventArgs ev)
         {
-            if (this.ReaderRecord != null)
-            {
-                this.ReaderRecord.AbonType = ((Form5)sender).abon;
-            }
+            //if (this.ReaderRecord != null)
+            //{
+            //    this.ReaderRecord.AbonType = ((Form5)sender).abon;
+            //}
         }
         //public enum Regim {Knigi,vidachaShtrihkodov,} 
         public class DataGridViewDisableButtonColumn : DataGridViewButtonColumn
@@ -453,7 +452,7 @@ namespace Circulation
             DataSet DS = new DataSet();
             Conn.SQLDA.Fill(DS, "peny");
             int sum = 0;
-            int LastPeny = 0;
+            //int LastPeny = 0;
 
             DateTime DateOfFineVozv = DateTime.Parse(r.Cells["vozv"].Value.ToString());
             DateTime DateOfFineFact = (r.Cells["fact"].Value.ToString() == string.Empty) ?
@@ -516,7 +515,7 @@ namespace Circulation
             DataSet DS = new DataSet();
             Conn.SQLDA.Fill(DS, "peny");
             int sum = 0;
-            int LastPeny = 0;
+            //int LastPeny = 0;
 
             DateTime DateOfFineVozv = datevozv_;
             DateTime DateOfFineFact = datefactvozv_;
@@ -627,7 +626,6 @@ bool isBookBusy(BookId bookId)
                         MessageBox.Show("Ќе соответствует сери€ социальной карты!„итатель заменил социальную карту!Ќомер социальной карты осталс€ прежним, но сменилась сери€! Ќовую социальную карту необходимо зарегистрировать в регистратуре!", "¬нимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    OldBase(ReaderRecordFormular);
                     label20.Text = ReaderRecordFormular.Surname + " " + ReaderRecordFormular.Name + " " + ReaderRecordFormular.SecondName;
                     textBox6.Text = ReaderRecordFormular.AbonType;
                     label25.Text = ReaderRecordFormular.id;
@@ -755,11 +753,6 @@ bool isBookBusy(BookId bookId)
                             return;
                         }
 
-                        if (OldBase())
-                        {
-                            this.emul = "";
-                            return;
-                        }
                         if (this.ReaderRecord != null)
                         {
                             this.emul = "";
@@ -988,69 +981,8 @@ bool isBookBusy(BookId bookId)
         {
             label1.Visible = !label1.Visible;
         }
-        public bool OldBase()
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select IDOldAbonement from Readers..Main where NumberReader = " + ReaderRecordWork.id;
-            DataSet DS = new DataSet();
-            Conn.SQLDA.Fill(DS, "iswas");
-            if (!(bool)DS.Tables["iswas"].Rows[0][0])
-            {
-                Form10 f10 = new Form10(ReaderRecordWork);
-                if (f10.canShow)
-                {
-                    f10.ShowDialog();
-                    button4_Click(button4, new EventArgs());
-                }
-                else
-                {
-                    button4_Click(button4, new EventArgs());
-                }
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-        public bool OldBase(DBWork.dbReader rdr)
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select IDOldAbonement from Readers..Main where NumberReader = " + rdr.id;
-            DataSet DS = new DataSet();
-            Conn.SQLDA.Fill(DS, "iswas");
-            bool d = (bool)DS.Tables["iswas"].Rows[0][0];
-            if (!d)
-            {
-                Form10 f10 = new Form10(rdr);
-                if (f10.canShow)
-                {
-                    f10.ShowDialog();
-                    button4_Click(button4, new EventArgs());
-                }
-                else
-                {
-                    button4_Click(button4, new EventArgs());
-                }
-                return true;
-            }
-            else
-            {
-                return false;
-            }
 
 
-        }
-        private void button18_Click(object sender, EventArgs e)
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select IDOldAbonement from Readers..Main where NumberReader = "+ ReaderRecord.id;
-            DataSet DS = new DataSet();
-            Conn.SQLDA.Fill(DS, "iswas");
-            if (!(bool)DS.Tables["iswas"].Rows[0][0])
-            {
-                Form10 f10 = new Form10(ReaderRecord);
-                f10.ShowDialog();
-            }
-
-        }
         public void button2_Click_1(object sender, EventArgs e)
         {
             //FindReaderInOldBase(ReaderRecord);
@@ -1349,7 +1281,7 @@ bool isBookBusy(BookId bookId)
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
             Statistics.Columns.Clear();
-            Form3 f3 = new Form3();
+            DatePeriod f3 = new DatePeriod();
             f3.ShowDialog();
             label19.Text = " оличество читателей, за период с" + f3.StartDate.ToString("yyyyMMdd") + " по " + f3.EndDate.ToString("yyyyMMdd") + ": ";
             label18.Text = dbw.GetReaderCount(f3.StartDate, f3.EndDate);
@@ -1359,7 +1291,7 @@ bool isBookBusy(BookId bookId)
         private void toolStripMenuItem5_Click(object sender, EventArgs e)
         {
             Statistics.Columns.Clear();
-            Form3 f3 = new Form3();
+            DatePeriod f3 = new DatePeriod();
             f3.ShowDialog();
             //label17.Text = " оличество выданных документов, за период с" + f3.StartDate.ToString("dd.MM.yyyy") + " по " + f3.EndDate.ToString("dd.MM.yyyy") + ": " + dbw.GetBooksCount(f3.StartDate, f3.EndDate);
             label19.Text = " ол-во выданных документов, за период с " + f3.StartDate.ToString("dd.MM.yyyy") + " по " + f3.EndDate.ToString("dd.MM.yyyy") + ": ";
@@ -1748,7 +1680,6 @@ bool isBookBusy(BookId bookId)
                 MessageBox.Show("„итатель не найден!", "¬нимание!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }
-            OldBase(ReaderSetBarcode);
             dbw.GetFormular(ReaderSetBarcode.id);
             label20.Text = ReaderSetBarcode.Surname + " " + ReaderSetBarcode.Name + " " + ReaderSetBarcode.SecondName;
             textBox6.Text = ReaderSetBarcode.AbonType;
@@ -1758,58 +1689,7 @@ bool isBookBusy(BookId bookId)
             this.FormularColumnsForming(ReaderSetBarcode.id);
         }
 
-        private void button9_Click(object sender, EventArgs e)
-        {
-            if (label25.Text == "")
-            {
-                MessageBox.Show("—начала найдите читател€", "¬нимание!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
-            f5 = new Form5(label25.Text);
 
-            f5.ShowDialog();
-            if (f5.abon != null)
-                textBox6.Text = f5.abon;
-            /*ReaderRecordFormular = new DBWork.dbReader("1000001");
-            dbw.SetPenalty(ReaderRecordFormular.id);
-            Formular.DataSource = dbw.GetFormular(ReaderRecordFormular.id);
-            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "«аглавие";
-            Formular.Columns.Add(col);
-            col.DataPropertyName = "Zag";
-            col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "«аглавие";
-            Formular.Columns.Add(col);
-            col.DataPropertyName = "issue";
-            DataGridViewCheckBoxColumn colch = new DataGridViewCheckBoxColumn();
-            colch.HeaderText = "Ќарушение";
-            colch.Name = "pen";
-            Formular.Columns.Add(colch);
-            Formular.Columns["pen"].ReadOnly = false;
-            colch.DataPropertyName = "penalty";
-
-            DataGridViewDisableButtonColumn ButCol = new DataGridViewDisableButtonColumn();
-            Formular.Columns.Add(ButCol);
-            ButCol.Name = "but";
-            ButCol.HeaderText = "—н€тие нарушени€";
-            ButCol.DefaultCellStyle.BackColor = Form1.DefaultBackColor;
-            Padding myPadd = ButCol.DefaultCellStyle.Padding;
-            myPadd.All = 2;
-            ButCol.DefaultCellStyle.Padding = myPadd;
-            foreach (DataGridViewRow row in Formular.Rows)
-            {
-                DataGridViewDisableButtonCell bc = (DataGridViewDisableButtonCell)row.Cells["but"]; ;
-                if ((row.Cells["pen"].Value.ToString().ToLower() == "false") && (row.Cells["rempen"].Value.ToString().ToLower() == "true"))
-                {
-                    bc.Value = "Ќет нарушени€";//ранее сн€ли
-                    bc.Enabled = false;
-                }
-
-
-            }
-
-           // Formular.DataMember = "form";*/
-        }
 
         private void Formular_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1847,7 +1727,7 @@ bool isBookBusy(BookId bookId)
                         }
                     }
                         
-                    f4 = new Form4();
+                    f4 = new Prolong();
                     f4.ShowDialog();
                     if (f4.Days == -99)
                         return;
@@ -2182,8 +2062,8 @@ bool isBookBusy(BookId bookId)
             "((case when (tmp.rempnlt = 'false' or tmp.rempnlt is NULL) then 'false' else 'true' end)) as rempenalty " +
             "from " +
             "(select Z.ID as zi,Z.IDMAIN as zakid, Z.DATE_ISSUE as iss, Z.DATE_VOZV as vozv, Z.DATE_FACT_VOZV as fct, Z.PENALTY as pnlt,Z.REMPENALTY as rempnlt, X.IDMAIN as idm, X.PLAIN as pl, Y.SORT as srt, Y.MNFIELD as mnf " +
-            "from BJVVV..DATAEXTPLAIN X " +
-            "join BJVVV..DATAEXT Y on Y.ID=X.IDDATAEXT " +
+            "from BJACC..DATAEXTPLAIN X " +
+            "join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT " +
             "join Reservation_R..ISSUED Z on ((Z.IDMAIN = Y.IDMAIN) or (Z.IDMAIN_CONST=Y.IDMAIN and Z.PENALTY='true')) " +
                 //"--join Reservation_R..ISSUED ZZ on Z.IDMAIN = ZZ.IDMAIN_CONST "+
             "where (((Y.MNFIELD = 200 and Y.MSFIELD = '$a') " +
@@ -2226,12 +2106,12 @@ bool isBookBusy(BookId bookId)
             //CrystalReport11.SetDataSource(dbw.GetFormular("149921"));
             Conn.SQLDA.SelectCommand.Parameters["@IDR"].Value = reader.id;
             Conn.SQLDA.SelectCommand.CommandText = "select zagp.PLAIN zag,avtp.PLAIN avt, B.INV inv, B.DATE_ISSUE iss,B.DATE_VOZV vzv  " +
-                                                   "  from BJVVV..DATAEXT A  " +
+                                                   "  from BJACC..DATAEXT A  " +
                                                    " inner join Reservation_R..ISSUED B on B.INV collate Cyrillic_General_CI_AI = A.SORT and A.MNFIELD = 899 and A.MSFIELD = '$p' " +
-                                                   " left join BJVVV..DATAEXT zag on zag.MNFIELD = 200 and zag.MSFIELD = '$a' and zag.IDMAIN = A.IDMAIN " +
-                                                   " left join BJVVV..DATAEXT avt on avt.MNFIELD = 700 and avt.MSFIELD = '$a' and avt.IDMAIN = A.IDMAIN " +
-                                                   " left join BJVVV..DATAEXTPLAIN zagp on zagp.IDDATAEXT = zag.ID " +
-                                                   " left join BJVVV..DATAEXTPLAIN avtp on avtp.IDDATAEXT = avt.ID " +
+                                                   " left join BJACC..DATAEXT zag on zag.MNFIELD = 200 and zag.MSFIELD = '$a' and zag.IDMAIN = A.IDMAIN " +
+                                                   " left join BJACC..DATAEXT avt on avt.MNFIELD = 700 and avt.MSFIELD = '$a' and avt.IDMAIN = A.IDMAIN " +
+                                                   " left join BJACC..DATAEXTPLAIN zagp on zagp.IDDATAEXT = zag.ID " +
+                                                   " left join BJACC..DATAEXTPLAIN avtp on avtp.IDDATAEXT = avt.ID " +
                                                    " where B.IDREADER = @IDR and B.IDMAIN != 0";
             Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
             DataSet R = new DataSet();
@@ -2364,12 +2244,12 @@ bool isBookBusy(BookId bookId)
         public string pass;
         private void button14_Click(object sender, EventArgs e)
         {
-            Form20 f20 = new Form20(this);
+            ParolEmulation f20 = new ParolEmulation(this);
             f20.ShowDialog();
             if (pass == "adminn")
             {
                 pass = "";
-                Form19 f19 = new Form19(this);
+                Emulation f19 = new Emulation(this);
                 f19.ShowDialog();
                 Form1_Scanned(sender,new EventArgs());
             }
@@ -2394,22 +2274,11 @@ bool isBookBusy(BookId bookId)
                 return;
             }
 
-            Form7 f7 = new Form7(ReaderRecordFormular);
+            History f7 = new History(ReaderRecordFormular);
             f7.ShowDialog();
         }
 
-        private void button15_Click(object sender, EventArgs e)
-        {
-            if (label25.Text == "")
-            {
-                MessageBox.Show("¬ведите номер или считайте штрихкод читател€!");
-                return;
-            }
 
-
-            Form8 f8 = new Form8(ReaderRecordFormular);
-            f8.ShowDialog();
-        }
 
         private void button17_Click(object sender, EventArgs e)
         {
@@ -2418,21 +2287,17 @@ bool isBookBusy(BookId bookId)
                 MessageBox.Show("¬ведите номер или считайте штрихкод читател€!");
                 return;
             }
-            Form9 f9 = new Form9(ReaderRecordFormular,this);
+            ReaderInformation f9 = new ReaderInformation(ReaderRecordFormular,this);
             f9.ShowDialog();
         }
 
-        private void button19_Click(object sender, EventArgs e)
-        {
-            Form13 f13 = new Form13();
-            f13.ShowDialog();
-        }
+
 
 
         private void button21_Click(object sender, EventArgs e)
         {
             //поиск читател€ по фамилии
-            Form16 f16 = new Form16(this);
+            FindReaderBySurname f16 = new FindReaderBySurname(this);
             f16.ShowDialog();
         }
         public void FrmlrFam(string id)
@@ -2462,31 +2327,21 @@ bool isBookBusy(BookId bookId)
                 return;
             }
             
-            Form17 f17 = new Form17(this);
+            IssueWithoutBAR f17 = new IssueWithoutBAR(this);
             f17.ShowDialog();
 
         }
 
-        private void button23_Click(object sender, EventArgs e)
-        {
-            //сн€ть предзаказ
-            Form18 f18 = new Form18();
-            f18.ShowDialog();
-            
-        }
+
 
         private void спрашиваемость онкретного»нвентарногоЌомераToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //спрашиваемость
-            Form21 f21 = new Form21();
+            FrequencyByInvNumber f21 = new FrequencyByInvNumber();
             f21.ShowDialog();
         }
 
-        private void фToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Form22 f22 = new Form22();
-            f22.ShowDialog();
-        }
+
         private void SetAllPenalty()
         {
             Conn.SQLDA.UpdateCommand = new SqlCommand();
@@ -2501,7 +2356,7 @@ bool isBookBusy(BookId bookId)
         }
         private void toolStripMenuItem3_Click_1(object sender, EventArgs e)
         {
-            Form3 f3 = new Form3();
+            DatePeriod f3 = new DatePeriod();
             f3.ShowDialog();
                 
             Statistics.Columns.Clear();
@@ -2564,7 +2419,7 @@ bool isBookBusy(BookId bookId)
         private void yfqnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //поиск книги по инвентарному номеру
-            Form15 f15 = new Form15();
+            FindBookByInvNum f15 = new FindBookByInvNum();
             f15.ShowDialog();
         }
 
@@ -2577,7 +2432,7 @@ bool isBookBusy(BookId bookId)
             Statistics.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             Statistics.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
 
-            Form3 f3 = new Form3();
+            DatePeriod f3 = new DatePeriod();
             f3.ShowDialog();
             label19.Text = "—писок выданных документов c " + f3.StartDate.ToShortDateString() + " по " + f3.EndDate.ToShortDateString() + " :";
             label18.Text = "";
@@ -2659,7 +2514,7 @@ bool isBookBusy(BookId bookId)
 
         private void количество„итателей¬озвращающихЋитературузаѕериодToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form3 f3 = new Form3();
+            DatePeriod f3 = new DatePeriod();
             f3.ShowDialog();
             Conn.SQLDA.SelectCommand.CommandText = "select IDREADER,DATE_FACT_VOZV from Reservation_R..ISSUED " +
                                                    " where DATE_FACT_VOZV between '" + f3.StartDate.ToString("yyyyMMdd") + "' and '" + f3.EndDate.ToString("yyyyMMdd") + "' " +
@@ -2672,7 +2527,7 @@ bool isBookBusy(BookId bookId)
 
         private void количество„итателей¬з€вшихЋитературузаѕериодToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form3 f3 = new Form3();
+            DatePeriod f3 = new DatePeriod();
             f3.ShowDialog();
             Conn.SQLDA.SelectCommand.CommandText = "select IDREADER,DATE_ISSUE from Reservation_R..ISSUED " +
                                                    " where DATE_ISSUE between '" + f3.StartDate.ToString("yyyyMMdd") + "' and '" + f3.EndDate.ToString("yyyyMMdd") + "' " +
@@ -2685,7 +2540,7 @@ bool isBookBusy(BookId bookId)
 
         private void количество„итателейѕродливших—рок»спользовани€ЋитературызаѕериодToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form3 f3 = new Form3();
+            DatePeriod f3 = new DatePeriod();
             f3.ShowDialog();
             Conn.SQLDA.SelectCommand.CommandText = "select IDREADER,DATE_PROLONG from Reservation_R..ISSUED " +
                                                    " where DATE_PROLONG between '" + f3.StartDate.ToString("yyyyMMdd") + "' and '" + f3.EndDate.ToString("yyyyMMdd") + "' " +
@@ -2699,7 +2554,7 @@ bool isBookBusy(BookId bookId)
 
         private void количествоќбслужToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form3 f3 = new Form3();
+            DatePeriod f3 = new DatePeriod();
             f3.ShowDialog();
             Conn.SQLDA.SelectCommand.CommandText = "with A as ( " +
                                                     "select IDREADER,DATE_ISSUE  " +
@@ -2734,7 +2589,7 @@ bool isBookBusy(BookId bookId)
 
         private void списокЌарушителей—давшихЋитературузаѕериодToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form3 f3 = new Form3();
+            DatePeriod f3 = new DatePeriod();
             f3.ShowDialog();
 
             Statistics.Columns.Clear();
@@ -2790,7 +2645,7 @@ bool isBookBusy(BookId bookId)
         {
             if (Statistics.Columns != null)
                 Statistics.Columns.Clear();
-            Form3 f3 = new Form3();
+            DatePeriod f3 = new DatePeriod();
             f3.ShowDialog();
             label18.Text = "";
             label19.Text = "";
@@ -2871,10 +2726,7 @@ bool isBookBusy(BookId bookId)
 
         }
 
-        private void button20_Click(object sender, EventArgs e)
-        {
-            Form10 f10 = new Form10(new DBWork.dbReader("1004228"));
-        }
+ 
 
         private void button20_Click_1(object sender, EventArgs e)
         {
@@ -3031,8 +2883,8 @@ bool isBookBusy(BookId bookId)
                                                                         "dt.IDMAIN, " +
                                                                         "dtp.PLAIN " +
 
-                                                                   "FROM   BJVVV..DATAEXT dt " +
-                                                                          "JOIN BJVVV..DATAEXTPLAIN dtp " +
+                                                                   "FROM   BJACC..DATAEXT dt " +
+                                                                          "JOIN BJACC..DATAEXTPLAIN dtp " +
                                                                           "     ON  dt.ID = dtp.IDDATAEXT) "+
 
                                                     "select COL1.PLAIN zag,dtpa.PLAIN avt,Z.IDREADER,Z.IDMAIN,Z.INV inv from FC COL1 "+
@@ -3810,7 +3662,7 @@ if (tr.Right == null || tr.Rights == None)
             }
             public dbBook(string Bar)
             {
-                Conn.SQLDA.SelectCommand.CommandText = "select  ID, IDMAIN, SORT, IDDATA from BJVVV..DATAEXT where SORT = '" + Bar + "' and MNFIELD = 899 and MSFIELD = '$w'";
+                Conn.SQLDA.SelectCommand.CommandText = "select  ID, IDMAIN, SORT, IDDATA from BJACC..DATAEXT where SORT = '" + Bar + "' and MNFIELD = 899 and MSFIELD = '$w'";
                 Conn.SQLDA.SelectCommand.Connection = Conn.BRIT_SOVETCon;
                 //Book.Tables.Clear();
                 DataSet B = new DataSet();
@@ -3824,7 +3676,7 @@ if (tr.Right == null || tr.Rights == None)
                 this.id = B.Tables[0].Rows[0]["IDMAIN"].ToString();
                 this.barcode = B.Tables[0].Rows[0]["SORT"].ToString();
                 this.iddata = (int)B.Tables[0].Rows[0]["IDDATA"];
-                Conn.SQLDA.SelectCommand.CommandText = "select  ID, IDMAIN, SORT, IDDATA from BJVVV..DATAEXT where IDDATA = '" + IDDATA + "' and MNFIELD = 899 and MSFIELD = '$p'";
+                Conn.SQLDA.SelectCommand.CommandText = "select  ID, IDMAIN, SORT, IDDATA from BJACC..DATAEXT where IDDATA = '" + IDDATA + "' and MNFIELD = 899 and MSFIELD = '$p'";
                 Conn.SQLDA.SelectCommand.Connection = Conn.BRIT_SOVETCon;
                 B = new DataSet();
                 i = Conn.SQLDA.Fill(B);
@@ -3835,8 +3687,8 @@ if (tr.Right == null || tr.Rights == None)
                                                           "dt.MSFIELD, "+
                                                           "dt.IDMAIN, "+
                                                           "dtp.PLAIN "+
-                                                   "FROM   BJVVV..DATAEXT dt " +
-                                                   "       JOIN BJVVV..DATAEXTPLAIN dtp " +
+                                                   "FROM   BJACC..DATAEXT dt " +
+                                                   "       JOIN BJACC..DATAEXTPLAIN dtp " +
                                                    "            ON  dt.ID = dtp.IDDATAEXT) "+
                                                    "select  COL1.PLAIN zag,dtpa.PLAIN avt from FC COL1 "+
                                                    "left join FC dtpa ON COL1.IDMAIN = dtpa.IDMAIN and dtpa.MNFIELD = 700 and dtpa.MSFIELD = '$a' "+
@@ -3846,7 +3698,7 @@ if (tr.Right == null || tr.Rights == None)
                 i = Conn.SQLDA.Fill(B);
                 this.name = B.Tables[0].Rows[0]["zag"].ToString(); ;
                 this.author = B.Tables[0].Rows[0]["avt"].ToString();
-                Conn.SQLDA.SelectCommand.CommandText = "select B.SORT from BJVVV..DATAEXT A, BJVVV..DATAEXT B " +
+                Conn.SQLDA.SelectCommand.CommandText = "select B.SORT from BJACC..DATAEXT A, BJACC..DATAEXT B " +
                                                        " where A.IDMAIN  = " + this.id + " and A.SORT = '" + this.barcode +
                                                        "' and A.MSFIELD = '$w' and A.MNFIELD = 899  and " +
                                                        " A.IDDATA = B.IDDATA and B.MNFIELD= 899 and B.MSFIELD = '$p' ";
@@ -3923,7 +3775,7 @@ if (tr.Right == null || tr.Rights == None)
         public bool ChangeEmployee(string login, string pass)
         {//                                    SELECT Employee.* FROM Employee WHERE (((Employee.Login)="1") AND ((Employee.Password)="1"));
 
-            Conn.ReaderDA.SelectCommand.CommandText = "SELECT * FROM BJVVV..USERS WHERE lower(LOGIN)='" + login.ToLower() + "' AND lower(PASSWORD)='" + pass.ToLower() + "'";
+            Conn.ReaderDA.SelectCommand.CommandText = "SELECT * FROM BJACC..USERS WHERE lower(LOGIN)='" + login.ToLower() + "' AND lower(PASSWORD)='" + pass.ToLower() + "'";
             //ReaderMain.Tables.Clear();
             DataSet R = new DataSet();
             if (Conn.ReaderDA.Fill(R) != 0)
@@ -3993,7 +3845,7 @@ if (tr.Right == null || tr.Rights == None)
 
         public DataTable GetDebtors()
         {                                                                                                                                                                                                                                                                                       // "+DateTime.Now.ToString("MM/dd/yyyy")+"                   
-            Conn.SQLDA.SelectCommand.CommandText = "select X.IDMAIN, X.PLAIN, Y.SORT, Y.MNFIELD, Z.DATE_VOZV, Z.IDREADER from BJVVV..DATAEXTPLAIN X join BJVVV..DATAEXT Y on Y.ID=X.IDDATAEXT join Reservation_R..ISSUED Z on Z.IDMAIN = Y.IDMAIN where (Z.IDMAIN <> 0) and (Z.DATE_VOZV < '" + DateTime.Now.ToString("yyyyMMdd") + "') and ((Y.MNFIELD = 200 and Y.MSFIELD = '$a') or (Y.MSFIELD = '$a' and Y.MNFIELD = 700)) order by X.IDMAIN";
+            Conn.SQLDA.SelectCommand.CommandText = "select X.IDMAIN, X.PLAIN, Y.SORT, Y.MNFIELD, Z.DATE_VOZV, Z.IDREADER from BJACC..DATAEXTPLAIN X join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT join Reservation_R..ISSUED Z on Z.IDMAIN = Y.IDMAIN where (Z.IDMAIN <> 0) and (Z.DATE_VOZV < '" + DateTime.Now.ToString("yyyyMMdd") + "') and ((Y.MNFIELD = 200 and Y.MSFIELD = '$a') or (Y.MSFIELD = '$a' and Y.MNFIELD = 700)) order by X.IDMAIN";
             //Conn.SQLDA.SelectCommand.CommandText = "select DATE_VOZV, IDREADER from ZAKAZ where IDMAIN <> 0 and DATE_VOZV < '11.11.2008'"; //" + DateTime.Now.ToString("MM/dd/yyyy") + "'";
             Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
             DataSet R = new DataSet();
@@ -4083,8 +3935,8 @@ if (tr.Right == null || tr.Rights == None)
         public DataTable GetIssuedBooks(DateTime start_, DateTime finish_)
         {
             Conn.SQLDA.SelectCommand.CommandText = "select  X.IDMAIN, X.PLAIN, Y.SORT, Y.MNFIELD,Y.MSFIELD, (count(Z.BAR)) as sp, Z.DATE_VOZV,Z.DATE_ISSUE,Z.IDREADER " +
-                                                   " from BJVVV..DATAEXTPLAIN X " +
-                                                   "  join BJVVV..DATAEXT Y on Y.ID=X.IDDATAEXT " +
+                                                   " from BJACC..DATAEXTPLAIN X " +
+                                                   "  join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT " +
                                                    "  join Reservation_R..ISSUED Z on Z.IDMAIN = Y.IDMAIN " +
                                                    "  join Reservation_R..ISSUED ZZ on Z.IDMAIN = ZZ.IDMAIN_CONST " +
                                                    " where ((Y.MNFIELD = 200 and Y.MSFIELD = '$a') or (Y.MSFIELD = '$a' and Y.MNFIELD = 700) " +
@@ -4098,7 +3950,7 @@ if (tr.Right == null || tr.Rights == None)
             R.Tables.Add("vperemeshku");
             R.Tables.Add("distinct");
             int i = Conn.SQLDA.Fill(R.Tables["vperemeshku"]);
-            Conn.SQLDA.SelectCommand.CommandText = "select distinct Y.IDMAIN from BJVVV..DATAEXT Y inner join Reservation_R..ISSUED Z on Z.IDMAIN = Y.IDMAIN  where Z.IDMAIN != 0 and Z.INV collate Cyrillic_General_CI_AI = Y.SORT and Y.MNFIELD = 899 and Y.MSFIELD = '$p' order by Y.IDMAIN";
+            Conn.SQLDA.SelectCommand.CommandText = "select distinct Y.IDMAIN from BJACC..DATAEXT Y inner join Reservation_R..ISSUED Z on Z.IDMAIN = Y.IDMAIN  where Z.IDMAIN != 0 and Z.INV collate Cyrillic_General_CI_AI = Y.SORT and Y.MNFIELD = 899 and Y.MSFIELD = '$p' order by Y.IDMAIN";
             Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon; //
             i = Conn.SQLDA.Fill(R.Tables["distinct"]);
             R.Tables.Add("postolbcam");
@@ -4191,8 +4043,8 @@ if (tr.Right == null || tr.Rights == None)
             Conn.SQLDA.SelectCommand.CommandText =
                     " select X.IDMAIN, Y.MNFIELD, X.PLAIN, Y.SORT, ( count(Z.BAR)) as sp, Z.IDMAIN as idm, Z.IDMAIN_CONST as idmc,ZZ.IDMAIN as zid, " +
                     " max(case when ZZ.IDMAIN is null then '—вободно' else '¬ыдано' end) as vida,Z.BAR bar, Y.MSFIELD " +
-                    " from BJVVV..DATAEXTPLAIN X " +
-                    " join BJVVV..DATAEXT Y on Y.ID=X.IDDATAEXT " +
+                    " from BJACC..DATAEXTPLAIN X " +
+                    " join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT " +
                     " left join Reservation_R..ISSUED Z on Z.IDMAIN_CONST=Y.IDMAIN " +
                     " left join Reservation_R..ISSUED ZZ on ZZ.IDMAIN=X.IDMAIN " +
                     " where ((Y.MNFIELD = 200 and Y.MSFIELD = '$a') or (Y.MSFIELD = '$a' and Y.MNFIELD = 700) or (Y.MSFIELD = '$d' and Y.MNFIELD = 2100) or (Y.MSFIELD = '$c' and Y.MNFIELD = 899) or (Y.MSFIELD = '$w' and Y.MNFIELD = 899)) " +
@@ -4208,7 +4060,7 @@ if (tr.Right == null || tr.Rights == None)
             R.Tables.Add("vperemeshku");
             R.Tables.Add("distinct");
             int i = Conn.SQLDA.Fill(R.Tables["vperemeshku"]);
-            Conn.SQLDA.SelectCommand.CommandText = "select distinct IDMAIN from BJVVV..DATAEXT order by IDMAIN ";
+            Conn.SQLDA.SelectCommand.CommandText = "select distinct IDMAIN from BJACC..DATAEXT order by IDMAIN ";
             Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
             i = Conn.SQLDA.Fill(R.Tables["distinct"]);
             R.Tables.Add("postolbcam");
@@ -4277,17 +4129,17 @@ if (tr.Right == null || tr.Rights == None)
                                                    " B.INV inv,zag.IDMAIN idmain, B.DATE_ISSUE issue,B.DATE_VOZV vozv,B.DATE_FACT_VOZV fact,  " +
                                                    " B.IDMAIN zkid,B.ID zi,B.PENALTY penalty,B.REMPENALTY rempenalty,B.BAR bar " +
                                                    " from Reservation_R..ISSUED B  " +
-                                                   " left join BJVVV..DATAEXT A on B.BAR collate Cyrillic_General_CI_AI = A.SORT and A.MNFIELD = 899 and A.MSFIELD = '$w' " +
-                                                   " left join BJVVV..DATAEXT zag on " +
+                                                   " left join BJACC..DATAEXT A on B.BAR collate Cyrillic_General_CI_AI = A.SORT and A.MNFIELD = 899 and A.MSFIELD = '$w' " +
+                                                   " left join BJACC..DATAEXT zag on " +
                                                                                     " zag.MNFIELD = 200 and " +
                                                                                     " zag.MSFIELD = '$a' and " +
                                                                                     " zag.IDMAIN = B.IDMAIN_CONST " +
-                                                   " left join BJVVV..DATAEXT avt on " +
+                                                   " left join BJACC..DATAEXT avt on " +
                                                                                     " avt.MNFIELD = 700 and " +
                                                                                     " avt.MSFIELD = '$a' " +
                                                                                     " and avt.IDMAIN = B.IDMAIN_CONST " +
-                                                   " left join BJVVV..DATAEXTPLAIN zagp on zagp.IDDATAEXT = zag.ID " +
-                                                   " left join BJVVV..DATAEXTPLAIN avtp on avtp.IDDATAEXT = avt.ID " +
+                                                   " left join BJACC..DATAEXTPLAIN zagp on zagp.IDDATAEXT = zag.ID " +
+                                                   " left join BJACC..DATAEXTPLAIN avtp on avtp.IDDATAEXT = avt.ID " +
                                                    " where B.IDREADER = @IDR " +
                                                    " and (B.IDMAIN != 0 or (B.IDMAIN = 0 and B.PENALTY = 1))";
 
@@ -4463,10 +4315,10 @@ if (tr.Right == null || tr.Rights == None)
                     " (case when B.LiveEmail is null and B.RegistrationEmail is null and B.WorkEmail is null then 'false' else 'true' end) email" +
                     " from Reservation_R..ISSUED A" +
                     " left join Readers..Main B on A.IDREADER = B.NumberReader" +
-                    " left join BJVVV..DATAEXT CC on A.IDMAIN = CC.IDMAIN and CC.MNFIELD = 200 and CC.MSFIELD = '$a'" +
-                    " left join BJVVV..DATAEXT DD on A.IDMAIN = DD.IDMAIN and DD.MNFIELD = 700 and DD.MSFIELD = '$a'" +
-                    " left join BJVVV..DATAEXTPLAIN C on C.IDDATAEXT = CC.ID" +
-                    " left join BJVVV..DATAEXTPLAIN D on D.IDDATAEXT = DD.ID" +
+                    " left join BJACC..DATAEXT CC on A.IDMAIN = CC.IDMAIN and CC.MNFIELD = 200 and CC.MSFIELD = '$a'" +
+                    " left join BJACC..DATAEXT DD on A.IDMAIN = DD.IDMAIN and DD.MNFIELD = 700 and DD.MSFIELD = '$a'" +
+                    " left join BJACC..DATAEXTPLAIN C on C.IDDATAEXT = CC.ID" +
+                    " left join BJACC..DATAEXTPLAIN D on D.IDDATAEXT = DD.ID" +
                     " where " +
                     " A.DATE_VOZV between '" + start.ToString("yyyyMMdd") + "' and '" + finish.ToString("yyyyMMdd") + "'" +
                     " and A.IDMAIN != 0 and A.PENALTY = 1";
@@ -4475,7 +4327,7 @@ if (tr.Right == null || tr.Rights == None)
             int i = Conn.SQLDA.Fill(DS, "t");
             return DS.Tables[0];
             /*Conn.SQLDA.SelectCommand.CommandText = "select X.IDMAIN, X.PLAIN, Y.SORT, Y.MNFIELD, Z.DATE_VOZV, Z.IDREADER " +
-                                                   " from BJVVV..DATAEXTPLAIN X join BJVVV..DATAEXT Y on Y.ID=X.IDDATAEXT " +
+                                                   " from BJACC..DATAEXTPLAIN X join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT " +
                                                    " join Reservation_R..ISSUED Z on Z.IDMAIN = Y.IDMAIN " +
                                                    " where (Z.DATE_VOZV between '" + start.ToString("yyyyMMdd") + "' and '"
                                                    + finish.ToString("yyyyMMdd") + "'  and PENALTY = 'true')" +
@@ -4588,10 +4440,10 @@ if (tr.Right == null || tr.Rights == None)
                 " (case when B.LiveEmail is null and B.RegistrationEmail is null and B.WorkEmail is null then 'false' else 'true' end) email" +
                 " from Reservation_R..ISSUED A" +
                 " left join Readers..Main B on A.IDREADER = B.NumberReader" +
-                " left join BJVVV..DATAEXT CC on A.IDMAIN_CONST = CC.IDMAIN and CC.MNFIELD = 200 and CC.MSFIELD = '$a'" +
-                " left join BJVVV..DATAEXT DD on A.IDMAIN_CONST = DD.IDMAIN and DD.MNFIELD = 700 and DD.MSFIELD = '$a'" +
-                " left join BJVVV..DATAEXTPLAIN C on C.IDDATAEXT = CC.ID" +
-                " left join BJVVV..DATAEXTPLAIN D on D.IDDATAEXT = DD.ID" +
+                " left join BJACC..DATAEXT CC on A.IDMAIN_CONST = CC.IDMAIN and CC.MNFIELD = 200 and CC.MSFIELD = '$a'" +
+                " left join BJACC..DATAEXT DD on A.IDMAIN_CONST = DD.IDMAIN and DD.MNFIELD = 700 and DD.MSFIELD = '$a'" +
+                " left join BJACC..DATAEXTPLAIN C on C.IDDATAEXT = CC.ID" +
+                " left join BJACC..DATAEXTPLAIN D on D.IDDATAEXT = DD.ID" +
                 " where " +
                 " A.DATE_FACT_VOZV between '" + start.ToString("yyyyMMdd") + "' and '" + finish.ToString("yyyyMMdd") + "'" +
                 " and A.IDMAIN = 0 and A.PENALTY = 1";
@@ -4600,7 +4452,7 @@ if (tr.Right == null || tr.Rights == None)
             int i = Conn.SQLDA.Fill(DS, "t");
             return DS.Tables[0];
             /*Conn.SQLDA.SelectCommand.CommandText = "select X.IDMAIN, X.PLAIN, Y.SORT, Y.MNFIELD, Z.DATE_VOZV, Z.IDREADER " +
-                                                   " from BJVVV..DATAEXTPLAIN X join BJVVV..DATAEXT Y on Y.ID=X.IDDATAEXT " +
+                                                   " from BJACC..DATAEXTPLAIN X join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT " +
                                                    " join Reservation_R..ISSUED Z on Z.IDMAIN_CONST = Y.IDMAIN " +
                                                    " where (Z.DATE_FACT_VOZV between '" + start.ToString("yyyyMMdd") + "' and '" + finish.ToString("yyyyMMdd") + "'  and PENALTY = 'true') " +
                                                    " and ((Y.MNFIELD = 200 and Y.MSFIELD = '$a') or (Y.MSFIELD = '$a' and Y.MNFIELD = 700)) " +
@@ -4816,18 +4668,18 @@ if (tr.Right == null || tr.Rights == None)
                " ', '+ C.SORT else avtp.PLAIN collate Cyrillic_General_CI_AI + ', ' "+
                " + zagp.PLAIN collate Cyrillic_General_CI_AI + ', '+ C.SORT end,A.IDREADER,A.DATEACT" +
                " from Reservation_R..ABONEMENTACTIONS A  " +
-               " left join BJVVV..DATAEXT B on B.SORT collate Cyrillic_General_CI_AI = A.BAR and B.MNFIELD = 899 and B.MSFIELD = '$w' " +
-               " left join BJVVV..DATAEXT C on C.IDDATA = B.IDDATA and C.MNFIELD = 899 and C.MSFIELD = '$p' " +
-               " left join BJVVV..DATAEXT zag on " +
+               " left join BJACC..DATAEXT B on B.SORT collate Cyrillic_General_CI_AI = A.BAR and B.MNFIELD = 899 and B.MSFIELD = '$w' " +
+               " left join BJACC..DATAEXT C on C.IDDATA = B.IDDATA and C.MNFIELD = 899 and C.MSFIELD = '$p' " +
+               " left join BJACC..DATAEXT zag on " +
                                                 " zag.MNFIELD = 200 and " +
                                                 " zag.MSFIELD = '$a' and " +
                                                 " zag.IDMAIN = B.IDMAIN " +
-               " left join BJVVV..DATAEXT avt on " +
+               " left join BJACC..DATAEXT avt on " +
                                                 " avt.MNFIELD = 700 and " +
                                                 " avt.MSFIELD = '$a' " +
                                                 " and avt.IDMAIN = B.IDMAIN " +
-               " left join BJVVV..DATAEXTPLAIN zagp on zagp.IDDATAEXT = zag.ID " +
-               " left join BJVVV..DATAEXTPLAIN avtp on avtp.IDDATAEXT = avt.ID " +
+               " left join BJACC..DATAEXTPLAIN zagp on zagp.IDDATAEXT = zag.ID " +
+               " left join BJACC..DATAEXTPLAIN avtp on avtp.IDDATAEXT = avt.ID " +
                " where A.IDEMP = "+userID.ToString()+
                " and A.DATEACT between '"+start.ToString("dd.MM.yyyy")+"' and '"+end.AddDays(1).ToString("dd.MM.yyyy")+"'" ;
 
@@ -4851,7 +4703,7 @@ if (tr.Right == null || tr.Rights == None)
 
         internal DataTable getOperators()
         {
-            Conn.SQLDA.SelectCommand.CommandText = "select ID,[NAME] from BJVVV..USERS where DEPT = 47";
+            Conn.SQLDA.SelectCommand.CommandText = "select ID,[NAME] from BJACC..USERS where DEPT = 47";
             Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
             DataSet B = new DataSet();
             int t = Conn.SQLDA.Fill(B, "t");
@@ -4866,7 +4718,7 @@ if (tr.Right == null || tr.Rights == None)
             int t = Conn.SQLDA.Fill(B, "t");
             foreach (DataRow r in B.Tables["t"].Rows)
             {
-                Conn.SQLDA.SelectCommand.CommandText = "select * from BJVVV..DATAEXT where MNFIELD = 899 and MSFIELD = '$a' and IDDATA = " + r["IDDATA"].ToString();
+                Conn.SQLDA.SelectCommand.CommandText = "select * from BJACC..DATAEXT where MNFIELD = 899 and MSFIELD = '$a' and IDDATA = " + r["IDDATA"].ToString();
                 t = Conn.SQLDA.Fill(B, "ab");
                 if (t == 0)//не должно быть
                     continue;
