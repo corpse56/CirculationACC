@@ -48,9 +48,9 @@ namespace Circulation
 
             f2 = new Auth(this);
             InitializeComponent();
-            dbw = new DBWork(this);
-            dbw.SetPenaltyAll();
-            dbw.DeleteExceededOrders();
+            //dbw = new DBWork(this);
+            //dbw.SetPenaltyAll();
+            //dbw.DeleteExceededOrders();
             //ReaderRecord = new DBWork.dbReader("9643907728022200024 " + "07020077");
             //sc = new _BarcScan(this);
             //this.Left = (Screen.PrimaryScreen.Bounds.Width - this.Width) / 2;
@@ -2837,10 +2837,10 @@ bool isBookBusy(BookId bookId)
         public DBWork()
         {
             XmlConnections xml = new XmlConnections();
-            Conn.ReadersCon = new SqlConnection(xml.GetReaderCon());// ("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Z:\\progs\\Circulation\\Readers.mdb");
-            Conn.BRIT_SOVETCon = new SqlConnection(xml.GetBRIT_SOVETCon());// ("Data Source=192.168.3.241;Initial Catalog=BRIT_SOVET;Integrated Security=True");
-            Conn.BJVVVConn = new SqlConnection(xml.GetBJVVVCon());
-            Conn.ZakazCon = new SqlConnection(xml.GetZakazCon());//("Data Source=192.168.3.241;Initial Catalog=TECHNOLOG;Integrated Security=True");
+            //Conn.ReadersCon = new SqlConnection(xml.GetReaderCon());// ("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Z:\\progs\\Circulation\\Readers.mdb");
+            //Conn.BRIT_SOVETCon = new SqlConnection(xml.GetBRIT_SOVETCon());// ("Data Source=192.168.3.241;Initial Catalog=BRIT_SOVET;Integrated Security=True");
+            //Conn.BJVVVConn = new SqlConnection(xml.GetBJVVVCon());
+            //Conn.ZakazCon = new SqlConnection(xml.GetZakazCon());//("Data Source=192.168.3.241;Initial Catalog=TECHNOLOG;Integrated Security=True");
             Conn.ReaderDA = new SqlDataAdapter();
             Conn.ReaderDA.SelectCommand = new SqlCommand("select * from main where BarCode = 19", Conn.ReadersCon);
             Conn.ReaderDA.SelectCommand.Connection.Open();
@@ -2854,27 +2854,27 @@ bool isBookBusy(BookId bookId)
             ReaderMain = new DataSet();
             Zakaz = new DataSet();
         }
-        public DBWork(Form1 f1)
-        {
-            F1 = f1;
-            XmlConnections xml = new XmlConnections();
-            Conn.ReadersCon = new SqlConnection(xml.GetReaderCon());// ("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Z:\\progs\\Circulation\\Readers.mdb");
-            Conn.BRIT_SOVETCon = new SqlConnection(xml.GetBRIT_SOVETCon());// ("Data Source=192.168.3.241;Initial Catalog=BRIT_SOVET;Integrated Security=True");
-            Conn.ZakazCon = new SqlConnection(xml.GetZakazCon());//("Data Source=192.168.3.241;Initial Catalog=TECHNOLOG;Integrated Security=True");
-            Conn.BJVVVConn = new SqlConnection(xml.GetBJVVVCon());
-            Conn.ReaderDA = new SqlDataAdapter();
-            Conn.ReaderDA.SelectCommand = new SqlCommand("select * from main where BarCode = 19", Conn.ReadersCon);
-            Conn.ReaderDA.SelectCommand.Connection.Open();
-            Conn.SQLDA = new SqlDataAdapter();
-            Conn.SQLDA.SelectCommand = new SqlCommand("select * from BARCODE_UNITS where ID = 0", Conn.BRIT_SOVETCon);
-            Conn.SQLDA.SelectCommand.Connection.Open();
-            Conn.SQLDA.SelectCommand.Parameters.Add("@IDR", SqlDbType.NVarChar);
-            Conn.SQLDA.SelectCommand.Parameters["@IDR"].Value = "0";
-            Book = new DataSet();
-            ReaderMain = new DataSet();
-            Zakaz = new DataSet();
-            //DR = new OleDbDataReader();
-        }
+        //public DBWork(Form1 f1)
+        //{
+        //    F1 = f1;
+        //    XmlConnections xml = new XmlConnections();
+        //    Conn.ReadersCon = new SqlConnection(xml.GetReaderCon());// ("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Z:\\progs\\Circulation\\Readers.mdb");
+        //    Conn.BRIT_SOVETCon = new SqlConnection(xml.GetBRIT_SOVETCon());// ("Data Source=192.168.3.241;Initial Catalog=BRIT_SOVET;Integrated Security=True");
+        //    Conn.ZakazCon = new SqlConnection(xml.GetZakazCon());//("Data Source=192.168.3.241;Initial Catalog=TECHNOLOG;Integrated Security=True");
+        //    Conn.BJVVVConn = new SqlConnection(xml.GetBJVVVCon());
+        //    Conn.ReaderDA = new SqlDataAdapter();
+        //    Conn.ReaderDA.SelectCommand = new SqlCommand("select * from main where BarCode = 19", Conn.ReadersCon);
+        //    Conn.ReaderDA.SelectCommand.Connection.Open();
+        //    Conn.SQLDA = new SqlDataAdapter();
+        //    Conn.SQLDA.SelectCommand = new SqlCommand("select * from BARCODE_UNITS where ID = 0", Conn.BRIT_SOVETCon);
+        //    Conn.SQLDA.SelectCommand.Connection.Open();
+        //    Conn.SQLDA.SelectCommand.Parameters.Add("@IDR", SqlDbType.NVarChar);
+        //    Conn.SQLDA.SelectCommand.Parameters["@IDR"].Value = "0";
+        //    Book = new DataSet();
+        //    ReaderMain = new DataSet();
+        //    Zakaz = new DataSet();
+        //    //DR = new OleDbDataReader();
+        //}
         public DataSet getBooksForReader(string reader)
         {
             Conn.SQLDA.SelectCommand.CommandText = "WITH FC AS (SELECT dt.ID,dt.SORT, "+
@@ -3220,7 +3220,7 @@ if (tr.Right == null || tr.Rights == None)
             {
                 i = Conn.ReaderDA.Fill(R);
             }
-            catch (Exception e)
+            catch 
             {
                 //MessageBox.Show(e.Message);
                 //MessageBox.Show("—читан неверный штрихкод!");
@@ -3788,60 +3788,6 @@ if (tr.Right == null || tr.Rights == None)
                 return false;
         }
 
-        public class XmlConnections
-        {
-            public XmlTextReader reader;
-            static String filename = Application.StartupPath + "\\DBConnections.xml";
-            public XmlDocument doc;
-            public string GetReaderCon()
-            {
-                XmlNode node = this.doc.SelectSingleNode("/Connections/Readers");
-                return node.InnerText;
-            }
-            public string GetZakazCon()
-            {
-                XmlNode node = this.doc.SelectSingleNode("/Connections/Zakaz");
-                return node.InnerText;
-            }
-            public string GetBRIT_SOVETCon()
-            {
-                XmlNode node = this.doc.SelectSingleNode("/Connections/Zakaz");
-                return node.InnerText;
-            }
-            internal string GetBJVVVCon()
-            {
-                XmlNode node = this.doc.SelectSingleNode("/Connections/BJVVV");
-                return node.InnerText;                
-            }
-
-            public XmlConnections()
-            {
-                // Create the validating reader and specify DTD validation.
-                try
-                {
-                    //XmlReaderSettings settings = new XmlReaderSettings();
-                    //settings.ProhibitDtd = false;
-                    //settings.ValidationType = ValidationType.DTD;
-                    //settings.ValidationEventHandler += eventHandler;
-
-                    //reader = new XmlTextReader(filename);
-
-                    // Pass the validating reader to the XML document.
-                    // Validation fails due to an undefined attribute, but the 
-                    // data is still loaded into the document.
-                    doc = new XmlDocument();
-                    doc.Load(filename);// (reader);
-                    //Console.WriteLine(doc.OuterXml);
-                }
-                finally
-                {
-                    if (reader != null)
-                        reader.Close();
-                }
-            }
-
-
-        }
 
         public DataTable GetDebtors()
         {                                                                                                                                                                                                                                                                                       // "+DateTime.Now.ToString("MM/dd/yyyy")+"                   
