@@ -26,13 +26,10 @@ namespace Circulation
 
     public partial class Form1 : Form
     {
-        // System.Collections.Generic.Dictionary<int, string> FFFF = new Dictionary<int, string>(8);
         public static event AbonChangedEventHandler AbonChanged;
 
         public DBWork dbw;
-        //_BarcScan sc;
-        //private string WasFirstScan = "";
-        public string EmpID;
+        public int EmpID;
         private Auth f2;
         private Prolong f4;
         SerialPort port;
@@ -44,54 +41,23 @@ namespace Circulation
         public ExtGui.RoundProgress RndPrg;
         public Form1()
         {
-            //System.Collections.Generic.List<int> f = new List<int>(3);
 
             f2 = new Auth(this);
             InitializeComponent();
-            //dbw = new DBWork(this);
-            //dbw.SetPenaltyAll();
-            //dbw.DeleteExceededOrders();
-            //ReaderRecord = new DBWork.dbReader("9643907728022200024 " + "07020077");
-            //sc = new _BarcScan(this);
-            //this.Left = (Screen.PrimaryScreen.Bounds.Width - this.Width) / 2;
-            //this.Top = (Screen.PrimaryScreen.Bounds.Height - this.Height) / 2;
+
             this.StartPosition = FormStartPosition.CenterScreen;
             this.label16 = new System.Windows.Forms.Label();
-            //this.Controls.Add(RndPrg);
-            // 
-            // label16
-            // 
-            this.Controls.Add(this.label16);
             f2.ShowDialog();
 
-            /*if (EmpID == null)
-            {
-                MessageBox.Show("Вы не авторизованы! Программа завершает свою работу.", "Ошибка!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                this.Close();
-            }*/
             Form1.Scanned += new ScannedEventHandler(Form1_Scanned);
-            Form1.AbonChanged += new AbonChangedEventHandler(Form1_AbonChanged);
-            //dataGridView1.Rows.RemoveAt(0);// .Remove(dataGridView1.Rows[0].);
-            //ReaderRecord = new DBWork.dbReader();
-            //BookRecord = new DBWork.dbBook();    
             this.button2.Enabled = false;
             this.button4.Enabled = false;
             label4.Text = "Журнал событий " + DateTime.Now.ToShortDateString() + ":";
-            //this.Controls.Add(this.panel1);
-            //this.tabPage3.Controls.Remove(this.panel1);
-            //MessageBox.Show(tabControl1.SelectedTab.ToString());// = tabControl1.TabPages[1];
-            this.label16.AutoSize = true;
-            this.label16.BringToFront();
-            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label16.Location = new System.Drawing.Point(328, 458);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(355, 39);
-            this.label16.TabIndex = 0;
-            this.label16.Text = "Считайте штрихкод";
-            this.label16.Visible = false;
-            this.label16.ForeColor = Color.Green;
-            Formular.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            Formular.Columns.Clear();
+
+
+
+           // Formular.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+         //   Formular.Columns.Clear();
 
             port = new SerialPort("COM1", 9600, Parity.None, 8, StopBits.One);
             port.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
@@ -120,485 +86,20 @@ namespace Circulation
             ScanDelegate = new ScanFuncDelegate(Form1_Scanned);
             this.Invoke(ScanDelegate, new object[] { sender, e });
         }
-        public static void FireAbon(object sender, EventArgs ev)
+
+        public void Circulate()
         {
-            //if (AbonChanged != null)
-            //{
-            //    AbonChanged(sender, ev);
-            //}
-        }
-
-
-        void Form1_AbonChanged(object sender, EventArgs ev)
-        {
-            //if (this.ReaderRecord != null)
-            //{
-            //    this.ReaderRecord.AbonType = ((Form5)sender).abon;
-            //}
-        }
-        //public enum Regim {Knigi,vidachaShtrihkodov,} 
-        public class DataGridViewDisableButtonColumn : DataGridViewButtonColumn
-        {
-            public DataGridViewDisableButtonColumn()
-            {
-                this.CellTemplate = new DataGridViewDisableButtonCell();
-            }
-        }
-        public class DataGridViewDisableButtonCell : DataGridViewButtonCell
-        {
-            private bool enabledValue;
-            public bool Enabled
-            {
-                get
-                {
-                    return enabledValue;
-                }
-                set
-                {
-                    enabledValue = value;
-                }
-            }
-
-            // Override the Clone method so that the Enabled property is copied.
-            public override object Clone()
-            {
-                DataGridViewDisableButtonCell cell =
-                    (DataGridViewDisableButtonCell)base.Clone();
-                cell.Enabled = this.Enabled;
-                return cell;
-            }
-
-            // By default, enable the button cell.
-            public DataGridViewDisableButtonCell()
-            {
-                this.enabledValue = true;
-            }
-
-            protected override void Paint(Graphics graphics,
-                Rectangle clipBounds, Rectangle cellBounds, int rowIndex,
-                DataGridViewElementStates elementState, object value,
-                object formattedValue, string errorText,
-                DataGridViewCellStyle cellStyle,
-                DataGridViewAdvancedBorderStyle advancedBorderStyle,
-                DataGridViewPaintParts paintParts)
-            {
-                // The button cell is disabled, so paint the border,  
-                // background, and disabled button for the cell.
-                if (!this.enabledValue)
-                {
-                    // Draw the cell background, if specified.
-                    if ((paintParts & DataGridViewPaintParts.Background) ==
-                        DataGridViewPaintParts.Background)
-                    {
-                        SolidBrush cellBackground =
-                            new SolidBrush(cellStyle.BackColor);
-                        graphics.FillRectangle(cellBackground, cellBounds);
-                        cellBackground.Dispose();
-                    }
-
-                    // Draw the cell borders, if specified.
-                    if ((paintParts & DataGridViewPaintParts.Border) ==
-                        DataGridViewPaintParts.Border)
-                    {
-                        PaintBorder(graphics, clipBounds, cellBounds, cellStyle,
-                            advancedBorderStyle);
-                    }
-
-                    // Calculate the area in which to draw the button.
-                    Rectangle buttonArea = cellBounds;
-                    Rectangle buttonAdjustment =
-                        this.BorderWidths(advancedBorderStyle);
-                    buttonArea.X += buttonAdjustment.X;
-                    buttonArea.Y += buttonAdjustment.Y;
-                    buttonArea.Height -= buttonAdjustment.Height;
-                    buttonArea.Width -= buttonAdjustment.Width;
-
-                    // Draw the disabled button.                
-                    ButtonRenderer.DrawButton(graphics, buttonArea,
-                        PushButtonState.Disabled);
-
-                    // Draw the disabled button text. 
-                    if (this.FormattedValue is String)
-                    {
-                        TextRenderer.DrawText(graphics,
-                            (string)this.FormattedValue,
-                            this.DataGridView.Font,
-                            buttonArea, SystemColors.GrayText);
-                    }
-                }
-                else
-                {
-                    // The button cell is enabled, so let the base class 
-                    // handle the painting.
-                    base.Paint(graphics, clipBounds, cellBounds, rowIndex,
-                        elementState, value, formattedValue, errorText,
-                        cellStyle, advancedBorderStyle, paintParts);
-                }
-            }
-        }
-        void FormularColumnsForming(string ReaderID)
-        {
-            Formular.Columns.Clear();
-            Formular.AutoGenerateColumns = false;
-            Formular.Columns.Add("NN", "№№");
-            Formular.Columns[0].Width = 35;
-            dbw.SetPenalty(ReaderID);
-            try
-            {
-                Formular.DataSource = dbw.GetFormular(ReaderID);
-                //Formular.DataMember = "tmp";
-            }
-            catch (IndexOutOfRangeException evv)
-            {
-                string d = evv.Message;
-                MessageBox.Show("Читатель не является задолжником!", "Информация.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-            //Formular.Columns[1].HeaderText = "№№";
-            if (Formular.Rows.Count == 0)
-            {
-                MessageBox.Show("За читателем не числится книг и нарушений!", "Информация.", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            Formular.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            DataGridViewTextBoxColumn col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "Заглавие";
-            col.Width = 225;
-            col.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
-            col.ReadOnly = true;
-            Formular.Columns.Add(col);
-            col.DataPropertyName = "Zag";
-
-            col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "zagsort";
-            col.Visible = false;
-            Formular.Columns.Add(col);
-            col.DataPropertyName = "Заглавие_sort";
-
-            col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "Автор";
-            col.Width = 130;
-            col.ReadOnly = true;
-            col.DefaultCellStyle.WrapMode = DataGridViewTriState.True;
-            Formular.Columns.Add(col);
-            col.DataPropertyName = "Автор";
-
-            col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "";
-            col.Visible = false;
-            Formular.Columns.Add(col);
-            col.DataPropertyName = "Автор_Sort";
-
-            col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "";
-            col.Visible = false;
-            col.Name = "idmain";
-            col.DataPropertyName = "idmain";
-            Formular.Columns.Add(col);
-
-            col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "";
-            col.Visible = false;
-            col.Name = "zkid";
-            col.DataPropertyName = "zkid";
-            this.Formular.Columns.Add(col);
-
-            col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "";
-            col.Visible = false;
-            col.Name = "zi";
-            col.DataPropertyName = "zi";
-            this.Formular.Columns.Add(col);
-
-            col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "";
-            col.Visible = false;
-            col.Name = "idmain";
-            col.DataPropertyName = "zakid";
-            this.Formular.Columns.Add(col);
-
-            col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "Инвен тарный номер";
-            col.ReadOnly = true;
-            col.Width = 80;
-            Formular.Columns.Add(col);
-            col.DataPropertyName = "inv";
-            col.Name = "inv";
-
-            /*col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "Место издания";
-                    
-            Formular.Columns.Add(col);
-            col.DataPropertyName = "Место_Издания";*/
-
-            col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "Дата выдачи";
-            col.ReadOnly = true;
-            col.Width = 80;
-            Formular.Columns.Add(col);
-            col.DataPropertyName = "issue";
-
-            col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "Предпо лагае мая дата возврата";
-            col.ReadOnly = true;
-            col.Width = 80;
-            col.DataPropertyName = "vozv";
-            col.Name = "vozv";
-            Formular.Columns.Add(col);
-
-            col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "Факти ческая дата возв рата";
-            col.ReadOnly = true;
-            col.Width = 80;
-            col.Name = "fact";
-            col.DataPropertyName = "fact";
-            Formular.Columns.Add(col);
-
-            col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "Сум ма штра фа";
-            col.ReadOnly = true;
-            col.Width = 40;
-            col.Name = "peny";
-            Formular.Columns.Add(col);
-
-            DataGridViewCheckBoxColumn colch = new DataGridViewCheckBoxColumn();
-            colch.HeaderText = "Нару шение";
-            colch.Name = "pen";
-            colch.Width = 50;
-            colch.ReadOnly = false;
-            Formular.Columns.Add(colch);
-            colch.DataPropertyName = "penalty";
-
-            colch = new DataGridViewCheckBoxColumn();
-            colch.Name = "rempen";
-            colch.Visible = false;
-            Formular.Columns.Add(colch);
-            colch.DataPropertyName = "rempenalty";
-
-            DataGridViewDisableButtonColumn ButCol = new DataGridViewDisableButtonColumn();
-            Formular.Columns.Add(ButCol);
-            ButCol.Name = "but";
-            ButCol.Width = 120;
-            ButCol.HeaderText = "Продление срока пользо вания";
-
-            ButCol.DefaultCellStyle.BackColor = Form1.DefaultBackColor;
-            Padding myPadd = ButCol.DefaultCellStyle.Padding;
-            ButCol.DefaultCellStyle.SelectionBackColor = Form1.DefaultBackColor;
-            ButCol.DefaultCellStyle.SelectionForeColor = Color.Black;
-            Font myF = new Font(FontFamily.GenericSansSerif, 8);
-
-            ButCol.DefaultCellStyle.Font = myF;
-            myPadd.All = 1;
-            ButCol.DefaultCellStyle.Padding = myPadd;
-            Formular.Columns["pen"].ReadOnly = true;
-
-            col = new DataGridViewTextBoxColumn();
-            col.HeaderText = "bar";
-            col.Visible = false;
-            col.Name = "bar";
-            col.DataPropertyName = "bar";
-            Formular.Columns.Add(col);
-
-            foreach (DataGridViewRow row in Formular.Rows)
-            {
-                row.Cells["peny"].Value = CalculatePeny(row).ToString() + " р.";
-                //row.Cells["pen"].ReadOnly = true;
-                DataGridViewDisableButtonCell bc = (DataGridViewDisableButtonCell)row.Cells["but"];
-                
-                
-                
-                if ((row.Cells["pen"].Value.ToString().ToLower() == "false") && (row.Cells["zkid"].Value.ToString() != "0") && (bool.Parse(row.Cells["rempen"].Value.ToString()) == true))
-                {
-                    bc.Value = "Нет нарушения";//ранее сняли
-                    bc.Enabled = false;
-                }
-                else
-                    if ((row.Cells["pen"].Value.ToString().ToLower() == "false") && (row.Cells["rempen"].Value.ToString().ToLower() == "false"))
-                    {
-                        bc.Value = "Продлить";
-                        bc.Enabled = true;
-                        //row.Cells["pen"].ReadOnly = true;
-                    }
-                    else
-                        if ((row.Cells["pen"].Value.ToString().ToLower() == "true") && (row.Cells["rempen"].Value.ToString().ToLower() == "false") && (row.Cells["zkid"].Value.ToString() != "0"))
-                        {
-                            bc.Value = "Продлить";//книга еще не возвращена
-                            bc.Enabled = true;
-
-                        }
-                        else
-                            if ((row.Cells["pen"].Value.ToString().ToLower() == "true") && (row.Cells["rempen"].Value.ToString().ToLower() == "false") && (row.Cells["zkid"].Value.ToString() == "0"))
-                            {
-                                bc.Value = "Снять нарушение";//книга возвращена, но с нарушением срока
-                                bc.Enabled = true;
-                                
-                            }
-                            else
-                                if ((row.Cells["pen"].Value.ToString().ToLower() == "true") && (row.Cells["rempen"].Value.ToString().ToLower() == "true"))
-                                {
-                                    bc.Value = "Нет нарушения";//такого по идее не должно быть, надо тока запретить выставлять нарушения и обсудить с СБ.
-                                    bc.Enabled = false;
-                                    MessageBox.Show("Программа выполнила недопустимую операцию.Такого быть не должно. Обратитесь к разработчику.");
-                                }
-
-            }
-            autoinc(Formular);
-
-        }
-        int CalculatePeny(DataGridViewRow r)
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select * from Reservation_R..PENY";
-            DataSet DS = new DataSet();
-            Conn.SQLDA.Fill(DS, "peny");
-            int sum = 0;
-            //int LastPeny = 0;
-
-            DateTime DateOfFineVozv = DateTime.Parse(r.Cells["vozv"].Value.ToString());
-            DateTime DateOfFineFact = (r.Cells["fact"].Value.ToString() == string.Empty) ?
-                                      DateTime.Today :
-                                      DateTime.Parse(r.Cells["fact"].Value.ToString());
-            if (DateOfFineFact <= DateOfFineVozv) return 0;
-            List<int> fine = new List<int>();
-            List<DateTime> dfine = new List<DateTime>();
-
-            int i = -1;
-
-            foreach (DataRow row in DS.Tables["peny"].Rows)
-            {
-                dfine.Add(DateTime.Parse(row["DATEOFSETUP"].ToString()));
-                fine.Add(int.Parse(row["PENYPERDAY"].ToString()));
-            }
-            foreach (DateTime df in dfine)
-            {
-                i++;
-                if (DateOfFineVozv > df)
-                {
-                    break;
-                }
-            }
-            dfine[i] = DateOfFineVozv;
-            for (int j = 0; j < i; j++)
-            {
-                dfine.RemoveAt(0);
-                fine.RemoveAt(0);
-            }
-            if (dfine[dfine.Count - 1] >= DateOfFineFact)
-            {
-                dfine[dfine.Count - 1] = DateOfFineFact;
-            }
-            else
-            {
-                dfine.Add(DateOfFineFact);
-            }
-            List<TimeSpan> span = new List<TimeSpan>();
-            DateTime tmp = dfine[0];
-            for (int j = 1; j < dfine.Count; j++)
-            {
-                span.Add(dfine[j] - tmp);
-                if (span[span.Count - 1].Days < 0)
-                {
-                    span[span.Count - 1] = new TimeSpan(0, 0, 0, 0);
-                }
-                tmp = dfine[j];
-            }
-            for (int j = 0; j < span.Count; j++)
-            {
-                sum += span[j].Days * fine[j];
-            }
-            return sum;
-
-        }
-        int CalculatePeny(DateTime datevozv_, DateTime datefactvozv_)
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select * from Reservation_R..PENY";
-            DataSet DS = new DataSet();
-            Conn.SQLDA.Fill(DS, "peny");
-            int sum = 0;
-            //int LastPeny = 0;
-
-            DateTime DateOfFineVozv = datevozv_;
-            DateTime DateOfFineFact = datefactvozv_;
-            if (DateOfFineFact <= DateOfFineVozv) return 0;
-            List<int> fine = new List<int>();
-            List<DateTime> dfine = new List<DateTime>();
-
-            int i = -1;
-
-            foreach (DataRow row in DS.Tables["peny"].Rows)
-            {
-                dfine.Add(DateTime.Parse(row["DATEOFSETUP"].ToString()));
-                fine.Add(int.Parse(row["PENYPERDAY"].ToString()));
-            }
-            foreach (DateTime df in dfine)
-            {
-                i++;
-                if (DateOfFineVozv > df)
-                {
-                    break;
-                }
-            }
-            dfine[i] = DateOfFineVozv;
-            for (int j = 0; j < i; j++)
-            {
-                dfine.RemoveAt(0);
-                fine.RemoveAt(0);
-            }
-            if (dfine[dfine.Count - 1] >= DateOfFineFact)
-            {
-                dfine[dfine.Count - 1] = DateOfFineFact;
-            }
-            else
-            {
-                dfine.Add(DateOfFineFact);
-            }
-            List<TimeSpan> span = new List<TimeSpan>();
-            DateTime tmp = dfine[0];
-            for (int j = 1; j < dfine.Count; j++)
-            {
-                span.Add(dfine[j] - tmp);
-                if (span[span.Count - 1].Days < 0)
-                {
-                    span[span.Count - 1] = new TimeSpan(0, 0, 0, 0);
-                }
-                tmp = dfine[j];
-            }
-            for (int j = 0; j < span.Count; j++)
-            {
-                sum += span[j].Days * fine[j];
-            }
-            return sum;
 
         }
 
         void Form1_Scanned(object sender, EventArgs ev)
         {
-            #region cash
-            /*Singletone  - надо почитать про это
-typedef std::pair<BookId, bool> BookFreePair;
-typedef std::vector<BookFreePair> BooksFreeType;
-
-в классе должен быть экземпляр BooksFreeType
-
-BooksFreeType cache_;
-...
-bool isBookBusy(BookId bookId)
-{
-   if(iterator find = cashe_.find(bookId))
-      return find->second;
-
-   bool busy = ReadBookBusyFromBD();
-   cache.push_back(std::make_pair(bookId, busy));
-   return busy;
-}
-              */
-            #endregion
-            //MessageBox.Show(((IOPOSScanner_1_10)sender).ScanData.ToString());
             string g = tabControl1.SelectedTab.ToString();
             switch (tabControl1.SelectedTab.Text)
             {
                 case "Формуляр читателя":
                     #region formular
+
                     //string _data = ((IOPOSScanner_1_10)sender).ScanData.ToString();
                     string _data = FromPort;
                     if (!dbw.isReader(_data))
@@ -627,11 +128,11 @@ bool isBookBusy(BookId bookId)
                         return;
                     }
                     label20.Text = ReaderRecordFormular.Surname + " " + ReaderRecordFormular.Name + " " + ReaderRecordFormular.SecondName;
-                    textBox6.Text = ReaderRecordFormular.AbonType;
+                    //textBox6.Text = ReaderRecordFormular.AbonType;
                     label25.Text = ReaderRecordFormular.id;
 
                     //dbw.SetPenalty(ReaderRecordFormular.id);
-                    this.FormularColumnsForming(ReaderRecordFormular.id);
+                    //this.FormularColumnsForming(ReaderRecordFormular.id);
                 
                     /*Formular.Columns[1].Width = 100;
                     Formular.Columns[2].Visible = false;
@@ -660,54 +161,13 @@ bool isBookBusy(BookId bookId)
                     Sorting.ZagSort = SortDir.None;
                     break;
                     #endregion
-                case "Выдача штрихкода читателю":
-                    #region vidachashtrihcoda
-
-                    if (label16.Visible)
-                    {
-                        //string BarCode = ((IOPOSScanner_1_10)sender).ScanData.ToString().Remove(((IOPOSScanner_1_10)sender).ScanData.ToString().Length - 1, 1);
-                        string BarCode = FromPort;
-                        switch (dbw.SetReaderBarCode(ReaderSetBarcode.id, BarCode))
-                        {
-                            case -5:
-                                MessageBox.Show("Считан неверный штрихкод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                break;
-                            case -1:
-                                MessageBox.Show("Ошибка базы данных.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                break;
-                            case -2:
-                                MessageBox.Show("Читатель не найден", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                break;
-                            case -4:
-                                MessageBox.Show("Такой штрихкод уже существует в базе! Считайте другой!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                break;
-                            case -3:
-                                MessageBox.Show("У читателя есть штрихкод на социальной карте! Выдача штрихкода этому читателю не требуется.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                                groupBox4.Enabled = true;
-                                break;
-                            case 1:
-                                textBox5.Text = BarCode;
-                                //timer2.Enabled = false;
-                                label16.Visible = false;
-                                //tabControl1.Enabled = true;
-                                groupBox4.Enabled = true;
-                                label16.Visible = false;
-                                MessageBox.Show("Штрихкод успешно считан и присвоен!", "Успешно!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                break;
-
-                        }
-                        return;
-                    }
-                    else
-                        MessageBox.Show("Сначала найдите читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-                    #endregion
                 case "Приём/выдача изданий":
                     #region priemVidacha
-                    //timer1.Enabled = true;
+
+                    Circulate();
+
+
                     label1.Enabled = true;
-                    //button2.Enabled = false;
-                    //button4.Enabled = false;
                     
                     //_data = "9643909027074162622 1107009";
 
@@ -838,7 +298,7 @@ bool isBookBusy(BookId bookId)
                                     
                                     if (int.Parse(expireddays) > 0)
                                     {
-                                        MessageBox.Show("Возврат данной книги просрочен на " + expireddays + " дней. Штраф составляет " + CalculatePeny(BookRecordWork.vzv, DateTime.Today).ToString() + " руб.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        MessageBox.Show("Возврат данной книги просрочен на " + expireddays + " дней. Штраф составляет ");// + CalculatePeny(BookRecordWork.vzv, DateTime.Today).ToString() + " руб.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     }
 
                                     dataGridView1.Rows.Insert(0, 1);
@@ -965,11 +425,12 @@ bool isBookBusy(BookId bookId)
             f2.textBox2.Text = "";
             f2.textBox3.Text = "";
             f2.ShowDialog();
-            if ((this.EmpID == "") || (this.EmpID == null))
-            {
-                MessageBox.Show("Вы не авторизованы! Программа заканчивает свою работу", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Close();
-            }
+            //if (f2.Canceled)
+            //if ((this.EmpID == "") || (this.EmpID == null))
+            //{
+            //    MessageBox.Show("Вы не авторизованы! Программа заканчивает свою работу", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    Close();
+            //}
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -1089,7 +550,7 @@ bool isBookBusy(BookId bookId)
                                 label1.Text = "Считайте штрихкод издания";
                                 return;
                             case DialogResult.Yes:
-                                dbw.setBookForReader(BookRecord, ReaderRecord, (int)numericUpDown1.Value);
+                                dbw.setBookForReader(BookRecord, ReaderRecord, 30);
                                 dataGridView1.Rows.Insert(0, 1);
                                 dataGridView1.Rows[0].Cells[0].Value = BookRecord.inv;
                                 dataGridView1.Rows[0].Cells[1].Value = BookRecord.name;
@@ -1111,7 +572,7 @@ bool isBookBusy(BookId bookId)
                     }
                     else
                     {
-                        dbw.setBookForReader(BookRecord, ReaderRecord, (int)numericUpDown1.Value);
+                        dbw.setBookForReader(BookRecord, ReaderRecord, 30);
                         dataGridView1.Rows.Insert(0, 1);
                         dataGridView1.Rows[0].Cells[0].Value = BookRecord.inv;
                         dataGridView1.Rows[0].Cells[1].Value = BookRecord.name;
@@ -1153,78 +614,21 @@ bool isBookBusy(BookId bookId)
 
         }
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            ReaderSetBarcode = new DBWork.dbReader((int)numericUpDown2.Value);
-            if (ReaderSetBarcode.barcode == "error")
-            {
-                MessageBox.Show("Читатель не найден!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                textBox2.Text = "";
-                textBox3.Text = "";
-                textBox4.Text = "";
-                textBox5.Text = "";
-                button6.Enabled = false;
-                return;
-            }
-            textBox2.Text = ReaderSetBarcode.Surname;
-            textBox3.Text = ReaderSetBarcode.Name;
-            textBox4.Text = ReaderSetBarcode.SecondName;
-            textBox5.Text = "R" + ReaderSetBarcode.barcode;
-            button8.Visible = true;
-            //timer2.Enabled = true;
-            label16.Visible = true;
-            //tabControl1.Enabled = false;
-            groupBox4.Enabled = false;
-        }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            //timer2.Enabled = true;
-            label16.Visible = true;
-            //tabControl1.Enabled = false;
-            groupBox4.Enabled = false;
-        }
+
 
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (tabControl1.SelectedTab.Text)
             {
-                case "Выдача штрихкода читателю":
-                    //timer2.Enabled = false;
-                    label16.Visible = false;
-                    //timer1.Enabled = false;
-                    label1.Enabled = false;
-                    numericUpDown2.Value = 0;
-                    textBox2.Text = "";
-                    textBox3.Text = "";
-                    textBox4.Text = "";
-                    textBox5.Text = "";
-                    this.label16.Text = "Считайте штрихкод";
-                    button6.Enabled = false;
-                    button8.Visible = false;
-                    break;
                 case "Приём/выдача изданий":
-                    //timer1.Enabled = true;
                     label1.Enabled = true;
-                    //timer2.Enabled = false;
                     label16.Visible = false;
                     
-                    //this.label8.Text = "";
-                    //this.label9.Text = "";
-                    //this.label5.Text = "";
-                    //this.label16.Text = "";
-                    //this.label16.Visible = false;
-                    //BookRecord = null;
-                    //ReaderRecord = null;
                     label1.Text = "Считайте штрихкод издания";
-                    //button2.Enabled = false;
-                    //button4.Enabled = false;
-                    this.AcceptButton = button5;
                     break;
                 case "Справка":
-                    //timer1.Enabled = false;
                     label1.Enabled = false;
-                    //timer2.Enabled = false;
                     label16.Visible = false;
                     this.label16.Visible = false;
                     this.label16.Text = "";
@@ -1232,7 +636,6 @@ bool isBookBusy(BookId bookId)
                 case "Формуляр читателя":
                     label25.Text = "";
                     label20.Text = "";
-                    textBox6.Text = "";
                     Formular.Columns.Clear();
                     AcceptButton = this.button10;
 
@@ -1246,7 +649,7 @@ bool isBookBusy(BookId bookId)
             // TODO: данная строка кода позволяет загрузить данные в таблицу "bRIT_SOVETDataSet.ZAKAZ". При необходимости она может быть перемещена или удалена.
             //this.zAKAZTableAdapter.Fill(this.bRIT_SOVETDataSet.ZAKAZ);
             //this.EmpID = "1";
-            if ((this.EmpID == "") || (this.EmpID == null))
+            if (f2.Canceled)
             {
                 MessageBox.Show("Вы не авторизованы! Программа заканчивает свою работу", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
@@ -1629,19 +1032,7 @@ bool isBookBusy(BookId bookId)
             
         }
 
-        private void textBox6_TextChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void button8_Click(object sender, EventArgs e)
-        {
-            button8.Visible = false;
-            //timer2.Enabled = false;
-            label16.Visible = false;
-            //tabControl1.Enabled = true;
-            groupBox4.Enabled = true;
-        }
 
         private void toolTip1_Draw(object sender, DrawToolTipEventArgs e)
         {
@@ -1682,11 +1073,10 @@ bool isBookBusy(BookId bookId)
             }
             dbw.GetFormular(ReaderSetBarcode.id);
             label20.Text = ReaderSetBarcode.Surname + " " + ReaderSetBarcode.Name + " " + ReaderSetBarcode.SecondName;
-            textBox6.Text = ReaderSetBarcode.AbonType;
             label25.Text = ReaderSetBarcode.id;
             ReaderRecordFormular = new DBWork.dbReader(ReaderSetBarcode);
 
-            this.FormularColumnsForming(ReaderSetBarcode.id);
+            //this.FormularColumnsForming(ReaderSetBarcode.id);
         }
 
 
@@ -1740,7 +1130,7 @@ bool isBookBusy(BookId bookId)
                     }
                     dbw.InsertActionProlong(new DBWork.dbReader(int.Parse(label25.Text)), new DBWork.dbBook(Formular.Rows[e.RowIndex].Cells["bar"].Value.ToString()));
                     Formular.Rows[e.RowIndex].Cells["vozv"].Value = DateTime.Parse(Formular.Rows[e.RowIndex].Cells["vozv"].Value.ToString()).AddDays(f4.Days);
-                    Formular.Rows[e.RowIndex].Cells["peny"].Value = CalculatePeny(Formular.Rows[e.RowIndex]).ToString() + " р.";
+                    //Formular.Rows[e.RowIndex].Cells["peny"].Value = CalculatePeny(Formular.Rows[e.RowIndex]).ToString() + " р.";
                     return;
                     //break;
                 case "pen":
@@ -1818,7 +1208,7 @@ bool isBookBusy(BookId bookId)
             autoinc(Formular);
             foreach (DataGridViewRow row in Formular.Rows)
             {
-                row.Cells["peny"].Value = CalculatePeny(row).ToString() + " р.";
+                //row.Cells["peny"].Value = CalculatePeny(row).ToString() + " р.";
                 //row.Cells["pen"].ReadOnly = true;
                 DataGridViewDisableButtonCell bc = (DataGridViewDisableButtonCell)row.Cells["but"];
 
@@ -1875,7 +1265,7 @@ bool isBookBusy(BookId bookId)
             }
             LostBook lb = new LostBook(label25.Text, this, Formular);
             lb.ShowDialog();
-            FormularColumnsForming(ReaderRecordFormular.id);
+            //FormularColumnsForming(ReaderRecordFormular.id);
             
         }
         System.Drawing.Printing.PrintDocument pd;
@@ -2238,7 +1628,6 @@ bool isBookBusy(BookId bookId)
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            tabControl1.TabPages.RemoveAt(1);
         }
         public string emul;
         public string pass;
@@ -2307,9 +1696,8 @@ bool isBookBusy(BookId bookId)
             dbw.GetFormular(ReaderRecordFormular.id);
             ReaderSetBarcode = new DBWork.dbReader(ReaderRecordFormular);
             label20.Text = ReaderRecordFormular.Surname + " " + ReaderRecordFormular.Name + " " + ReaderRecordFormular.SecondName;
-            textBox6.Text = ReaderRecordFormular.AbonType;
             label25.Text = ReaderRecordFormular.id;
-            FormularColumnsForming(ReaderRecordFormular.id);
+            //FormularColumnsForming(ReaderRecordFormular.id);
 
         }
 
@@ -2763,6 +2151,7 @@ bool isBookBusy(BookId bookId)
             Statistics.Columns[4].Width = 80;
             autoinc(Statistics);
         }
+
 
 
     }
@@ -3772,21 +3161,7 @@ if (tr.Right == null || tr.Rights == None)
 
 
 
-        public bool ChangeEmployee(string login, string pass)
-        {//                                    SELECT Employee.* FROM Employee WHERE (((Employee.Login)="1") AND ((Employee.Password)="1"));
 
-            Conn.ReaderDA.SelectCommand.CommandText = "SELECT * FROM BJACC..USERS WHERE lower(LOGIN)='" + login.ToLower() + "' AND lower(PASSWORD)='" + pass.ToLower() + "'";
-            //ReaderMain.Tables.Clear();
-            DataSet R = new DataSet();
-            if (Conn.ReaderDA.Fill(R) != 0)
-            {
-                F1.textBox1.Text = R.Tables[0].Rows[0]["LOGIN"].ToString();
-                F1.EmpID = R.Tables[0].Rows[0]["ID"].ToString();
-                return true;
-            }
-            else
-                return false;
-        }
 
 
         public DataTable GetDebtors()
