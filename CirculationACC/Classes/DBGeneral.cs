@@ -23,5 +23,36 @@ namespace Circulation
             return true;
         }
 //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^LOGIN^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+        internal BARTYPE BookOrReader(string data)
+        {
+            DA.SelectCommand.CommandText = "select top 1 IDMAIN from BJACC..DATAEXT where MNFIELD = 899 and MSFIELD = '$w' and SORT = '" + data + "'";
+            DS = new DataSet();
+            int i = DA.Fill(DS, "t");
+            if (i > 0) return BARTYPE.Book;
+
+            DA.SelectCommand.CommandText = "select top 1 NumberReader from Readers..Main where BarCode = '" + data.Substring(1)+"'";
+            DS = new DataSet();
+            try
+            {
+                i = DA.Fill(DS, "t");
+            }
+            catch
+            {
+                i = 0;
+            }
+            if (i > 0) return BARTYPE.Reader;
+
+            DA.SelectCommand.CommandText = "select top 1 NumberReader from Readers..Main where NumberSC = '" + data.Substring(0,data.IndexOf(" "))+
+                                                                                       "' and SerialSC = '" + data.Substring(data.IndexOf(" ")+1)+"'";
+            DS = new DataSet();
+            i = DA.Fill(DS, "t");
+            if (i > 0) return BARTYPE.Reader;
+
+            return BARTYPE.NotExist;
+            //R.Tables["t"].Rows[0]["NumberSC"].ToString().Trim().Replace("\0", "") + R.Tables["t"].Rows[0]["SerialSC"].ToString().Trim().Replace("\0", "");
+        }
+
+
     }
 }

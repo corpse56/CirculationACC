@@ -20,13 +20,13 @@ using System.Text.RegularExpressions;
 using System.IO.Ports;
 namespace Circulation
 {
-    public delegate void ScannedEventHandler(object sender, EventArgs ev);
+    //public delegate void ScannedEventHandler();
     public delegate void HeaderClick(object sender, DataGridViewCellMouseEventArgs ev);
-    public delegate void AbonChangedEventHandler(object sender, EventArgs ev);
 
     public partial class Form1 : Form
     {
-        public static event AbonChangedEventHandler AbonChanged;
+        Department DEPARTMENT = new Department();
+
 
         public DBWork dbw;
         public int EmpID;
@@ -37,7 +37,6 @@ namespace Circulation
         public DBWork.dbReader ReaderRecord, ReaderRecordWork, ReaderRecordFormular;
         public DBWork.dbBook BookRecord, BookRecordWork;
         public DBWork.dbReader ReaderSetBarcode;
-        private System.Windows.Forms.Label label16;
         public ExtGui.RoundProgress RndPrg;
         public Form1()
         {
@@ -46,10 +45,9 @@ namespace Circulation
             InitializeComponent();
 
             this.StartPosition = FormStartPosition.CenterScreen;
-            this.label16 = new System.Windows.Forms.Label();
             f2.ShowDialog();
 
-            Form1.Scanned += new ScannedEventHandler(Form1_Scanned);
+            //Form1.Scanned += new ScannedEventHandler(Form1_Scanned);
             this.button2.Enabled = false;
             this.button4.Enabled = false;
             label4.Text = "Журнал событий " + DateTime.Now.ToShortDateString() + ":";
@@ -74,25 +72,26 @@ namespace Circulation
             }
 
         }
-        public delegate void ScanFuncDelegate(object sender, EventArgs ev);
-        string FromPort = "";
+        public delegate void ScanFuncDelegate(string data);
+        
+        //public static event ScannedEventHandler Scanned;
 
         void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
+            string FromPort = "";
             FromPort = port.ReadLine();
             FromPort = FromPort.Trim();
             port.DiscardInBuffer();
             ScanFuncDelegate ScanDelegate;
             ScanDelegate = new ScanFuncDelegate(Form1_Scanned);
-            this.Invoke(ScanDelegate, new object[] { sender, e });
+            //ScanDelegate.Invoke(sender, e);
+            //Invoke(ScanDelegate);
+            this.Invoke(ScanDelegate, new object[] { FromPort });
+            //this.Invoke(
         }
 
-        public void Circulate()
-        {
 
-        }
-
-        void Form1_Scanned(object sender, EventArgs ev)
+        void Form1_Scanned(string fromport)
         {
             string g = tabControl1.SelectedTab.ToString();
             switch (tabControl1.SelectedTab.Text)
@@ -101,7 +100,7 @@ namespace Circulation
                     #region formular
 
                     //string _data = ((IOPOSScanner_1_10)sender).ScanData.ToString();
-                    string _data = FromPort;
+                    string _data = fromport;
                     if (!dbw.isReader(_data))
                     {
                         MessageBox.Show("Неверный штрихкод читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -162,209 +161,203 @@ namespace Circulation
                     break;
                     #endregion
                 case "Приём/выдача изданий":
-                    #region priemVidacha
 
-                    Circulate();
+                    DEPARTMENT.Circulate(fromport);
+                    break;
+                #region priem Vidacha staroe
 
 
-                    label1.Enabled = true;
+                //label1.Enabled = true;
                     
-                    //_data = "9643909027074162622 1107009";
+                    ////_data = "9643909027074162622 1107009";
 
-                    if ((this.emul == "") || (this.emul == null))
-                    {
-                        _data = FromPort;
-                    }
-                    else
-                    {
-                        _data = this.emul;
-                    }
-                    if ((this.ReaderRecord != null) && (this.BookRecord != null))
-                    {
-                        MessageBox.Show("Подтвердите предыдущую операцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        this.emul = "";
-                        return;
-                    }
-                    //MessageBox.Show(_data);
-                    ReaderRecordWork = null;
-                    BookRecordWork = null;
-                    if (dbw.isReader(_data))
-                    {
-                        /*if (_data.Length < 20)
-                            _data = _data.Remove(0, 1);*/
-                        //_data = _data.Remove(_data.Length - 1, 1);
-                        ReaderRecordWork = new DBWork.dbReader(_data);
-                        if (ReaderRecordWork.barcode == "notfoundbynumber")
-                        {
-                            MessageBox.Show("Читатель не найден, либо неверный штрихкод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            this.emul = "";
-                            return;
-                        }
-                        if (ReaderRecordWork.barcode == "numsoc")
-                        {
-                            MessageBox.Show("Читатель не найден, либо неверный штрикод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            this.emul = "";
-                            return;
-                        }
-                        if (ReaderRecordWork.barcode == "sersoc")
-                        {
-                            MessageBox.Show("Не соответствует серия социальной карты!Читатель заменил социальную карту!Номер социальной карты остался прежним, но сменилась серия! Новую социальную карту необходимо зарегистрировать в регистратуре!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            this.emul = "";
-                            return;
-                        }
+                    //if ((this.emul == "") || (this.emul == null))
+                    //{
+                    //    _data = FromPort;
+                    //}
+                    //else
+                    //{
+                    //    _data = this.emul;
+                    //}
+                    //if ((this.ReaderRecord != null) && (this.BookRecord != null))
+                    //{
+                    //    MessageBox.Show("Подтвердите предыдущую операцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //    this.emul = "";
+                    //    return;
+                    //}
+                    ////MessageBox.Show(_data);
+                    //ReaderRecordWork = null;
+                    //BookRecordWork = null;
+                    //if (dbw.isReader(_data))
+                    //{
+                    //    /*if (_data.Length < 20)
+                    //        _data = _data.Remove(0, 1);*/
+                    //    //_data = _data.Remove(_data.Length - 1, 1);
+                    //    ReaderRecordWork = new DBWork.dbReader(_data);
+                    //    if (ReaderRecordWork.barcode == "notfoundbynumber")
+                    //    {
+                    //        MessageBox.Show("Читатель не найден, либо неверный штрихкод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //        this.emul = "";
+                    //        return;
+                    //    }
+                    //    if (ReaderRecordWork.barcode == "numsoc")
+                    //    {
+                    //        MessageBox.Show("Читатель не найден, либо неверный штрикод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //        this.emul = "";
+                    //        return;
+                    //    }
+                    //    if (ReaderRecordWork.barcode == "sersoc")
+                    //    {
+                    //        MessageBox.Show("Не соответствует серия социальной карты!Читатель заменил социальную карту!Номер социальной карты остался прежним, но сменилась серия! Новую социальную карту необходимо зарегистрировать в регистратуре!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //        this.emul = "";
+                    //        return;
+                    //    }
 
-                        if (this.ReaderRecord != null)
-                        {
-                            this.emul = "";
-                            return;
-                        }
-                        if (this.ReaderRecord != null)
-                        {
-                            MessageBox.Show("Подтвердите предыдущую операцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            this.emul = "";
-                            return;
-                        }
-                        if (ReaderRecordWork.barcode == "error")
-                        {
-                            MessageBox.Show("Читатель не зарегистрирован либо не соответствует серия социальной карты!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            this.emul = "";
-                            return;
-                        }
-                        /*if (ReaderRecordWork.RegInMos != DateTime.MinValue)
-                        {
-                            if ((ReaderRecordWork.RegInMos - DateTime.Today).Days < 60)
-                            {
-                                MessageBox.Show("У читателя заканчивается срок регистрации в Москве! Осталось менее 60 дней!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                this.emul = "";
-                            }
-                        }*/
+                    //    if (this.ReaderRecord != null)
+                    //    {
+                    //        this.emul = "";
+                    //        return;
+                    //    }
+                    //    if (this.ReaderRecord != null)
+                    //    {
+                    //        MessageBox.Show("Подтвердите предыдущую операцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //        this.emul = "";
+                    //        return;
+                    //    }
+                    //    if (ReaderRecordWork.barcode == "error")
+                    //    {
+                    //        MessageBox.Show("Читатель не зарегистрирован либо не соответствует серия социальной карты!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //        this.emul = "";
+                    //        return;
+                    //    }
+                    //    /*if (ReaderRecordWork.RegInMos != DateTime.MinValue)
+                    //    {
+                    //        if ((ReaderRecordWork.RegInMos - DateTime.Today).Days < 60)
+                    //        {
+                    //            MessageBox.Show("У читателя заканчивается срок регистрации в Москве! Осталось менее 60 дней!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //            this.emul = "";
+                    //        }
+                    //    }*/
                         
-                    }
-                    else
-                    {
-                        //_data = _data.Remove(_data.Length - 1, 1);
-                        BookRecordWork = new DBWork.dbBook(_data);
-                        if (BookRecordWork.id == "Неверный штрихкод")
-                        {
-                            MessageBox.Show("Считан неверный штрихкод либо изданию не присвоен (новый) штрихкод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            this.emul = "";
-                            return;
-                         }
+                    //}
+                    //else
+                    //{
+                    //    //_data = _data.Remove(_data.Length - 1, 1);
+                    //    BookRecordWork = new DBWork.dbBook(_data);
+                    //    if (BookRecordWork.id == "Неверный штрихкод")
+                    //    {
+                    //        MessageBox.Show("Считан неверный штрихкод либо изданию не присвоен (новый) штрихкод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //        this.emul = "";
+                    //        return;
+                    //     }
                         
-                    }
-                    if ((BookRecord != null) && (BookRecordWork != null))
-                    {
-                        MessageBox.Show("Считаны штрихкоды 2-х изданий подряд! Считайте штрихкод читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        this.emul = "";
-                        return;
-                    }
+                    //}
+                    //if ((BookRecord != null) && (BookRecordWork != null))
+                    //{
+                    //    MessageBox.Show("Считаны штрихкоды 2-х изданий подряд! Считайте штрихкод читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //    this.emul = "";
+                    //    return;
+                    //}
 
-                    if (ReaderRecord == null)
-                    {
-                        if (BookRecord != null)
-                        {
-                            if (ReaderRecordWork != null)
-                            {
-                                ReaderRecord = ReaderRecordWork.Clone();
-                                this.label5.Text = ReaderRecord.FIO;
-                                //заполнена книга и читатель ждать нажати я подтвердить или отмена
-                                button2.Enabled = true;
-                                button4.Enabled = true;
-                                button2.Focus();
-                                this.AcceptButton = button2;
-                                label1.Text = "Подтвердите выдачу";
-                            }
-                            else
-                            {
-                                MessageBox.Show("Считаны штрихкоды 2-х изданий подряд! Считайте штрихкод читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                this.emul = "";
-                                return;
-                            }
-                        }
-                        else
-                        {
-                            if (ReaderRecordWork != null)
-                            {
-                                MessageBox.Show("Считан штрихкод читателя! Считайте штрихкод издания!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                this.emul = "";
-                                return;
-                            }
-                            else
-                            {
-                                if (dbw.isBookBusy(_data))
-                                {
-                                    string expireddays = GetExpiredDays(BookRecordWork.inv);
-                                    dbw.setBookReturned(BookRecordWork.id, BookRecordWork);
+                    //if (ReaderRecord == null)
+                    //{
+                    //    if (BookRecord != null)
+                    //    {
+                    //        if (ReaderRecordWork != null)
+                    //        {
+                    //            ReaderRecord = ReaderRecordWork.Clone();
+                    //            this.label5.Text = ReaderRecord.FIO;
+                    //            //заполнена книга и читатель ждать нажати я подтвердить или отмена
+                    //            button2.Enabled = true;
+                    //            button4.Enabled = true;
+                    //            button2.Focus();
+                    //            this.AcceptButton = button2;
+                    //            label1.Text = "Подтвердите выдачу";
+                    //        }
+                    //        else
+                    //        {
+                    //            MessageBox.Show("Считаны штрихкоды 2-х изданий подряд! Считайте штрихкод читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //            this.emul = "";
+                    //            return;
+                    //        }
+                    //    }
+                    //    else
+                    //    {
+                    //        if (ReaderRecordWork != null)
+                    //        {
+                    //            MessageBox.Show("Считан штрихкод читателя! Считайте штрихкод издания!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //            this.emul = "";
+                    //            return;
+                    //        }
+                    //        else
+                    //        {
+                    //            if (dbw.isBookBusy(_data))
+                    //            {
+                    //                string expireddays = GetExpiredDays(BookRecordWork.inv);
+                    //                dbw.setBookReturned(BookRecordWork.id, BookRecordWork);
                                     
-                                    if (int.Parse(expireddays) > 0)
-                                    {
-                                        MessageBox.Show("Возврат данной книги просрочен на " + expireddays + " дней. Штраф составляет ");// + CalculatePeny(BookRecordWork.vzv, DateTime.Today).ToString() + " руб.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    }
+                    //                if (int.Parse(expireddays) > 0)
+                    //                {
+                    //                    MessageBox.Show("Возврат данной книги просрочен на " + expireddays + " дней. Штраф составляет ");// + CalculatePeny(BookRecordWork.vzv, DateTime.Today).ToString() + " руб.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //                }
 
-                                    dataGridView1.Rows.Insert(0, 1);
-                                    dataGridView1.Rows[0].Cells[0].Value = BookRecordWork.inv;
-                                    dataGridView1.Rows[0].Cells[1].Value = BookRecordWork.name;
-                                    if (BookRecordWork.rname == "-1")
-                                    {
-                                        BookRecordWork.rname = "Неизвестен";
-                                    }
-                                    dataGridView1.Rows[0].Cells[2].Value = BookRecordWork.rname;
-                                    dataGridView1.Rows[0].Cells[3].Value = "Возвращено";
-                                    dbw.InsertActionRETURNED(new DBWork.dbReader(BookRecordWork.rbar), BookRecordWork);
-                                    BookRecord = null;
-                                    ReaderRecord = null;
-                                    button2.Enabled = false;
-                                    button4.Enabled = false;
-                                    label1.Text = "Считайте штрихкод издания";
-                                    //MessageBox.Show("Книга возвращена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                    this.emul = "";
-                                    return;
-                                }
-                                else
-                                {
-                                    this.label8.Text = BookRecordWork.author;
-                                    this.label9.Text = BookRecordWork.name;
-                                    this.label1.Text = "Считайте штрих код читателя";
-                                    this.button4.Enabled = true;
-                                    BookRecord = BookRecordWork.Clone();
-                                    this.emul = "";
-                                    return;
-                                }
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (BookRecord != null)
-                        {
-                            MessageBox.Show("Подтвердите предыдущую операцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            button2.Enabled = true;
-                            button4.Enabled = true;
-                            this.emul = "";
-                            return;
-                        }
-                        else
-                        {
-                            this.label1.Text = "Считайте штрих код издания!";
-                            BookRecord = null;
-                            ReaderRecord = null;
-                        }
-                    }
+                    //                dataGridView1.Rows.Insert(0, 1);
+                    //                dataGridView1.Rows[0].Cells[0].Value = BookRecordWork.inv;
+                    //                dataGridView1.Rows[0].Cells[1].Value = BookRecordWork.name;
+                    //                if (BookRecordWork.rname == "-1")
+                    //                {
+                    //                    BookRecordWork.rname = "Неизвестен";
+                    //                }
+                    //                dataGridView1.Rows[0].Cells[2].Value = BookRecordWork.rname;
+                    //                dataGridView1.Rows[0].Cells[3].Value = "Возвращено";
+                    //                dbw.InsertActionRETURNED(new DBWork.dbReader(BookRecordWork.rbar), BookRecordWork);
+                    //                BookRecord = null;
+                    //                ReaderRecord = null;
+                    //                button2.Enabled = false;
+                    //                button4.Enabled = false;
+                    //                label1.Text = "Считайте штрихкод издания";
+                    //                //MessageBox.Show("Книга возвращена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //                this.emul = "";
+                    //                return;
+                    //            }
+                    //            else
+                    //            {
+                    //                this.label8.Text = BookRecordWork.author;
+                    //                this.label9.Text = BookRecordWork.name;
+                    //                this.label1.Text = "Считайте штрих код читателя";
+                    //                this.button4.Enabled = true;
+                    //                BookRecord = BookRecordWork.Clone();
+                    //                this.emul = "";
+                    //                return;
+                    //            }
+                    //        }
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    if (BookRecord != null)
+                    //    {
+                    //        MessageBox.Show("Подтвердите предыдущую операцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //        button2.Enabled = true;
+                    //        button4.Enabled = true;
+                    //        this.emul = "";
+                    //        return;
+                    //    }
+                    //    else
+                    //    {
+                    //        this.label1.Text = "Считайте штрих код издания!";
+                    //        BookRecord = null;
+                    //        ReaderRecord = null;
+                    //    }
+                    //}
 
-                    /*if (dbw.isReader(_data))
-                        ReaderRecord = dbw.getDbReader(_data);
-                    else
-                        BookRecord = dbw.getDbBook(_data);*/
-                    this.emul = "";
-                    break;
+                    ///*if (dbw.isReader(_data))
+                    //    ReaderRecord = dbw.getDbReader(_data);
+                    //else
+                    //    BookRecord = dbw.getDbBook(_data);*/
+                    //this.emul = "";
+                    //break;
                     #endregion
-                case "Справка":
-                    //timer1.Enabled = false;
-                    label1.Enabled = false;
-                    //timer2.Enabled = false;
-                    label16.Visible = false;
-                    break;
-
             }
         }
 
@@ -380,12 +373,7 @@ namespace Circulation
             return rtr.Days.ToString();
         }
 
-        public static event ScannedEventHandler Scanned;
-        public void FireScan(object sender, EventArgs ev)
-        {
-            if (Form1.Scanned != null)
-                Form1.Scanned(sender, ev);
-        }
+
         private void button1_Click_1(object sender, EventArgs e)
         {
 
@@ -623,15 +611,11 @@ namespace Circulation
             {
                 case "Приём/выдача изданий":
                     label1.Enabled = true;
-                    label16.Visible = false;
                     
                     label1.Text = "Считайте штрихкод издания";
                     break;
                 case "Справка":
                     label1.Enabled = false;
-                    label16.Visible = false;
-                    this.label16.Visible = false;
-                    this.label16.Text = "";
                     break;
                 case "Формуляр читателя":
                     label25.Text = "";
@@ -668,18 +652,7 @@ namespace Circulation
             //Point p = button7.PointToScreen(button7.Location);
             contextMenuStrip1.Show(x, y);
         }
-        private void timer2_Tick(object sender, EventArgs e)
-        {
-            label16.Visible = !label16.Visible;
-        }
 
-        private void toolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-        }
-        private void toolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void toolStripMenuItem4_Click(object sender, EventArgs e)
         {
@@ -1640,7 +1613,7 @@ namespace Circulation
                 pass = "";
                 Emulation f19 = new Emulation(this);
                 f19.ShowDialog();
-                Form1_Scanned(sender,new EventArgs());
+                Form1_Scanned(f19.emul);
             }
 
             /*SqlCommand cmd = new SqlCommand("[Reservation_R]..[updbooks]", Conn.ZakazCon);

@@ -63,7 +63,7 @@ namespace Circulation
             // 
             this.button5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button5.Location = new System.Drawing.Point(124, 84);
-            this.button5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button5.Margin = new System.Windows.Forms.Padding(4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(47, 28);
             this.button5.TabIndex = 17;
@@ -76,10 +76,11 @@ namespace Circulation
             this.textBox3.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.textBox3.ForeColor = System.Drawing.SystemColors.InactiveCaption;
             this.textBox3.Location = new System.Drawing.Point(77, 52);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(175, 22);
             this.textBox3.TabIndex = 16;
+            this.textBox3.Text = ",./";
             this.textBox3.UseSystemPasswordChar = true;
             // 
             // textBox2
@@ -87,16 +88,17 @@ namespace Circulation
             this.textBox2.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.textBox2.ForeColor = System.Drawing.SystemColors.InactiveCaption;
             this.textBox2.Location = new System.Drawing.Point(77, 15);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(175, 22);
             this.textBox2.TabIndex = 14;
+            this.textBox2.Text = "admin";
             // 
             // button4
             // 
             this.button4.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button4.Location = new System.Drawing.Point(179, 84);
-            this.button4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button4.Margin = new System.Windows.Forms.Padding(4);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(72, 28);
             this.button4.TabIndex = 19;
@@ -118,7 +120,7 @@ namespace Circulation
             this.Controls.Add(this.button4);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Auth";
             this.Text = "Авторизация";

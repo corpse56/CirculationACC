@@ -12,6 +12,7 @@ namespace Circulation
     public partial class Emulation : Form
     {
         Form1 f1;
+        public string emul;
         public Emulation(Form1 f1_)
         {
             InitializeComponent();
@@ -21,6 +22,7 @@ namespace Circulation
         private void button1_Click(object sender, EventArgs e)
         {
             f1.emul = textBox1.Text;
+            this.emul = textBox1.Text;
             Close();
         }
     }

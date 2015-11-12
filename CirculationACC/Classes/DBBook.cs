@@ -7,7 +7,7 @@ using System.Data;
 
 namespace Circulation
 {
-    public class DBBook : DB
+    class DBBook : DB
     {
         //BJACCRecord rec;// = new BJACCRecord();
         public DBBook()
@@ -52,7 +52,7 @@ namespace Circulation
                 rec.ID = (int)r["ID"];
                 rec.IDDATA = (int)r["IDDATA"];
                 rec.IDINLIST = (int)r["IDINLIST"];
-                rec.IDMAIN = IDMAIN;
+                rec.IDMAIN = (int)r["IDMAIN"]; 
                 rec.MNFIELD = (int)r["MNFIELD"];
                 rec.MSFIELD = r["MSFIELD"].ToString();
                 rec.PLAIN = r["PLAIN"].ToString();
@@ -63,8 +63,7 @@ namespace Circulation
         }
         public bool Exists(string BAR)
         {
-            DA.SelectCommand.CommandText = "select 1 from BJACC..DATAEXT A " +
-                                           " left join BJACC..DATAEXTPLAIN B on A.ID = B.IDDATAEXT where A.IDMAIN = (select top 1 IDMAIN from BJACC..DATAEXT where MNFIELD = 899 and MSFIELD = '$w' and SORT = '" + BAR + "')";
+            DA.SelectCommand.CommandText = "select top 1 IDMAIN from BJACC..DATAEXT where MNFIELD = 899 and MSFIELD = '$w' and SORT = '" + BAR + "'";
             DS = new DataSet();
             int i = DA.Fill(DS, "t");
             if (i > 0) return true; else return false;

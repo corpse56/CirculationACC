@@ -94,7 +94,6 @@ namespace Circulation
             this.количествоЋитературычитателейзаѕериодToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокƒействий“екущегоќператора«јпериодToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -748,11 +747,6 @@ namespace Circulation
                 "er ID=circulation;Password=circfull";
             this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
             // 
-            // timer2
-            // 
-            this.timer2.Interval = 750;
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
             // toolTip1
             // 
             this.toolTip1.AutomaticDelay = 300;
@@ -852,7 +846,6 @@ namespace Circulation
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.DataGridView Statistics;
         private System.Data.SqlClient.SqlConnection sqlConnection1;
-        private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
