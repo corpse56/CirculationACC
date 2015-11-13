@@ -9,7 +9,7 @@ namespace Circulation
     public enum BARTYPE { Book, Reader, NotExist }
     public class Department
     {
-        public int ExpectedBar = 0; //0 - ожидается штрихкод книги, 1 - ожидается штрихкод читателя
+        public int ExpectedBar = 0; //0 - ожидается штрихкод книги, 1 - ожидается штрихкод читателя, 2 - ожидается подтверждение или отмена выдачи
 
         public Department() 
         {
@@ -18,21 +18,27 @@ namespace Circulation
         
 
 
-        //public BookVO ScannedBook;
-        //public ReaderVO ScannedReader;
+        public BookVO ScannedBook;
+        public ReaderVO ScannedReader;
         /// <summary>
         /// Возвращаемые значения:
-        /// 0 - успех
+        /// 0 - Издание принято от читателя
         /// 1 - Штрихкод не найден ни в базе читателей ни в базе книг
         /// 2 - ожидался штрихкод читателя, а считан штрихкод издания
         /// 3 - ожидался штрихкод издания, а считан штрихкод читателя
-        /// 
+        /// 4 - Издание подготовлено к выдаче. ожидаем штрихкод читателя
+        /// 5 - Издание и читатель подготовлены к выдаче
         /// 
         /// </summary>
         /// <param name="PortData"></param>
         public int Circulate(string PortData)
         {
             BARTYPE ScannedType;
+            if (ExpectedBar == 2)
+            {
+                return 5;
+            }
+
             if ((ScannedType = BookOrReader(PortData)) == BARTYPE.NotExist)//существует ли такой штрихкод вообще либо в базе читателей либо в базе изданий
             {
                 return 1;
@@ -44,19 +50,34 @@ namespace Circulation
                 {
                     return 3;
                 }
-                var dbb = new DBBook();
-                if (dbb.Exists(PortData)) //если есть такой штрихкод вообще в базе
+                this.ScannedBook = new BookVO(PortData);
+                if (ScannedBook.IsIssued())
                 {
-                    return 1;
-                    //если есть в выданных то сдать
-                    //если нет то на панель
-                }//если нет - то ошибка
+                    return 0;
+                }
+                else
+                {
+                    ExpectedBar = 1;
+                    return 4;
+                }
             }
             else  //если сейчас ожидается штрихкод читателя
             {
-                return 1;
+                if (ScannedType == BARTYPE.Book) //выяснить какой штрихкод сейчас считан: читатель или книга
+                {
+                    return 2;
+                }
+                ScannedReader = new ReaderVO(PortData);
+                ExpectedBar = 2;
+                return 5;
+                
             }
-            return 1;
+        }
+
+        public void RecieveBook(int IDEMP)
+        {
+            DBGeneral dbg = new DBGeneral();
+            dbg.Recieve(ScannedBook, ScannedReader, IDEMP);
         }
 
         private BARTYPE BookOrReader(string data) //false - книга, true - читатель
@@ -64,6 +85,20 @@ namespace Circulation
             var dbg = new DBGeneral();
             
             return dbg.BookOrReader(data);
+        }
+
+        internal int ISSUE(int IDEMP)
+        {
+            DBGeneral dbg = new DBGeneral();
+            return dbg.ISSUE(ScannedBook, ScannedReader, IDEMP);
+
+        }
+
+        internal void Prolong(int idiss, int days,int idemp)
+        {
+            DBReader dbr = new DBReader();
+            dbr.ProlongByIDISS(idiss,days,idemp);
+
         }
     }
 }

@@ -48,8 +48,8 @@ namespace Circulation
             f2.ShowDialog();
 
             //Form1.Scanned += new ScannedEventHandler(Form1_Scanned);
-            this.button2.Enabled = false;
-            this.button4.Enabled = false;
+            this.bConfirm.Enabled = false;
+            this.bCancel.Enabled = false;
             label4.Text = "Журнал событий " + DateTime.Now.ToShortDateString() + ":";
 
 
@@ -70,6 +70,7 @@ namespace Circulation
             {
                 MessageBox.Show(ex.Message);
             }
+            Log();
 
         }
         public delegate void ScanFuncDelegate(string data);
@@ -97,73 +98,128 @@ namespace Circulation
             switch (tabControl1.SelectedTab.Text)
             {
                 case "Формуляр читателя":
-                    #region formular
+                    ReaderVO reader = new ReaderVO(fromport);
+                    if (reader.ID == 0)
+                    {
+                        MessageBox.Show("Читатель не найден!");
+                        break;
+                    }
+                    lFormularName.Text = reader.Family + " " + reader.Name + " " + reader.Father;
+                    lFromularNumber.Text = reader.ID.ToString();
+                    Formular.DataSource = reader.GetFormular();
+                    Formular.Columns["num"].HeaderText = "№№";
+                    Formular.Columns["num"].Width = 40;
+                    Formular.Columns["bar"].HeaderText = "Штрихкод";
+                    Formular.Columns["bar"].Width = 80;
+                    Formular.Columns["avt"].HeaderText = "Автор";
+                    Formular.Columns["avt"].Width = 200;
+                    Formular.Columns["tit"].HeaderText = "Заглавие";
+                    Formular.Columns["tit"].Width = 400;
+                    Formular.Columns["iss"].HeaderText = "Дата выдачи";
+                    Formular.Columns["iss"].Width = 80;
+                    Formular.Columns["ret"].HeaderText = "Предполагаемая дата возврата";
+                    Formular.Columns["ret"].Width = 110;
+                    Formular.Columns["idiss"].Visible = false;
+                    Formular.Columns["idr"].Visible = false;
 
-                    //string _data = ((IOPOSScanner_1_10)sender).ScanData.ToString();
-                    string _data = fromport;
-                    if (!dbw.isReader(_data))
-                    {
-                        MessageBox.Show("Неверный штрихкод читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
-                    /*if (_data.Length < 20)
-                        _data = _data.Remove(0, 1);*/
-                    //_data = _data.Remove(_data.Length - 1, 1);
-                    ReaderRecordFormular = new DBWork.dbReader(_data);
+                    break;
+                    #region old_formular
 
-                    if (ReaderRecordFormular.barcode == "notfoundbynumber")
-                    {
-                        MessageBox.Show("Читатель не найден, либо неверный штрихкод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    if (ReaderRecordFormular.barcode == "numsoc")
-                    {
-                        MessageBox.Show("Читатель не найден, либо неверный штрикод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    if (ReaderRecordFormular.barcode == "sersoc")
-                    {
-                        MessageBox.Show("Не соответствует серия социальной карты!Читатель заменил социальную карту!Номер социальной карты остался прежним, но сменилась серия! Новую социальную карту необходимо зарегистрировать в регистратуре!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    label20.Text = ReaderRecordFormular.Surname + " " + ReaderRecordFormular.Name + " " + ReaderRecordFormular.SecondName;
-                    //textBox6.Text = ReaderRecordFormular.AbonType;
-                    label25.Text = ReaderRecordFormular.id;
+                    ////string _data = ((IOPOSScanner_1_10)sender).ScanData.ToString();
+                    //string _data = fromport;
+                    //if (!dbw.isReader(_data))
+                    //{
+                    //    MessageBox.Show("Неверный штрихкод читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    //    return;
+                    //}
+                    ///*if (_data.Length < 20)
+                    //    _data = _data.Remove(0, 1);*/
+                    ////_data = _data.Remove(_data.Length - 1, 1);
+                    //ReaderRecordFormular = new DBWork.dbReader(_data);
 
-                    //dbw.SetPenalty(ReaderRecordFormular.id);
-                    //this.FormularColumnsForming(ReaderRecordFormular.id);
+                    //if (ReaderRecordFormular.barcode == "notfoundbynumber")
+                    //{
+                    //    MessageBox.Show("Читатель не найден, либо неверный штрихкод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    return;
+                    //}
+                    //if (ReaderRecordFormular.barcode == "numsoc")
+                    //{
+                    //    MessageBox.Show("Читатель не найден, либо неверный штрикод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    return;
+                    //}
+                    //if (ReaderRecordFormular.barcode == "sersoc")
+                    //{
+                    //    MessageBox.Show("Не соответствует серия социальной карты!Читатель заменил социальную карту!Номер социальной карты остался прежним, но сменилась серия! Новую социальную карту необходимо зарегистрировать в регистратуре!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //    return;
+                    //}
+                    //label20.Text = ReaderRecordFormular.Surname + " " + ReaderRecordFormular.Name + " " + ReaderRecordFormular.SecondName;
+                    ////textBox6.Text = ReaderRecordFormular.AbonType;
+                    //label25.Text = ReaderRecordFormular.id;
+
+                    ////dbw.SetPenalty(ReaderRecordFormular.id);
+                    ////this.FormularColumnsForming(ReaderRecordFormular.id);
                 
-                    /*Formular.Columns[1].Width = 100;
-                    Formular.Columns[2].Visible = false;
-                    Formular.Columns[4].Visible = false;
-                    Formular.Columns[3].HeaderText = "Автор";
-                    Formular.Columns[3].Width = 90;
-                    Formular.Columns[5].HeaderText = "Год издания";
-                    Formular.Columns[5].Width = 110;
-                    Formular.Columns[7].Visible = false;
-                    Formular.Columns[6].HeaderText = "Место Издания";
-                    Formular.Columns[6].Width = 170;
-                    Formular.Columns[8].HeaderText = "Дата выдачи";
-                    Formular.Columns[8].Width = 130;
-                    Formular.Columns[9].HeaderText = "Предполагаемая дата возврата";
-                    Formular.Columns[9].Width = 130;
-                    Formular.Columns[10].HeaderText = "Фактическая дата возврата";
-                    Formular.Columns[10].Width = 130;
-                    Formular.Columns[11].HeaderText = "Нарушение";
-                    Formular.Columns[11].Width = 130;*/
+                    ///*Formular.Columns[1].Width = 100;
+                    //Formular.Columns[2].Visible = false;
+                    //Formular.Columns[4].Visible = false;
+                    //Formular.Columns[3].HeaderText = "Автор";
+                    //Formular.Columns[3].Width = 90;
+                    //Formular.Columns[5].HeaderText = "Год издания";
+                    //Formular.Columns[5].Width = 110;
+                    //Formular.Columns[7].Visible = false;
+                    //Formular.Columns[6].HeaderText = "Место Издания";
+                    //Formular.Columns[6].Width = 170;
+                    //Formular.Columns[8].HeaderText = "Дата выдачи";
+                    //Formular.Columns[8].Width = 130;
+                    //Formular.Columns[9].HeaderText = "Предполагаемая дата возврата";
+                    //Formular.Columns[9].Width = 130;
+                    //Formular.Columns[10].HeaderText = "Фактическая дата возврата";
+                    //Formular.Columns[10].Width = 130;
+                    //Formular.Columns[11].HeaderText = "Нарушение";
+                    //Formular.Columns[11].Width = 130;*/
                     
                     
-                    //Formular.Columns[8].Visible = false;
-                    //Formular.Columns[9].Visible = false;
-                    Sorting.WhatStat = Stats.Formular;
-                    Sorting.AuthorSort = SortDir.None;
-                    Sorting.ZagSort = SortDir.None;
+                    ////Formular.Columns[8].Visible = false;
+                    ////Formular.Columns[9].Visible = false;
+                    //Sorting.WhatStat = Stats.Formular;
+                    //Sorting.AuthorSort = SortDir.None;
+                    //Sorting.ZagSort = SortDir.None;
+                    //break;
+                    #endregion
+
+                case "Приём/выдача изданий":
+                    #region priem
+                    switch (DEPARTMENT.Circulate(fromport))
+                    {
+                        case 0:
+                            DEPARTMENT.RecieveBook(EmpID);
+                            CancelIssue();
+                            break;
+                        case 1:
+                            MessageBox.Show("Штрихкод не найден ни в базе читателей ни в базе книг!");
+                            break;
+                        case 2:
+                            MessageBox.Show("Ожидался штрихкод читателя, а считан штрихкод издания!");
+                            break;
+                        case 3:
+                            MessageBox.Show("Ожидался штрихкод издания, а считан штрихкод читателя!");
+                            break;
+                        case 4:
+                            lAuthor.Text = DEPARTMENT.ScannedBook.AUTHOR;
+                            lTitle.Text = DEPARTMENT.ScannedBook.TITLE;
+                            bCancel.Enabled = true;
+                            break;
+                        case 5:
+                            lReader.Text = DEPARTMENT.ScannedReader.Family + " " + DEPARTMENT.ScannedReader.Name + " " + DEPARTMENT.ScannedReader.Father;
+                            bConfirm.Enabled = true;
+                            this.AcceptButton = bConfirm;
+                            bConfirm.Focus();
+                            break;
+
+                    }
+                    Log();
                     break;
                     #endregion
-                case "Приём/выдача изданий":
-
-                    DEPARTMENT.Circulate(fromport);
-                    break;
                 #region priem Vidacha staroe
 
 
@@ -361,6 +417,150 @@ namespace Circulation
             }
         }
 
+        private void bConfirm_Click(object sender, EventArgs e)
+        {
+            if (DEPARTMENT.ScannedReader.IsAlreadyIssuedMoreThanFourBooks())
+            {
+                DialogResult res =  MessageBox.Show("Читателю уже выдано более 4 наименований! Всё равно хотите выдать?","Внимание", MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation);
+                if (res == DialogResult.No)
+                {
+                    CancelIssue();
+                    return;
+                }
+            }
+            switch (DEPARTMENT.ISSUE(EmpID))
+            {
+                case 0:
+                    bConfirm.Enabled = false;
+                    bCancel.Enabled = false;
+                    CancelIssue();
+                    Log();
+                    DEPARTMENT = new Department();
+                    break;
+            }
+
+        }
+        private void bCancel_Click(object sender, EventArgs e)
+        {
+            CancelIssue();
+        }
+        private void CancelIssue()
+        {
+            this.lAuthor.Text = "";
+            this.lTitle.Text = "";
+            this.lReader.Text = "";
+            DEPARTMENT = new Department();
+            label1.Text = "Считайте штрихкод издания";
+            bConfirm.Enabled = false;
+            bCancel.Enabled = false;
+        }
+        private void Log()
+        {
+            DBGeneral dbg = new DBGeneral();
+
+            dgvLOG.Columns.Clear();
+            dgvLOG.AutoGenerateColumns = true;
+            dgvLOG.DataSource = dbg.GetLog();
+            dgvLOG.Columns["time"].HeaderText = "Время";
+            dgvLOG.Columns["time"].Width = 80;
+            dgvLOG.Columns["bar"].HeaderText = "Штрихкод";
+            dgvLOG.Columns["bar"].Width = 80;
+            dgvLOG.Columns["tit"].HeaderText = "Издание";
+            dgvLOG.Columns["tit"].Width = 600;
+            dgvLOG.Columns["idr"].HeaderText = "Читатель";
+            dgvLOG.Columns["idr"].Width = 80;
+            dgvLOG.Columns["st"].HeaderText = "Действие";
+            dgvLOG.Columns["st"].Width = 100;
+            foreach (DataGridViewColumn c in dgvLOG.Columns)
+            {
+                c.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+            
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            ReaderVO reader = new ReaderVO((int)numericUpDown3.Value);
+            if (reader.ID == 0)
+            {
+                MessageBox.Show("Читатель не найден!");
+                return;
+            }
+            lFormularName.Text = reader.Family + " " + reader.Name + " " + reader.Father;
+            lFromularNumber.Text = reader.ID.ToString();
+            Formular.DataSource = reader.GetFormular();
+            Formular.Columns["num"].HeaderText = "№№";
+            Formular.Columns["num"].Width = 40;
+            Formular.Columns["bar"].HeaderText = "Штрихкод";
+            Formular.Columns["bar"].Width = 80;
+            Formular.Columns["avt"].HeaderText = "Автор";
+            Formular.Columns["avt"].Width = 200;
+            Formular.Columns["tit"].HeaderText = "Заглавие";
+            Formular.Columns["tit"].Width = 400;
+            Formular.Columns["iss"].HeaderText = "Дата выдачи";
+            Formular.Columns["iss"].Width = 80;
+            Formular.Columns["ret"].HeaderText = "Предполагаемая дата возврата";
+            Formular.Columns["ret"].Width = 110;
+
+            ////dbw.GetFormular("1000001");
+
+            //if (this.numericUpDown3.Value.ToString() == "")
+            //{
+            //    MessageBox.Show("Введите номер читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    return;
+            //}
+            //if (this.numericUpDown3.Value <= 0)
+            //{
+            //    MessageBox.Show("Введите число больше нуля", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    return;
+            //}
+
+            //ReaderSetBarcode = new DBWork.dbReader((int)numericUpDown3.Value);
+            //if (ReaderSetBarcode.barcode == "error")
+            //{
+            //    MessageBox.Show("Читатель не найден!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            //    return;
+            //}
+            //dbw.GetFormular(ReaderSetBarcode.id);
+            //label20.Text = ReaderSetBarcode.Surname + " " + ReaderSetBarcode.Name + " " + ReaderSetBarcode.SecondName;
+            //label25.Text = ReaderSetBarcode.id;
+            //ReaderRecordFormular = new DBWork.dbReader(ReaderSetBarcode);
+
+            ////this.FormularColumnsForming(ReaderSetBarcode.id);
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (Formular.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Выделите строку!");
+                return;
+            }
+            Prolong p = new Prolong();
+            p.ShowDialog();
+            if (p.Days == -99) return;
+            DEPARTMENT.Prolong((int)Formular.SelectedRows[0].Cells["idiss"].Value, p.Days,EmpID);
+            ReaderVO reader = new ReaderVO((int)Formular.SelectedRows[0].Cells["idr"].Value);
+            Formular.DataSource = reader.GetFormular();
+            Formular.Columns["num"].HeaderText = "№№";
+            Formular.Columns["num"].Width = 40;
+            Formular.Columns["bar"].HeaderText = "Штрихкод";
+            Formular.Columns["bar"].Width = 80;
+            Formular.Columns["avt"].HeaderText = "Автор";
+            Formular.Columns["avt"].Width = 200;
+            Formular.Columns["tit"].HeaderText = "Заглавие";
+            Formular.Columns["tit"].Width = 400;
+            Formular.Columns["iss"].HeaderText = "Дата выдачи";
+            Formular.Columns["iss"].Width = 80;
+            Formular.Columns["ret"].HeaderText = "Предполагаемая дата возврата";
+            Formular.Columns["ret"].Width = 110;
+            Formular.Columns["idiss"].Visible = false;
+            Formular.Columns["idr"].Visible = false;
+            
+
+        }
+
+
+
         private string GetExpiredDays(string inv)
         {
             Conn.SQLDA.SelectCommand.CommandText = "select * from Reservation_R..ISSUED where INV = '"+inv+"' and IDMAIN <> 0" ;
@@ -421,10 +621,7 @@ namespace Circulation
             //}
         }
 
-        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
 
-        }
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -432,170 +629,159 @@ namespace Circulation
         }
 
 
-        public void button2_Click_1(object sender, EventArgs e)
-        {
-            //FindReaderInOldBase(ReaderRecord);
-            if (ReaderRecord.RegInMos != DateTime.MinValue)
-            {
-                if ((ReaderRecord.RegInMos - DateTime.Today).Days < 60)
-                {
-                    MessageBox.Show("У читателя заканчивается срок регистрации в Москве! Осталось менее 60 дней!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    this.emul = "";
-                }
-            }
+        //public void button2_Click_1(object sender, EventArgs e)
+        //{
+        //    //FindReaderInOldBase(ReaderRecord);
+        //    if (ReaderRecord.RegInMos != DateTime.MinValue)
+        //    {
+        //        if ((ReaderRecord.RegInMos - DateTime.Today).Days < 60)
+        //        {
+        //            MessageBox.Show("У читателя заканчивается срок регистрации в Москве! Осталось менее 60 дней!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //            this.emul = "";
+        //        }
+        //    }
 
-            bool set = false;
-            //long copy_tStatus;
-            //copy_tStatus = 0;
-            if (dbw.isBookBusy(BookRecord.barcode))
-            {
-                MessageBox.Show("Книга у другого читателя! Дата возврата: " + dbw.GetDateRet(BookRecord.barcode) + ".", "Внимание!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                this.label8.Text = "";
-                this.label9.Text = "";
-                this.label5.Text = "";
-                BookRecord = null;
-                ReaderRecord = null;
-            }
-            else
-            {
-                if (dbw.isReaderHaveRights(ReaderRecord))
-                {
-                    if (!dbw.isRightsExpired(ReaderRecord.id))
-                    {
-                        set = true;
-                    }
-                    else
-                    {
-                        switch (MessageBox.Show("У данного читателя закончился срок прав пользования персональным абонементом! Хотите продлить этому пользователю права на получение книг персонального абонемента и выдать эту книгу?", "Внимание!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
-                        {
-                            case DialogResult.Yes:
-                                set = true;
-                                dbw.ProlongRights(ReaderRecord.id);
-                                break;
-                            case DialogResult.No:
-                                set = false;
-                                this.label8.Text = "";
-                                this.label9.Text = "";
-                                this.label5.Text = "";
-                                BookRecord = null;
-                                ReaderRecord = null;
-                                button2.Enabled = false;
-                                button4.Enabled = false;
-                                label1.Text = "Считайте штрихкод издания";
-                                break;
-                            case DialogResult.Cancel:
-                                set = false;
-                                break;
-                        }
+        //    bool set = false;
+        //    //long copy_tStatus;
+        //    //copy_tStatus = 0;
+        //    if (dbw.isBookBusy(BookRecord.barcode))
+        //    {
+        //        MessageBox.Show("Книга у другого читателя! Дата возврата: " + dbw.GetDateRet(BookRecord.barcode) + ".", "Внимание!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+        //        this.lAuthor.Text = "";
+        //        this.lTitle.Text = "";
+        //        this.lReader.Text = "";
+        //        BookRecord = null;
+        //        ReaderRecord = null;
+        //    }
+        //    else
+        //    {
+        //        if (dbw.isReaderHaveRights(ReaderRecord))
+        //        {
+        //            if (!dbw.isRightsExpired(ReaderRecord.id))
+        //            {
+        //                set = true;
+        //            }
+        //            else
+        //            {
+        //                switch (MessageBox.Show("У данного читателя закончился срок прав пользования персональным абонементом! Хотите продлить этому пользователю права на получение книг персонального абонемента и выдать эту книгу?", "Внимание!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
+        //                {
+        //                    case DialogResult.Yes:
+        //                        set = true;
+        //                        dbw.ProlongRights(ReaderRecord.id);
+        //                        break;
+        //                    case DialogResult.No:
+        //                        set = false;
+        //                        this.lAuthor.Text = "";
+        //                        this.lTitle.Text = "";
+        //                        this.lReader.Text = "";
+        //                        BookRecord = null;
+        //                        ReaderRecord = null;
+        //                        button2.Enabled = false;
+        //                        button4.Enabled = false;
+        //                        label1.Text = "Считайте штрихкод издания";
+        //                        break;
+        //                    case DialogResult.Cancel:
+        //                        set = false;
+        //                        break;
+        //                }
 
-                    }
+        //            }
 
-                }
-                else
-                {
-                    switch (MessageBox.Show("У данного читателя нет прав для получения книг персонального абонемента! Хотите выдать этому пользователю права на получение книг персонального абонемента и выдать эту книгу?", "Внимание!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
-                    {
-                        case DialogResult.Yes:
-                            set = true;
-                            dbw.setReaderRight(ReaderRecord.id);
-                            break;
-                        case DialogResult.No:
-                            set = false;
-                            this.label8.Text = "";
-                            this.label9.Text = "";
-                            this.label5.Text = "";
-                            BookRecord = null;
-                            ReaderRecord = null;
-                            button2.Enabled = false;
-                            button4.Enabled = false;
-                            label1.Text = "Считайте штрихкод издания";
-                            break;
-                        case DialogResult.Cancel:
-                            set = false;
-                            break;
-                    }
+        //        }
+        //        else
+        //        {
+        //            switch (MessageBox.Show("У данного читателя нет прав для получения книг персонального абонемента! Хотите выдать этому пользователю права на получение книг персонального абонемента и выдать эту книгу?", "Внимание!", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question))
+        //            {
+        //                case DialogResult.Yes:
+        //                    set = true;
+        //                    dbw.setReaderRight(ReaderRecord.id);
+        //                    break;
+        //                case DialogResult.No:
+        //                    set = false;
+        //                    this.lAuthor.Text = "";
+        //                    this.lTitle.Text = "";
+        //                    this.lReader.Text = "";
+        //                    BookRecord = null;
+        //                    ReaderRecord = null;
+        //                    button2.Enabled = false;
+        //                    button4.Enabled = false;
+        //                    label1.Text = "Считайте штрихкод издания";
+        //                    break;
+        //                case DialogResult.Cancel:
+        //                    set = false;
+        //                    break;
+        //            }
 
-                }
-                if (set)
-                {
-                    /*if (ReaderRecord.AbonType == "Нет значения")
-                    {
-                        MessageBox.Show("У данного читателя не присвоено значение типа абонемента. Выдача невозможна. Сначала присвойте читателю тип абонемента на вкладке \"Формуляр читателя\"Э", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                        return;
-                    }*/
-                    if (dbw.GetBookCountForReader(ReaderRecord.id) >= 5)
-                    {
-                        switch (MessageBox.Show("Данный читатель пытается взять более 5 книг. Хотите продолжить выдачу?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
-                        {
-                            case DialogResult.No:
-                                this.label8.Text = "";
-                                this.label9.Text = "";
-                                this.label5.Text = "";
-                                BookRecord = null;
-                                ReaderRecord = null;
-                                button2.Enabled = false;
-                                button4.Enabled = false;
-                                label1.Text = "Считайте штрихкод издания";
-                                return;
-                            case DialogResult.Yes:
-                                dbw.setBookForReader(BookRecord, ReaderRecord, 30);
-                                dataGridView1.Rows.Insert(0, 1);
-                                dataGridView1.Rows[0].Cells[0].Value = BookRecord.inv;
-                                dataGridView1.Rows[0].Cells[1].Value = BookRecord.name;
-                                BookRecord = new DBWork.dbBook(BookRecord.barcode);
-                                dataGridView1.Rows[0].Cells[2].Value = ReaderRecord.FIO;
-                                dataGridView1.Rows[0].Cells[3].Value = "Выдано";
-                                this.label8.Text = "";
-                                this.label9.Text = "";
-                                this.label5.Text = "";
-                                dbw.InsertActionISSUED(ReaderRecord,BookRecord);
-                                BookRecord = null;
-                                ReaderRecord = null;
-                                button2.Enabled = false;
-                                button4.Enabled = false;
-                                label1.Text = "Считайте штрихкод издания";
-                                break;
-                        }
+        //        }
+        //        if (set)
+        //        {
+        //            /*if (ReaderRecord.AbonType == "Нет значения")
+        //            {
+        //                MessageBox.Show("У данного читателя не присвоено значение типа абонемента. Выдача невозможна. Сначала присвойте читателю тип абонемента на вкладке \"Формуляр читателя\"Э", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        //                return;
+        //            }*/
+        //            if (dbw.GetBookCountForReader(ReaderRecord.id) >= 5)
+        //            {
+        //                switch (MessageBox.Show("Данный читатель пытается взять более 5 книг. Хотите продолжить выдачу?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning))
+        //                {
+        //                    case DialogResult.No:
+        //                        this.lAuthor.Text = "";
+        //                        this.lTitle.Text = "";
+        //                        this.lReader.Text = "";
+        //                        BookRecord = null;
+        //                        ReaderRecord = null;
+        //                        button2.Enabled = false;
+        //                        button4.Enabled = false;
+        //                        label1.Text = "Считайте штрихкод издания";
+        //                        return;
+        //                    case DialogResult.Yes:
+        //                        dbw.setBookForReader(BookRecord, ReaderRecord, 30);
+        //                        dataGridView1.Rows.Insert(0, 1);
+        //                        dataGridView1.Rows[0].Cells[0].Value = BookRecord.inv;
+        //                        dataGridView1.Rows[0].Cells[1].Value = BookRecord.name;
+        //                        BookRecord = new DBWork.dbBook(BookRecord.barcode);
+        //                        dataGridView1.Rows[0].Cells[2].Value = ReaderRecord.FIO;
+        //                        dataGridView1.Rows[0].Cells[3].Value = "Выдано";
+        //                        this.lAuthor.Text = "";
+        //                        this.lTitle.Text = "";
+        //                        this.lReader.Text = "";
+        //                        dbw.InsertActionISSUED(ReaderRecord,BookRecord);
+        //                        BookRecord = null;
+        //                        ReaderRecord = null;
+        //                        button2.Enabled = false;
+        //                        button4.Enabled = false;
+        //                        label1.Text = "Считайте штрихкод издания";
+        //                        break;
+        //                }
 
-                    }
-                    else
-                    {
-                        dbw.setBookForReader(BookRecord, ReaderRecord, 30);
-                        dataGridView1.Rows.Insert(0, 1);
-                        dataGridView1.Rows[0].Cells[0].Value = BookRecord.inv;
-                        dataGridView1.Rows[0].Cells[1].Value = BookRecord.name;
-                        BookRecord = new DBWork.dbBook(BookRecord.barcode);
-                        dataGridView1.Rows[0].Cells[2].Value = ReaderRecord.FIO;
-                        dataGridView1.Rows[0].Cells[3].Value = "Выдано";
-                        this.label8.Text = "";
-                        this.label9.Text = "";
-                        this.label5.Text = "";
-                        dbw.InsertActionISSUED(ReaderRecord,BookRecord);
-                        BookRecord = null;
-                        ReaderRecord = null;
-                        button2.Enabled = false;
-                        button4.Enabled = false;
-                        label1.Text = "Считайте штрихкод издания";
-                    }
+        //            }
+        //            else
+        //            {
+        //                dbw.setBookForReader(BookRecord, ReaderRecord, 30);
+        //                dataGridView1.Rows.Insert(0, 1);
+        //                dataGridView1.Rows[0].Cells[0].Value = BookRecord.inv;
+        //                dataGridView1.Rows[0].Cells[1].Value = BookRecord.name;
+        //                BookRecord = new DBWork.dbBook(BookRecord.barcode);
+        //                dataGridView1.Rows[0].Cells[2].Value = ReaderRecord.FIO;
+        //                dataGridView1.Rows[0].Cells[3].Value = "Выдано";
+        //                this.lAuthor.Text = "";
+        //                this.lTitle.Text = "";
+        //                this.lReader.Text = "";
+        //                dbw.InsertActionISSUED(ReaderRecord,BookRecord);
+        //                BookRecord = null;
+        //                ReaderRecord = null;
+        //                button2.Enabled = false;
+        //                button4.Enabled = false;
+        //                label1.Text = "Считайте штрихкод издания";
+        //            }
 
-                }
-            }
-            BookRecord = null;
-            ReaderRecord = null;
-        }
+        //        }
+        //    }
+        //    BookRecord = null;
+        //    ReaderRecord = null;
+        //}
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            //dbw.isBookBusy("");
-            this.label8.Text = "";
-            this.label9.Text = "";
-            this.label5.Text = "";
-            BookRecord = null;
-            ReaderRecord = null;
-            label1.Text = "Считайте штрихкод издания";
-            button2.Enabled = false;
-            button4.Enabled = false;
-        }
+
 
         private void textBox5_TextChanged(object sender, EventArgs e)
         {
@@ -618,8 +804,8 @@ namespace Circulation
                     label1.Enabled = false;
                     break;
                 case "Формуляр читателя":
-                    label25.Text = "";
-                    label20.Text = "";
+                    lFromularNumber.Text = "";
+                    lFormularName.Text = "";
                     Formular.Columns.Clear();
                     AcceptButton = this.button10;
 
@@ -650,7 +836,7 @@ namespace Circulation
             int x = this.Left + button7.Left;
             int y = this.Top + button7.Top + tabControl1.Top + 60;
             //Point p = button7.PointToScreen(button7.Location);
-            contextMenuStrip1.Show(x, y);
+            //contextMenuStrip1.Show(x, y);
         }
 
 
@@ -1023,34 +1209,6 @@ namespace Circulation
 
         }
 
-        private void button10_Click(object sender, EventArgs e)
-        {
-            //dbw.GetFormular("1000001");
-
-            if (this.numericUpDown3.Value.ToString() == "")
-            {
-                MessageBox.Show("Введите номер читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
-            if (this.numericUpDown3.Value <= 0)
-            {
-                MessageBox.Show("Введите число больше нуля", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
-
-            ReaderSetBarcode = new DBWork.dbReader((int)numericUpDown3.Value);
-            if (ReaderSetBarcode.barcode == "error")
-            {
-                MessageBox.Show("Читатель не найден!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                return;
-            }
-            dbw.GetFormular(ReaderSetBarcode.id);
-            label20.Text = ReaderSetBarcode.Surname + " " + ReaderSetBarcode.Name + " " + ReaderSetBarcode.SecondName;
-            label25.Text = ReaderSetBarcode.id;
-            ReaderRecordFormular = new DBWork.dbReader(ReaderSetBarcode);
-
-            //this.FormularColumnsForming(ReaderSetBarcode.id);
-        }
 
 
 
@@ -1073,7 +1231,7 @@ namespace Circulation
                                                                        " ('"+Formular.Rows[e.RowIndex].Cells["peny"].Value.ToString()+
                                                                        "' , '"+DateTime.Now.ToString("yyyyMMdd")+
                                                                        "' ,  '" + Formular.Rows[e.RowIndex].Cells["inv"].Value.ToString() +
-                                                                       "' , " + label25.Text + ", " + Formular.Rows[e.RowIndex].Cells["idmain"].Value.ToString() + ")";
+                                                                       "' , " + lFromularNumber.Text + ", " + Formular.Rows[e.RowIndex].Cells["idmain"].Value.ToString() + ")";
                                 if (Conn.SQLDA.InsertCommand.Connection.State == ConnectionState.Closed)
                                 {
                                     Conn.SQLDA.InsertCommand.Connection.Open();
@@ -1101,7 +1259,7 @@ namespace Circulation
                         ((DataGridViewDisableButtonCell)Formular.Rows[e.RowIndex].Cells["but"]).Enabled = true;
                         ((DataGridViewDisableButtonCell)Formular.Rows[e.RowIndex].Cells["but"]).Value = "Продлить";
                     }
-                    dbw.InsertActionProlong(new DBWork.dbReader(int.Parse(label25.Text)), new DBWork.dbBook(Formular.Rows[e.RowIndex].Cells["bar"].Value.ToString()));
+                    dbw.InsertActionProlong(new DBWork.dbReader(int.Parse(lFromularNumber.Text)), new DBWork.dbBook(Formular.Rows[e.RowIndex].Cells["bar"].Value.ToString()));
                     Formular.Rows[e.RowIndex].Cells["vozv"].Value = DateTime.Parse(Formular.Rows[e.RowIndex].Cells["vozv"].Value.ToString()).AddDays(f4.Days);
                     //Formular.Rows[e.RowIndex].Cells["peny"].Value = CalculatePeny(Formular.Rows[e.RowIndex]).ToString() + " р.";
                     return;
@@ -1141,13 +1299,7 @@ namespace Circulation
             }
         }
 
-        private void Formular_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            /*switch (Formular.Columns[e.ColumnIndex].Name)
-            {
-                
-            }*/
-        }
+      
 
         private void Formular_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -1226,7 +1378,7 @@ namespace Circulation
 
         private void button11_Click(object sender, EventArgs e)
         {
-            if (label25.Text == string.Empty)
+            if (lFromularNumber.Text == string.Empty)
             {
                 MessageBox.Show("Читатель не выбран!");
                 return;
@@ -1236,7 +1388,7 @@ namespace Circulation
                 MessageBox.Show("За читателем не числится ни книг ни нарушений!");
                 return;
             }
-            LostBook lb = new LostBook(label25.Text, this, Formular);
+            LostBook lb = new LostBook(lFromularNumber.Text, this, Formular);
             lb.ShowDialog();
             //FormularColumnsForming(ReaderRecordFormular.id);
             
@@ -1455,12 +1607,12 @@ namespace Circulation
             //crystalReportViewer1.PrintReport();
             cr1.PrintToPrinter(2, false, 1, 99999);*/
             #endregion
-            if (label25.Text == "")
+            if (lFromularNumber.Text == "")
             {
                 MessageBox.Show("Читатель не выбран! Сначала выберите читателя!");
                 return;
             }
-            DBWork.dbReader reader = new DBWork.dbReader(int.Parse(label25.Text));
+            DBWork.dbReader reader = new DBWork.dbReader(int.Parse(lFromularNumber.Text));
 
             Conn.ReaderDA.SelectCommand.CommandText = "select * from Main where";
 
@@ -1630,7 +1782,7 @@ namespace Circulation
 
         private void button16_Click(object sender, EventArgs e)
         {
-            if (label25.Text == "")
+            if (lFromularNumber.Text == "")
             {
                 MessageBox.Show("Введите номер или считайте штрихкод читателя!");
                 return;
@@ -1644,7 +1796,7 @@ namespace Circulation
 
         private void button17_Click(object sender, EventArgs e)
         {
-            if (label25.Text == "")
+            if (lFromularNumber.Text == "")
             {
                 MessageBox.Show("Введите номер или считайте штрихкод читателя!");
                 return;
@@ -1668,8 +1820,8 @@ namespace Circulation
 
             dbw.GetFormular(ReaderRecordFormular.id);
             ReaderSetBarcode = new DBWork.dbReader(ReaderRecordFormular);
-            label20.Text = ReaderRecordFormular.Surname + " " + ReaderRecordFormular.Name + " " + ReaderRecordFormular.SecondName;
-            label25.Text = ReaderRecordFormular.id;
+            lFormularName.Text = ReaderRecordFormular.Surname + " " + ReaderRecordFormular.Name + " " + ReaderRecordFormular.SecondName;
+            lFromularNumber.Text = ReaderRecordFormular.id;
             //FormularColumnsForming(ReaderRecordFormular.id);
 
         }
@@ -1677,12 +1829,12 @@ namespace Circulation
         private void button22_Click(object sender, EventArgs e)
         {
             //выдать книгу по номеру
-            if (label5.Text != "")
+            if (lReader.Text != "")
             {
                 MessageBox.Show("Читатель уже идентифицирован! Подтвердите выдачу!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            if (label9.Text == "")
+            if (lTitle.Text == "")
             {
                 MessageBox.Show("Сначала считайте штрихкод с книги!","Внимание",MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
@@ -2124,6 +2276,10 @@ namespace Circulation
             Statistics.Columns[4].Width = 80;
             autoinc(Statistics);
         }
+
+
+
+
 
 
 

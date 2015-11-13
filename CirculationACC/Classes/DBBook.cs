@@ -69,5 +69,21 @@ namespace Circulation
             if (i > 0) return true; else return false;
 
         }
+
+        internal bool IsIssued(int IDDATA)
+        {
+            DA.SelectCommand.CommandText = "select IDMAIN from Reservation_R..ISSUED_ACC where IDDATA = "+IDDATA+" and IDSTATUS = 1";
+            DS = new DataSet();
+            int i = DA.Fill(DS, "t");
+            if (i > 0) return true; else return false;
+        }
+
+        internal int GetIDISSUED(int IDDATA)
+        {
+            DA.SelectCommand.CommandText = "select ID from Reservation_R..ISSUED_ACC where IDDATA = " + IDDATA + " and IDSTATUS = 1";
+            DS = new DataSet();
+            int i = DA.Fill(DS, "t");
+            if (i > 0) return (int)DS.Tables["t"].Rows[0]["ID"]; else return 0;
+        }
     }
 }

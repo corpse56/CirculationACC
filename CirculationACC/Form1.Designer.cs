@@ -36,23 +36,24 @@ namespace Circulation
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.button14 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.bCancel = new System.Windows.Forms.Button();
+            this.bConfirm = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.lReader = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.lTitle = new System.Windows.Forms.Label();
+            this.lAuthor = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvLOG = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
@@ -62,8 +63,8 @@ namespace Circulation
             this.button10 = new System.Windows.Forms.Button();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.label22 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
+            this.lFromularNumber = new System.Windows.Forms.Label();
+            this.lFormularName = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.Formular = new System.Windows.Forms.DataGridView();
@@ -104,7 +105,7 @@ namespace Circulation
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLOG)).BeginInit();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Formular)).BeginInit();
@@ -164,12 +165,12 @@ namespace Circulation
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.button14);
-            this.tabPage1.Controls.Add(this.button4);
-            this.tabPage1.Controls.Add(this.button2);
+            this.tabPage1.Controls.Add(this.bCancel);
+            this.tabPage1.Controls.Add(this.bConfirm);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.groupBox1);
-            this.tabPage1.Controls.Add(this.dataGridView1);
+            this.tabPage1.Controls.Add(this.dgvLOG);
             this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
@@ -191,25 +192,25 @@ namespace Circulation
             this.button14.UseVisualStyleBackColor = true;
             this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
-            // button4
+            // bCancel
             // 
-            this.button4.Location = new System.Drawing.Point(501, 461);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 31);
-            this.button4.TabIndex = 6;
-            this.button4.Text = "Отмена";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.bCancel.Location = new System.Drawing.Point(501, 461);
+            this.bCancel.Name = "bCancel";
+            this.bCancel.Size = new System.Drawing.Size(75, 31);
+            this.bCancel.TabIndex = 6;
+            this.bCancel.Text = "Отмена";
+            this.bCancel.UseVisualStyleBackColor = true;
+            this.bCancel.Click += new System.EventHandler(this.bCancel_Click);
             // 
-            // button2
+            // bConfirm
             // 
-            this.button2.Location = new System.Drawing.Point(371, 461);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(116, 31);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "Подтвердить";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.bConfirm.Location = new System.Drawing.Point(371, 461);
+            this.bConfirm.Name = "bConfirm";
+            this.bConfirm.Size = new System.Drawing.Size(116, 31);
+            this.bConfirm.TabIndex = 1;
+            this.bConfirm.Text = "Подтвердить";
+            this.bConfirm.UseVisualStyleBackColor = true;
+            this.bConfirm.Click += new System.EventHandler(this.bConfirm_Click);
             // 
             // label1
             // 
@@ -224,7 +225,7 @@ namespace Circulation
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.lReader);
             this.groupBox2.Location = new System.Drawing.Point(501, 336);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(474, 119);
@@ -232,19 +233,19 @@ namespace Circulation
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Читатель";
             // 
-            // label5
+            // lReader
             // 
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(35, 32);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(392, 50);
-            this.label5.TabIndex = 5;
+            this.lReader.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lReader.Location = new System.Drawing.Point(35, 32);
+            this.lReader.Name = "lReader";
+            this.lReader.Size = new System.Drawing.Size(392, 50);
+            this.lReader.TabIndex = 5;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.lTitle);
+            this.groupBox1.Controls.Add(this.lAuthor);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Location = new System.Drawing.Point(12, 336);
             this.groupBox1.Name = "groupBox1";
@@ -262,21 +263,21 @@ namespace Circulation
             this.label7.TabIndex = 5;
             this.label7.Text = "Заглавие: ";
             // 
-            // label9
+            // lTitle
             // 
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label9.Location = new System.Drawing.Point(127, 72);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(329, 36);
-            this.label9.TabIndex = 5;
+            this.lTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lTitle.Location = new System.Drawing.Point(127, 72);
+            this.lTitle.Name = "lTitle";
+            this.lTitle.Size = new System.Drawing.Size(329, 36);
+            this.lTitle.TabIndex = 5;
             // 
-            // label8
+            // lAuthor
             // 
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label8.Location = new System.Drawing.Point(91, 32);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(365, 25);
-            this.label8.TabIndex = 5;
+            this.lAuthor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lAuthor.Location = new System.Drawing.Point(91, 32);
+            this.lAuthor.Name = "lAuthor";
+            this.lAuthor.Size = new System.Drawing.Size(365, 25);
+            this.lAuthor.TabIndex = 5;
             // 
             // label6
             // 
@@ -287,21 +288,23 @@ namespace Circulation
             this.label6.TabIndex = 5;
             this.label6.Text = "Автор:";
             // 
-            // dataGridView1
+            // dgvLOG
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvLOG.AllowUserToAddRows = false;
+            this.dgvLOG.AllowUserToDeleteRows = false;
+            this.dgvLOG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvLOG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3,
             this.dataGridViewTextBoxColumn4});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 32);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(962, 266);
-            this.dataGridView1.TabIndex = 2;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
+            this.dgvLOG.Location = new System.Drawing.Point(12, 32);
+            this.dgvLOG.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvLOG.Name = "dgvLOG";
+            this.dgvLOG.ReadOnly = true;
+            this.dgvLOG.RowHeadersVisible = false;
+            this.dgvLOG.Size = new System.Drawing.Size(962, 266);
+            this.dgvLOG.TabIndex = 2;
             // 
             // dataGridViewTextBoxColumn1
             // 
@@ -321,12 +324,14 @@ namespace Circulation
             // 
             this.dataGridViewTextBoxColumn3.HeaderText = "Читатель";
             this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
             this.dataGridViewTextBoxColumn3.Width = 200;
             // 
             // dataGridViewTextBoxColumn4
             // 
             this.dataGridViewTextBoxColumn4.HeaderText = "Результат";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
             // 
             // label4
             // 
@@ -340,6 +345,7 @@ namespace Circulation
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.button1);
             this.tabPage4.Controls.Add(this.button21);
             this.tabPage4.Controls.Add(this.button17);
             this.tabPage4.Controls.Add(this.button16);
@@ -349,8 +355,8 @@ namespace Circulation
             this.tabPage4.Controls.Add(this.button10);
             this.tabPage4.Controls.Add(this.numericUpDown3);
             this.tabPage4.Controls.Add(this.label22);
-            this.tabPage4.Controls.Add(this.label25);
-            this.tabPage4.Controls.Add(this.label20);
+            this.tabPage4.Controls.Add(this.lFromularNumber);
+            this.tabPage4.Controls.Add(this.lFormularName);
             this.tabPage4.Controls.Add(this.label24);
             this.tabPage4.Controls.Add(this.label17);
             this.tabPage4.Controls.Add(this.Formular);
@@ -363,34 +369,47 @@ namespace Circulation
             this.tabPage4.UseVisualStyleBackColor = true;
             this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(786, 73);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(190, 23);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "Продлить выделенное";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // button21
             // 
-            this.button21.Location = new System.Drawing.Point(515, 18);
+            this.button21.Location = new System.Drawing.Point(212, 76);
             this.button21.Name = "button21";
             this.button21.Size = new System.Drawing.Size(228, 23);
             this.button21.TabIndex = 18;
             this.button21.Text = "Поиск читателя по фамилии";
             this.button21.UseVisualStyleBackColor = true;
+            this.button21.Visible = false;
             this.button21.Click += new System.EventHandler(this.button21_Click);
             // 
             // button17
             // 
-            this.button17.Location = new System.Drawing.Point(515, 76);
+            this.button17.Location = new System.Drawing.Point(446, 47);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(228, 23);
             this.button17.TabIndex = 16;
             this.button17.Text = "Просмотр сведений о читателе";
             this.button17.UseVisualStyleBackColor = true;
+            this.button17.Visible = false;
             this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
             // button16
             // 
-            this.button16.Location = new System.Drawing.Point(749, 18);
+            this.button16.Location = new System.Drawing.Point(446, 73);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(227, 23);
             this.button16.TabIndex = 15;
             this.button16.Text = "История выданных документов";
             this.button16.UseVisualStyleBackColor = true;
+            this.button16.Visible = false;
             this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // crystalReportViewer1
@@ -407,22 +426,24 @@ namespace Circulation
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(313, 76);
+            this.button13.Location = new System.Drawing.Point(10, 76);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(196, 23);
             this.button13.TabIndex = 12;
             this.button13.Text = "Распечатать формуляр";
             this.button13.UseVisualStyleBackColor = true;
+            this.button13.Visible = false;
             this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(749, 76);
+            this.button11.Location = new System.Drawing.Point(213, 47);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(227, 23);
             this.button11.TabIndex = 11;
             this.button11.Text = "Читатель потерял книгу...";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Visible = false;
             this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // button10
@@ -457,23 +478,23 @@ namespace Circulation
             this.label22.TabIndex = 5;
             this.label22.Text = "Считайте штрихкод или введите номер читательского билета:";
             // 
-            // label25
+            // lFromularNumber
             // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label25.Location = new System.Drawing.Point(289, 9);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(0, 17);
-            this.label25.TabIndex = 4;
+            this.lFromularNumber.AutoSize = true;
+            this.lFromularNumber.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lFromularNumber.Location = new System.Drawing.Point(289, 9);
+            this.lFromularNumber.Name = "lFromularNumber";
+            this.lFromularNumber.Size = new System.Drawing.Size(0, 17);
+            this.lFromularNumber.TabIndex = 4;
             // 
-            // label20
+            // lFormularName
             // 
-            this.label20.AutoSize = true;
-            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label20.Location = new System.Drawing.Point(108, 47);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(0, 17);
-            this.label20.TabIndex = 4;
+            this.lFormularName.AutoSize = true;
+            this.lFormularName.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.lFormularName.Location = new System.Drawing.Point(108, 47);
+            this.lFormularName.Name = "lFormularName";
+            this.lFormularName.Size = new System.Drawing.Size(0, 17);
+            this.lFormularName.TabIndex = 4;
             // 
             // label24
             // 
@@ -512,61 +533,68 @@ namespace Circulation
             this.Formular.Location = new System.Drawing.Point(3, 102);
             this.Formular.MultiSelect = false;
             this.Formular.Name = "Formular";
+            this.Formular.ReadOnly = true;
+            this.Formular.RowHeadersVisible = false;
             this.Formular.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Formular.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Formular.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.Formular.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.Formular.Size = new System.Drawing.Size(976, 360);
             this.Formular.TabIndex = 2;
-            this.Formular.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.Formular_CellValueChanged);
-            this.Formular.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Formular_ColumnHeaderMouseClick);
-            this.Formular.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Formular_CellContentClick);
             // 
             // N
             // 
             this.N.HeaderText = "№";
             this.N.Name = "N";
+            this.N.ReadOnly = true;
             this.N.Width = 30;
             // 
             // Avtor
             // 
             this.Avtor.HeaderText = "Автор";
             this.Avtor.Name = "Avtor";
+            this.Avtor.ReadOnly = true;
             this.Avtor.Width = 150;
             // 
             // Zaglavie
             // 
             this.Zaglavie.HeaderText = "Заглавие";
             this.Zaglavie.Name = "Zaglavie";
+            this.Zaglavie.ReadOnly = true;
             this.Zaglavie.Width = 250;
             // 
             // God
             // 
             this.God.HeaderText = "Год издания";
             this.God.Name = "God";
+            this.God.ReadOnly = true;
             this.God.Width = 75;
             // 
             // DateIssue
             // 
             this.DateIssue.HeaderText = "Дата выдачи";
             this.DateIssue.Name = "DateIssue";
+            this.DateIssue.ReadOnly = true;
             this.DateIssue.Width = 80;
             // 
             // DateVozv
             // 
             this.DateVozv.HeaderText = "Предпола гаемая дата возврата";
             this.DateVozv.Name = "DateVozv";
+            this.DateVozv.ReadOnly = true;
             this.DateVozv.Width = 80;
             // 
             // DateVozvFact
             // 
             this.DateVozvFact.HeaderText = "Фактичес кая дата возврата";
             this.DateVozvFact.Name = "DateVozvFact";
+            this.DateVozvFact.ReadOnly = true;
             this.DateVozvFact.Width = 80;
             // 
             // Penalt
             // 
             this.Penalt.HeaderText = "Нарушение";
             this.Penalt.Name = "Penalt";
+            this.Penalt.ReadOnly = true;
             this.Penalt.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Penalt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.Penalt.Width = 85;
@@ -777,7 +805,7 @@ namespace Circulation
             // 
             // Form1
             // 
-            this.AcceptButton = this.button2;
+            this.AcceptButton = this.bConfirm;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1018, 675);
@@ -801,7 +829,7 @@ namespace Circulation
             this.tabPage1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvLOG)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
@@ -826,18 +854,18 @@ namespace Circulation
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvLOG;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button bCancel;
+        private System.Windows.Forms.Button bConfirm;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lReader;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lTitle;
+        private System.Windows.Forms.Label lAuthor;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label10;
@@ -850,14 +878,14 @@ namespace Circulation
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label lFormularName;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.NumericUpDown numericUpDown3;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ToolTip toolTip2;
-        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label lFromularNumber;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.DataGridViewTextBoxColumn N;
         private System.Windows.Forms.DataGridViewTextBoxColumn Avtor;
@@ -890,6 +918,7 @@ namespace Circulation
         public System.Windows.Forms.DataGridView Formular;
         private System.Windows.Forms.ToolStripMenuItem списокДействийТекущегоОператораЗАпериодToolStripMenuItem;
         private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
+        private System.Windows.Forms.Button button1;
         //private Circulation.BRIT_SOVETDataSetTableAdapters.ZAKAZTableAdapter zAKAZTableAdapter;
         //private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
         //private CrystalReport1 CrystalReport11;
