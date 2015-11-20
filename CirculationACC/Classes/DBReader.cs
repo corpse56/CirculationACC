@@ -104,5 +104,14 @@ namespace Circulation
 
 
         }
+
+        internal DataTable GetReaderByFamily(string p)
+        {
+            DA.SelectCommand.CommandText = "select NumberReader, FamilyName, [Name], FatherName,DateBirth, RegistrationCity,RegistrationStreet, "+
+                                           " LiveEmail +'; '+RegistrationEmail from Readers..Main where lower(FamilyName) like lower('" + p + "')+'%'";
+            DS = new DataSet();
+            DA.Fill(DS, "t");
+            return DS.Tables["t"];
+        }
     }
 }

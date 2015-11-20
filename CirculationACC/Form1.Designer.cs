@@ -381,13 +381,12 @@ namespace Circulation
             // 
             // button21
             // 
-            this.button21.Location = new System.Drawing.Point(212, 76);
+            this.button21.Location = new System.Drawing.Point(748, 40);
             this.button21.Name = "button21";
             this.button21.Size = new System.Drawing.Size(228, 23);
             this.button21.TabIndex = 18;
             this.button21.Text = "Поиск читателя по фамилии";
             this.button21.UseVisualStyleBackColor = true;
-            this.button21.Visible = false;
             this.button21.Click += new System.EventHandler(this.button21_Click);
             // 
             // button17

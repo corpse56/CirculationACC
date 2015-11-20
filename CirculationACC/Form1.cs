@@ -98,30 +98,11 @@ namespace Circulation
             switch (tabControl1.SelectedTab.Text)
             {
                 case "Формуляр читателя":
+                    #region formular
                     ReaderVO reader = new ReaderVO(fromport);
-                    if (reader.ID == 0)
-                    {
-                        MessageBox.Show("Читатель не найден!");
-                        break;
-                    }
-                    lFormularName.Text = reader.Family + " " + reader.Name + " " + reader.Father;
-                    lFromularNumber.Text = reader.ID.ToString();
-                    Formular.DataSource = reader.GetFormular();
-                    Formular.Columns["num"].HeaderText = "№№";
-                    Formular.Columns["num"].Width = 40;
-                    Formular.Columns["bar"].HeaderText = "Штрихкод";
-                    Formular.Columns["bar"].Width = 80;
-                    Formular.Columns["avt"].HeaderText = "Автор";
-                    Formular.Columns["avt"].Width = 200;
-                    Formular.Columns["tit"].HeaderText = "Заглавие";
-                    Formular.Columns["tit"].Width = 400;
-                    Formular.Columns["iss"].HeaderText = "Дата выдачи";
-                    Formular.Columns["iss"].Width = 80;
-                    Formular.Columns["ret"].HeaderText = "Предполагаемая дата возврата";
-                    Formular.Columns["ret"].Width = 110;
-                    Formular.Columns["idiss"].Visible = false;
-                    Formular.Columns["idr"].Visible = false;
+                    FillFormular(reader);
 
+                    #endregion
                     break;
                     #region old_formular
 
@@ -208,12 +189,14 @@ namespace Circulation
                             lAuthor.Text = DEPARTMENT.ScannedBook.AUTHOR;
                             lTitle.Text = DEPARTMENT.ScannedBook.TITLE;
                             bCancel.Enabled = true;
+                            label1.Text = "Считайте штрихкод читателя";
                             break;
                         case 5:
                             lReader.Text = DEPARTMENT.ScannedReader.Family + " " + DEPARTMENT.ScannedReader.Name + " " + DEPARTMENT.ScannedReader.Father;
                             bConfirm.Enabled = true;
                             this.AcceptButton = bConfirm;
                             bConfirm.Focus();
+                            label1.Text = "Подтвердите операцию";
                             break;
 
                     }
@@ -415,6 +398,32 @@ namespace Circulation
                     //break;
                     #endregion
             }
+        }
+
+        public void FillFormular(ReaderVO reader)
+        {
+            if (reader.ID == 0)
+            {
+                MessageBox.Show("Читатель не найден!");
+                return;
+            }
+            lFormularName.Text = reader.Family + " " + reader.Name + " " + reader.Father;
+            lFromularNumber.Text = reader.ID.ToString();
+            Formular.DataSource = reader.GetFormular();
+            Formular.Columns["num"].HeaderText = "№№";
+            Formular.Columns["num"].Width = 40;
+            Formular.Columns["bar"].HeaderText = "Штрихкод";
+            Formular.Columns["bar"].Width = 80;
+            Formular.Columns["avt"].HeaderText = "Автор";
+            Formular.Columns["avt"].Width = 200;
+            Formular.Columns["tit"].HeaderText = "Заглавие";
+            Formular.Columns["tit"].Width = 400;
+            Formular.Columns["iss"].HeaderText = "Дата выдачи";
+            Formular.Columns["iss"].Width = 80;
+            Formular.Columns["ret"].HeaderText = "Предполагаемая дата возврата";
+            Formular.Columns["ret"].Width = 110;
+            Formular.Columns["idiss"].Visible = false;
+            Formular.Columns["idr"].Visible = false;
         }
 
         private void bConfirm_Click(object sender, EventArgs e)
@@ -796,9 +805,11 @@ namespace Circulation
             switch (tabControl1.SelectedTab.Text)
             {
                 case "Приём/выдача изданий":
+                    Log();
+                    //CancelIssue();
                     label1.Enabled = true;
                     
-                    label1.Text = "Считайте штрихкод издания";
+                    //label1.Text = "Считайте штрихкод издания";
                     break;
                 case "Справка":
                     label1.Enabled = false;

@@ -29,14 +29,17 @@ namespace Circulation
                 MessageBox.Show("Введите фамилию читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return;
             }
-            Conn.SQLDA.SelectCommand.CommandText = "select NumberReader, FamilyName, [Name], FatherName,DateBirth, RegistrationCity,RegistrationStreet,LiveEmail +'; '+RegistrationEmail from Readers..Main where lower(FamilyName) like lower('" + textBox1.Text + "')+'%'";
-            DataSet DS = new DataSet();
-            if (Conn.SQLDA.Fill(DS, "t") == 0)
+            DBReader dbr = new DBReader();
+
+            //DataSet DS = new DataSet();
+
+            DataTable t = dbr.GetReaderByFamily(textBox1.Text);
+            if (t.Rows.Count == 0)
             {
                 MessageBox.Show("Читатель не найден!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            dataGridView1.DataSource = DS.Tables["t"];
+            dataGridView1.DataSource = t;
             dataGridView1.Columns[0].HeaderText = "Номер читателя";
             dataGridView1.Columns[1].HeaderText = "Фамилия";
             dataGridView1.Columns[2].HeaderText = "Имя";
@@ -45,15 +48,28 @@ namespace Circulation
             dataGridView1.Columns[5].HeaderText = "Город";
             dataGridView1.Columns[6].HeaderText = "Улица";
             dataGridView1.Columns[7].HeaderText = "Email";
-
+            dataGridView1.Columns[6].Width = 200;
+            dataGridView1.Columns[7].Width = 200;
 
 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            f1.FrmlrFam(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+            //f1.FrmlrFam(dataGridView1.SelectedRows[0].Cells[0].Value.ToString());
+            if (dataGridView1.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Читатель не выбран!");
+                return;
+            }
+            ReaderVO reader = new ReaderVO((int)dataGridView1.SelectedRows[0].Cells[0].Value);
+            f1.FillFormular(reader);
             Close();
+        }
+
+        private void FindReaderBySurname_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
