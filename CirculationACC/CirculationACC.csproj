@@ -118,6 +118,7 @@
     <Compile Include="Classes\Department.cs" />
     <Compile Include="Classes\ReaderVO.cs" />
     <Compile Include="Classes\XmlConnections.cs" />
+    <Compile Include="Classes\DBReference.cs" />
     <Compile Include="CrystalReport1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -320,6 +321,9 @@
       <DependentUpon>ActsandSpan.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="ViewFullSizePhoto.resx">
+      <DependentUpon>ViewFullSizePhoto.cs</DependentUpon>
+    </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
@@ -373,8 +377,15 @@
     <Compile Include="ActsandSpan.Designer.cs">
       <DependentUpon>ActsandSpan.cs</DependentUpon>
     </Compile>
+    <Compile Include="ViewFullSizePhoto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewFullSizePhoto.Designer.cs">
+      <DependentUpon>ViewFullSizePhoto.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="nofoto.png" />
     <Content Include="wizard.ico" />
   </ItemGroup>
   <ItemGroup>

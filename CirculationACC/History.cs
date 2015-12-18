@@ -12,26 +12,20 @@ namespace Circulation
 {
     public partial class History : Form
     {
-        public History(DBWork.dbReader reader)
+        public History(ReaderVO reader)
         {
             InitializeComponent();
             label2.Text = reader.FIO;
-            Conn.SQLDA.SelectCommand.CommandText = "select A.ID,C.PLAIN zag, E.PLAIN avt,A.DATE_ISSUE, A.DATE_FACT_VOZV,A.INV from Reservation_R..ISSUED A" +
-                                                   " inner join BJACC..DATAEXT B on A.IDMAIN_CONST = B.IDMAIN and B.MNFIELD = 200 and B.MSFIELD = '$a' " +
-                                                   " inner join BJACC..DATAEXTPLAIN C on B.ID = C.IDDATAEXT " +
-                                                   " inner join BJACC..DATAEXT D on A.IDMAIN_CONST = D.IDMAIN and D.MNFIELD = 700 and D.MSFIELD = '$a' " +
-                                                   " inner join BJACC..DATAEXTPLAIN E on D.ID = E.IDDATAEXT " +
-                                                   " where A.IDREADER = " + reader.id + " and A.IDMAIN = 0";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            DataSet DS = new DataSet();
-            Conn.SQLDA.Fill(DS,"lll");
-            dataGridView1.DataSource = DS.Tables["lll"];
+            DBReference dbref = new DBReference();
+
+
+            dataGridView1.DataSource = dbref.GetReaderHistory(reader);
 
             dataGridView1.Columns["DATE_ISSUE"].HeaderText = "Дата выдачи";
-            dataGridView1.Columns["DATE_FACT_VOZV"].HeaderText = "Дата возврата";
-            dataGridView1.Columns["INV"].HeaderText = "Инвентарный номер";
-            dataGridView1.Columns["ZAG"].HeaderText = "Заглавие";
-            dataGridView1.Columns["AVT"].HeaderText = "Автор";
+            dataGridView1.Columns["DATE_RETURN"].HeaderText = "Дата возврата";
+            dataGridView1.Columns["inv"].HeaderText = "Инвентарный номер";
+            dataGridView1.Columns["tit"].HeaderText = "Заглавие";
+            dataGridView1.Columns["avt"].HeaderText = "Автор";
             dataGridView1.Columns["ID"].HeaderText = "№№";
             dataGridView1.Columns["ID"].Width = 40;
             int i = 0;
@@ -39,8 +33,8 @@ namespace Circulation
             {
                 row.Cells["ID"].Value = (++i).ToString();
             }
-            dataGridView1.Columns["ZAG"].Width = 300;
-            dataGridView1.Columns["ZAG"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridView1.Columns["tit"].Width = 300;
+            dataGridView1.Columns["tit"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
 
             
 

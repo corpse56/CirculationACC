@@ -7,7 +7,7 @@ using System.Windows.Forms;
 namespace Circulation
 {
     public enum BARTYPE { Book, Reader, NotExist }
-    public class Department
+    public class Department : DB
     {
         public int ExpectedBar = 0; //0 - ожидается штрихкод книги, 1 - ожидается штрихкод читателя, 2 - ожидается подтверждение или отмена выдачи
 
@@ -100,5 +100,7 @@ namespace Circulation
             dbr.ProlongByIDISS(idiss,days,idemp);
 
         }
+
+
     }
 }

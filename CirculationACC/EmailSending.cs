@@ -17,7 +17,7 @@ namespace Circulation
     public partial class EmailSending : Form
     {
         Form1 f1;
-        DBWork.dbReader reader;
+        ReaderVO reader;
         List<int> bold;
         string mailtext;
         public bool canshow = false;
@@ -26,15 +26,16 @@ namespace Circulation
         string WorkEmail = "";
         string RegEmail = "";
         string htmltext;
-        public EmailSending(Form1 f1_, DBWork.dbReader reader_)
+        int IDISSUED_ACC;
+        public EmailSending(Form1 f1_, ReaderVO reader_)
         {
             InitializeComponent();
             f1 = f1_;
             reader = reader_;
-            label1.Text = reader.Surname + " " + reader.Name + " " + reader.SecondName;
+            label1.Text = reader.FIO;
             int rownum = 0;
             bold = new List<int>();
-            
+            //IDISSUED_ACC = IDISS;
 
 
 
@@ -51,22 +52,22 @@ namespace Circulation
                 return;
             }
             this.canshow = true;
-            richTextBox1.Text = "Уважаемый(ая) " + reader.Name + " " + reader.SecondName + "!" + rn +
+            richTextBox1.Text = "Уважаемый(ая) " + reader.Name + " " + reader.Father + "!" + rn +
                 "Вы задерживаете книги:" + rn + rn;
             foreach (DataGridViewRow r in f1.Formular.Rows)
             {
-                if (((bool)r.Cells[14].Value == true) && (r.Cells[12].Value.ToString() == ""))
+                if (r.DefaultCellStyle.BackColor == Color.Tomato)
                 {
                     rownum++;
-                    string zag = r.Cells[1].Value.ToString();
+                    string zag = r.Cells["tit"].Value.ToString();
                     if (zag.Length > 21)
                         zag.Remove(20);
-                    TimeSpan ts = DateTime.Now.AddDays(1) - (DateTime)r.Cells[11].Value;
-                    richTextBox1.Text += rownum.ToString() + ". " + r.Cells[3].Value.ToString() +
+                    TimeSpan ts = DateTime.Now.AddDays(1) - (DateTime)r.Cells["ret"].Value;
+                    richTextBox1.Text += rownum.ToString() + ". " + r.Cells["avt"].Value.ToString() +
                         ", " + zag +
-                        ", " + r.Cells[9].Value.ToString() +
-                        ", ";
-                    richTextBox1.Text += ((DateTime)r.Cells[11].Value).ToString("dd.MM.yyyy");
+                        ", выдано: " + ((DateTime)r.Cells["iss"].Value).ToString("dd.MM.yyyy") +
+                        ", дата возврата: ";
+                    richTextBox1.Text += ((DateTime)r.Cells["ret"].Value).ToString("dd.MM.yyyy");
                     bold.Add(richTextBox1.TextLength - 10);
                     richTextBox1.Text += ". Задержано на " + ts.Days.ToString() + " дней." + rn;
                 }
@@ -77,12 +78,12 @@ namespace Circulation
                 this.Close();
                 return;
             }
-            richTextBox1.Text += rn + "Просим Вас в ближайшее время вернуть литературу в Абонемент Библиотеки иностранной литературы." + rn +
+            richTextBox1.Text += rn + "Просим Вас в ближайшее время вернуть литературу в Центр американской культуры Библиотеки иностранной литературы." + rn +
                 "С уважением, " + rn +
-                "Абонемент ВГБИЛ," + rn +
-                "(495) 915-35-47" + rn +
-                "пн-пт - 10.00-19.30" + rn +
-                "субб - 10.00-17.30";
+                "Центр американской культуры ВГБИЛ," + rn +
+                "тел. +7 (495) 926-4554" + rn +
+                "пн-пт - с 11:00 до 20:45." + rn +
+                "субб - с 11:00 до 18:45";
 
             foreach (int i in bold)
             {
@@ -146,7 +147,8 @@ namespace Circulation
             }
             message.Dispose();
             MessageBox.Show("Отправлено успешно!");
-            f1.dbw.InsertActionEMAIL(reader);
+            DBGeneral dbg = new DBGeneral();
+            dbg.InsertSendEmailAction(f1.EmpID,reader.ID);
             Close();
         }
 

@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using System.Text.RegularExpressions;
 
 namespace Circulation
 {
-    class DBReader:DB
+    class DBReader : DB
     {
         public DBReader() { }
 
         public DataRow GetReaderByID(int ID)
         {
-            DA.SelectCommand.CommandText = "select * from Readers..Main where NumberReader = "+ID;
+            DA.SelectCommand.CommandText = "select A.*,B.Photo fotka from Readers..Main A left join Readers..Photo B on A.NumberReader = B.IDReader where NumberReader = " + ID;
             DS = new DataSet();
             int i = DA.Fill(DS, "reader");
             if (i == 0) return null;
@@ -27,7 +28,7 @@ namespace Circulation
 
         internal DataRow GetReaderByBAR(string BAR)
         {
-            DA.SelectCommand.CommandText = "select top 1 * from Readers..Main where BarCode = '" + BAR.Substring(1) + "'";
+            DA.SelectCommand.CommandText = "select top 1 A.*,B.Photo fotka from Readers..Main A left join Readers..Photo B on A.NumberReader = B.IDReader where BarCode = '" + BAR.Substring(1) + "'";
             DS = new DataSet();
             int i;
             try
@@ -40,7 +41,7 @@ namespace Circulation
             }
             if (i > 0) return DS.Tables["t"].Rows[0];
 
-            DA.SelectCommand.CommandText = "select top 1 * from Readers..Main where NumberSC = '" + BAR.Substring(0, BAR.IndexOf(" ")) +
+            DA.SelectCommand.CommandText = "select top 1 A.*,B.Photo fotka from Readers..Main A left join Readers..Photo B on A.NumberReader = B.IDReader where NumberSC = '" + BAR.Substring(0, BAR.IndexOf(" ")) +
                                                                                        "' and SerialSC = '" + BAR.Substring(BAR.IndexOf(" ") + 1) + "'";
             DS = new DataSet();
             i = DA.Fill(DS, "t");
@@ -50,7 +51,7 @@ namespace Circulation
 
         internal bool IsAlreadyIssuedMoreThanFourBooks(ReaderVO r)
         {
-            DA.SelectCommand.CommandText = "select * from Reservation_R..ISSUED_ACC where IDREADER = "+r.ID+" and IDSTATUS = 1";
+            DA.SelectCommand.CommandText = "select * from Reservation_R..ISSUED_ACC where IDREADER = " + r.ID + " and IDSTATUS = 1";
             DS = new DataSet();
             int i = DA.Fill(DS, "t");
             if (i >= 4) return true; else return false;
@@ -71,14 +72,14 @@ namespace Circulation
                                            " left join BJACC..DATAEXTPLAIN avtp on avt.ID = avtp.IDDATAEXT " +
                                            " left join BJACC..DATAEXT bar on A.IDDATA = bar.IDDATA and bar.MNFIELD = 899 and bar.MSFIELD = '$w' " +
 
-                                           " where A.IDREADER = "+ID+" and A.IDSTATUS = 1";
-;
+                                           " where A.IDREADER = " + ID + " and A.IDSTATUS = 1";
+            ;
             DS = new DataSet();
             int i = DA.Fill(DS, "formular");
             return DS.Tables["formular"];
         }
 
-        internal void ProlongByIDISS(int IDISS,int days,int IDEMP)
+        internal void ProlongByIDISS(int IDISS, int days, int IDEMP)
         {
             DA.UpdateCommand.CommandText = "update Reservation_R..ISSUED_ACC set DATE_RETURN = dateadd(day," + days + ",DATE_RETURN) where ID = " + IDISS;
             DA.UpdateCommand.Connection.Open();
@@ -107,11 +108,86 @@ namespace Circulation
 
         internal DataTable GetReaderByFamily(string p)
         {
-            DA.SelectCommand.CommandText = "select NumberReader, FamilyName, [Name], FatherName,DateBirth, RegistrationCity,RegistrationStreet, "+
+            DA.SelectCommand.CommandText = "select NumberReader, FamilyName, [Name], FatherName,DateBirth, RegistrationCity,RegistrationStreet, " +
                                            " LiveEmail +'; '+RegistrationEmail from Readers..Main where lower(FamilyName) like lower('" + p + "')+'%'";
             DS = new DataSet();
             DA.Fill(DS, "t");
             return DS.Tables["t"];
+        }
+
+        internal void AddPhoto(byte[] fotka)
+        {
+            DA.UpdateCommand.CommandText = "insert into Readers..Photo (IDReader,Photo) values (189245,@fotka)";
+            DA.UpdateCommand.Parameters.AddWithValue("fotka", fotka);
+            DA.UpdateCommand.Connection.Open();
+            DA.UpdateCommand.ExecuteNonQuery();
+            DA.UpdateCommand.Connection.Close();
+        }
+        internal string GetLiveemail(ReaderVO reader)
+        {
+            DA.SelectCommand.CommandText = "select LiveEmail from Readers..Main where NumberReader = " + reader.ID;
+            DataSet D = new DataSet();
+            int i = DA.Fill(D);
+            if (i == 0) return "";
+            if (this.IsValidEmail(D.Tables[0].Rows[0][0].ToString()))
+            {
+                return D.Tables[0].Rows[0][0].ToString();
+            }
+            else
+            {
+                return "";
+            }
+
+        }
+        public bool IsValidEmail(string strIn)
+        {
+            // Return true if strIn is in valid e-mail format.
+            return Regex.IsMatch(strIn,
+                   @"^(?("")("".+?""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))" +
+                   @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$");
+        }
+
+        internal string GetWorkEmail(ReaderVO reader)
+        {
+            DA.SelectCommand.CommandText = "select WorkEmail from Readers..Main where NumberReader = " + reader.ID;
+            DataSet D = new DataSet();
+            int i = DA.Fill(D);
+            if (i == 0) return "";
+            if (this.IsValidEmail(D.Tables[0].Rows[0][0].ToString()))
+            {
+                return D.Tables[0].Rows[0][0].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        internal string GetRegEmail(ReaderVO reader)
+        {
+            DA.SelectCommand.CommandText = "select RegistrationEmail from Readers..Main where NumberReader = " + reader.ID;
+            DataSet D = new DataSet();
+            int i = DA.Fill(D);
+            if (i == 0) return "";
+            if (this.IsValidEmail(D.Tables[0].Rows[0][0].ToString()))
+            {
+                return D.Tables[0].Rows[0][0].ToString();
+            }
+            else
+            {
+                return "";
+            }
+        }
+
+        internal string GetLastDateEmail(ReaderVO reader)
+        {
+            DA.SelectCommand.CommandText = "select top 1 DATEACTION from Reservation_R..ISSUED_ACC_ACTIONS where IDACTION = 4 and IDISSUED_ACC = " + reader.ID+" order by DATEACTION desc";//когда актион равен 4 - это значит емаил отослали. только в этом случае 
+                                                                                                                                                        //в поле IDISSUED_ACC хранится номер читателя а не номер выдачи
+                                                                                                                                                         //это пипец конечно ну а чё?
+            DataSet D = new DataSet();
+            int i = DA.Fill(D,"t");
+            if (i == 0) return "не отправлялось";
+            return Convert.ToDateTime(D.Tables["t"].Rows[0][0]).ToString("dd.MM.yyyy HH:mm");
         }
     }
 }

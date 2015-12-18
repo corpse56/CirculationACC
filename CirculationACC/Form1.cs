@@ -18,6 +18,7 @@ using System.Net.Mail;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.IO.Ports;
+using System.IO;
 namespace Circulation
 {
     //public delegate void ScannedEventHandler();
@@ -193,6 +194,7 @@ namespace Circulation
                             break;
                         case 5:
                             lReader.Text = DEPARTMENT.ScannedReader.Family + " " + DEPARTMENT.ScannedReader.Name + " " + DEPARTMENT.ScannedReader.Father;
+                            RPhoto.Image = DEPARTMENT.ScannedReader.Photo;
                             bConfirm.Enabled = true;
                             this.AcceptButton = bConfirm;
                             bConfirm.Focus();
@@ -407,6 +409,11 @@ namespace Circulation
                 MessageBox.Show("Читатель не найден!");
                 return;
             }
+            FillFormularGrid(reader);
+
+        }
+        public void FillFormularGrid(ReaderVO reader)
+        {
             lFormularName.Text = reader.Family + " " + reader.Name + " " + reader.Father;
             lFromularNumber.Text = reader.ID.ToString();
             Formular.DataSource = reader.GetFormular();
@@ -424,8 +431,18 @@ namespace Circulation
             Formular.Columns["ret"].Width = 110;
             Formular.Columns["idiss"].Visible = false;
             Formular.Columns["idr"].Visible = false;
-        }
+            pictureBox2.Image = reader.Photo;
+            foreach (DataGridViewRow r in Formular.Rows)
+            {
+                DateTime ret = (DateTime)r.Cells["ret"].Value;
+                if (ret < DateTime.Now)
+                {
+                    r.DefaultCellStyle.BackColor = Color.Tomato;
+                }
+            }
 
+
+        }
         private void bConfirm_Click(object sender, EventArgs e)
         {
             if (DEPARTMENT.ScannedReader.IsAlreadyIssuedMoreThanFourBooks())
@@ -462,6 +479,7 @@ namespace Circulation
             label1.Text = "Считайте штрихкод издания";
             bConfirm.Enabled = false;
             bCancel.Enabled = false;
+            RPhoto.Image = null;
         }
         private void Log()
         {
@@ -495,47 +513,8 @@ namespace Circulation
                 MessageBox.Show("Читатель не найден!");
                 return;
             }
-            lFormularName.Text = reader.Family + " " + reader.Name + " " + reader.Father;
-            lFromularNumber.Text = reader.ID.ToString();
-            Formular.DataSource = reader.GetFormular();
-            Formular.Columns["num"].HeaderText = "№№";
-            Formular.Columns["num"].Width = 40;
-            Formular.Columns["bar"].HeaderText = "Штрихкод";
-            Formular.Columns["bar"].Width = 80;
-            Formular.Columns["avt"].HeaderText = "Автор";
-            Formular.Columns["avt"].Width = 200;
-            Formular.Columns["tit"].HeaderText = "Заглавие";
-            Formular.Columns["tit"].Width = 400;
-            Formular.Columns["iss"].HeaderText = "Дата выдачи";
-            Formular.Columns["iss"].Width = 80;
-            Formular.Columns["ret"].HeaderText = "Предполагаемая дата возврата";
-            Formular.Columns["ret"].Width = 110;
+            FillFormularGrid(reader);
 
-            ////dbw.GetFormular("1000001");
-
-            //if (this.numericUpDown3.Value.ToString() == "")
-            //{
-            //    MessageBox.Show("Введите номер читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //    return;
-            //}
-            //if (this.numericUpDown3.Value <= 0)
-            //{
-            //    MessageBox.Show("Введите число больше нуля", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //    return;
-            //}
-
-            //ReaderSetBarcode = new DBWork.dbReader((int)numericUpDown3.Value);
-            //if (ReaderSetBarcode.barcode == "error")
-            //{
-            //    MessageBox.Show("Читатель не найден!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            //    return;
-            //}
-            //dbw.GetFormular(ReaderSetBarcode.id);
-            //label20.Text = ReaderSetBarcode.Surname + " " + ReaderSetBarcode.Name + " " + ReaderSetBarcode.SecondName;
-            //label25.Text = ReaderSetBarcode.id;
-            //ReaderRecordFormular = new DBWork.dbReader(ReaderSetBarcode);
-
-            ////this.FormularColumnsForming(ReaderSetBarcode.id);
         }
         private void button1_Click(object sender, EventArgs e)
         {
@@ -819,7 +798,7 @@ namespace Circulation
                     lFormularName.Text = "";
                     Formular.Columns.Clear();
                     AcceptButton = this.button10;
-
+                    pictureBox2.Image = null;
                     break;
 
             }
@@ -842,12 +821,10 @@ namespace Circulation
 
         private void button7_Click(object sender, EventArgs e)
         {
-            //int Y = button7.Location.Y-20;
             button12.Enabled = false;
             int x = this.Left + button7.Left;
             int y = this.Top + button7.Top + tabControl1.Top + 60;
-            //Point p = button7.PointToScreen(button7.Location);
-            //contextMenuStrip1.Show(x, y);
+            contextMenuStrip2.Show(x, y);
         }
 
 
@@ -1314,77 +1291,77 @@ namespace Circulation
 
         private void Formular_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if ((e.ColumnIndex == 1) && ((Sorting.ZagSort == SortDir.Asc)))
-            {
-                Formular.Sort(Formular.Columns[2], ListSortDirection.Descending);
-                Formular.Columns[1].HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.Descending;
-                Sorting.ZagSort = SortDir.Desc;
-                //                        Statistics.SortOrder;
-            }
-            else
-                if ((e.ColumnIndex == 1) && ((Sorting.ZagSort == SortDir.Desc) || (Sorting.ZagSort == SortDir.None)))
-                {
-                    Formular.Sort(Formular.Columns[2], ListSortDirection.Ascending);
-                    Formular.Columns[1].HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.Ascending;
-                    Sorting.ZagSort = SortDir.Asc;
-                    if ((e.ColumnIndex == 3) && ((Sorting.AuthorSort == SortDir.Asc)))
-                    {
-                        Formular.Sort(Formular.Columns[4], ListSortDirection.Descending);
-                        Formular.Columns[3].HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.Descending;
-                        Sorting.AuthorSort = SortDir.Desc;
-                    }
-                    else
-                        if ((e.ColumnIndex == 3) && ((Sorting.AuthorSort == SortDir.Desc) || (Sorting.AuthorSort == SortDir.None)))
-                        {
-                            Formular.Sort(Formular.Columns[4], ListSortDirection.Ascending);
-                            Formular.Columns[3].HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.Ascending;
-                            Sorting.AuthorSort = SortDir.Asc;
-                        }
-                }
-            autoinc(Formular);
-            foreach (DataGridViewRow row in Formular.Rows)
-            {
-                //row.Cells["peny"].Value = CalculatePeny(row).ToString() + " р.";
-                //row.Cells["pen"].ReadOnly = true;
-                DataGridViewDisableButtonCell bc = (DataGridViewDisableButtonCell)row.Cells["but"];
+            //if ((e.ColumnIndex == 1) && ((Sorting.ZagSort == SortDir.Asc)))
+            //{
+            //    Formular.Sort(Formular.Columns[2], ListSortDirection.Descending);
+            //    Formular.Columns[1].HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.Descending;
+            //    Sorting.ZagSort = SortDir.Desc;
+            //    //                        Statistics.SortOrder;
+            //}
+            //else
+            //    if ((e.ColumnIndex == 1) && ((Sorting.ZagSort == SortDir.Desc) || (Sorting.ZagSort == SortDir.None)))
+            //    {
+            //        Formular.Sort(Formular.Columns[2], ListSortDirection.Ascending);
+            //        Formular.Columns[1].HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.Ascending;
+            //        Sorting.ZagSort = SortDir.Asc;
+            //        if ((e.ColumnIndex == 3) && ((Sorting.AuthorSort == SortDir.Asc)))
+            //        {
+            //            Formular.Sort(Formular.Columns[4], ListSortDirection.Descending);
+            //            Formular.Columns[3].HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.Descending;
+            //            Sorting.AuthorSort = SortDir.Desc;
+            //        }
+            //        else
+            //            if ((e.ColumnIndex == 3) && ((Sorting.AuthorSort == SortDir.Desc) || (Sorting.AuthorSort == SortDir.None)))
+            //            {
+            //                Formular.Sort(Formular.Columns[4], ListSortDirection.Ascending);
+            //                Formular.Columns[3].HeaderCell.SortGlyphDirection = System.Windows.Forms.SortOrder.Ascending;
+            //                Sorting.AuthorSort = SortDir.Asc;
+            //            }
+            //    }
+            //autoinc(Formular);
+            //foreach (DataGridViewRow row in Formular.Rows)
+            //{
+            //    //row.Cells["peny"].Value = CalculatePeny(row).ToString() + " р.";
+            //    //row.Cells["pen"].ReadOnly = true;
+            //    DataGridViewDisableButtonCell bc = (DataGridViewDisableButtonCell)row.Cells["but"];
 
 
 
-                if ((row.Cells["pen"].Value.ToString().ToLower() == "false") && (row.Cells["zkid"].Value.ToString() != "0") && (bool.Parse(row.Cells["rempen"].Value.ToString()) == true))
-                {
-                    bc.Value = "Нет нарушения";//ранее сняли
-                    bc.Enabled = false;
-                }
-                else
-                    if ((row.Cells["pen"].Value.ToString().ToLower() == "false") && (row.Cells["rempen"].Value.ToString().ToLower() == "false"))
-                    {
-                        bc.Value = "Продлить";
-                        bc.Enabled = true;
-                        //row.Cells["pen"].ReadOnly = true;
-                    }
-                    else
-                        if ((row.Cells["pen"].Value.ToString().ToLower() == "true") && (row.Cells["rempen"].Value.ToString().ToLower() == "false") && (row.Cells["zkid"].Value.ToString() != "0"))
-                        {
-                            bc.Value = "Продлить";//книга еще не возвращена
-                            bc.Enabled = true;
+            //    if ((row.Cells["pen"].Value.ToString().ToLower() == "false") && (row.Cells["zkid"].Value.ToString() != "0") && (bool.Parse(row.Cells["rempen"].Value.ToString()) == true))
+            //    {
+            //        bc.Value = "Нет нарушения";//ранее сняли
+            //        bc.Enabled = false;
+            //    }
+            //    else
+            //        if ((row.Cells["pen"].Value.ToString().ToLower() == "false") && (row.Cells["rempen"].Value.ToString().ToLower() == "false"))
+            //        {
+            //            bc.Value = "Продлить";
+            //            bc.Enabled = true;
+            //            //row.Cells["pen"].ReadOnly = true;
+            //        }
+            //        else
+            //            if ((row.Cells["pen"].Value.ToString().ToLower() == "true") && (row.Cells["rempen"].Value.ToString().ToLower() == "false") && (row.Cells["zkid"].Value.ToString() != "0"))
+            //            {
+            //                bc.Value = "Продлить";//книга еще не возвращена
+            //                bc.Enabled = true;
 
-                        }
-                        else
-                            if ((row.Cells["pen"].Value.ToString().ToLower() == "true") && (row.Cells["rempen"].Value.ToString().ToLower() == "false") && (row.Cells["zkid"].Value.ToString() == "0"))
-                            {
-                                bc.Value = "Снять нарушение";//книга возвращена, но с нарушением срока
-                                bc.Enabled = true;
+            //            }
+            //            else
+            //                if ((row.Cells["pen"].Value.ToString().ToLower() == "true") && (row.Cells["rempen"].Value.ToString().ToLower() == "false") && (row.Cells["zkid"].Value.ToString() == "0"))
+            //                {
+            //                    bc.Value = "Снять нарушение";//книга возвращена, но с нарушением срока
+            //                    bc.Enabled = true;
 
-                            }
-                            else
-                                if ((row.Cells["pen"].Value.ToString().ToLower() == "true") && (row.Cells["rempen"].Value.ToString().ToLower() == "true"))
-                                {
-                                    bc.Value = "Нет нарушения";//такого по идее не должно быть, надо тока запретить выставлять нарушения и обсудить с СБ.
-                                    bc.Enabled = false;
-                                    MessageBox.Show("Программа выполнила недопустимую операцию.Такого быть не должно. Обратитесь к разработчику.");
-                                }
+            //                }
+            //                else
+            //                    if ((row.Cells["pen"].Value.ToString().ToLower() == "true") && (row.Cells["rempen"].Value.ToString().ToLower() == "true"))
+            //                    {
+            //                        bc.Value = "Нет нарушения";//такого по идее не должно быть, надо тока запретить выставлять нарушения и обсудить с СБ.
+            //                        bc.Enabled = false;
+            //                        MessageBox.Show("Программа выполнила недопустимую операцию.Такого быть не должно. Обратитесь к разработчику.");
+            //                    }
 
-            }
+            //}
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -1798,8 +1775,8 @@ namespace Circulation
                 MessageBox.Show("Введите номер или считайте штрихкод читателя!");
                 return;
             }
-
-            History f7 = new History(ReaderRecordFormular);
+            ReaderVO reader = new ReaderVO(int.Parse(lFromularNumber.Text));
+            History f7 = new History(reader);
             f7.ShowDialog();
         }
 
@@ -1812,7 +1789,8 @@ namespace Circulation
                 MessageBox.Show("Введите номер или считайте штрихкод читателя!");
                 return;
             }
-            ReaderInformation f9 = new ReaderInformation(ReaderRecordFormular,this);
+            ReaderVO reader = new ReaderVO(int.Parse(lFromularNumber.Text));
+            ReaderInformation f9 = new ReaderInformation(reader,this);
             f9.ShowDialog();
         }
 
@@ -2000,40 +1978,50 @@ namespace Circulation
 
         private void Statistics_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
+            //if (e.RowIndex == -1) return;
+            //if (label19.Text.IndexOf("Список нарушителей сроков пользования документов из фонда Библиотеки, сдавших") != -1)
+            //{
+            //    if (Statistics.Rows[e.RowIndex].Cells[2].Value.ToString().Contains("Сведения"))
+            //    {
+            //        MessageBox.Show("Невозможно отобразить формуляр.");
+            //        return;
+            //    }
+            //    tabControl1.SelectedIndex = 1;
+            //    numericUpDown3.Value = int.Parse(Statistics.Rows[e.RowIndex].Cells[2].Value.ToString());
+            //    button10_Click(sender, new EventArgs());
+            //}
+            //else
+            //    if (label19.Text.IndexOf("Список нарушителей сроков пользования") != -1)
+            //    {
+            //        int res;
+            //        if (Statistics.Rows[e.RowIndex].Cells[2].Value.ToString().Contains("Сведения"))
+            //        {
+            //            MessageBox.Show("Невозможно отобразить формуляр.");
+            //            return;
+            //        }
+            //        if (!int.TryParse(Statistics.Rows[e.RowIndex].Cells[2].Value.ToString(), out res))
+            //        {
+            //            MessageBox.Show("Сведения из старой базы не приведены в соответствие с новой! Читатель не может быть найден ввиду невозможности узнать его номер!");
+            //            return;
+            //        }
+            //        tabControl1.SelectedIndex = 1;
+            //        numericUpDown3.Value = res;//int.Parse(Statistics.Rows[e.RowIndex].Cells[2].Value.ToString());
+            //        button10_Click(sender, new EventArgs());
+            //    }
+            //    else
+            //    {
+            //        return;
+            //    }
             if (e.RowIndex == -1) return;
-            if (label19.Text.IndexOf("Список нарушителей сроков пользования документов из фонда Библиотеки, сдавших") != -1)
+            if (label19.Text.IndexOf("Список просроченных документов на текущий момент") != -1)
             {
-                if (Statistics.Rows[e.RowIndex].Cells[2].Value.ToString().Contains("Сведения"))
-                {
-                    MessageBox.Show("Невозможно отобразить формуляр.");
-                    return;
-                }
                 tabControl1.SelectedIndex = 1;
-                numericUpDown3.Value = int.Parse(Statistics.Rows[e.RowIndex].Cells[2].Value.ToString());
+                numericUpDown3.Value = int.Parse(Statistics.Rows[e.RowIndex].Cells[3].Value.ToString());
                 button10_Click(sender, new EventArgs());
             }
-            else
-                if (label19.Text.IndexOf("Список нарушителей сроков пользования") != -1)
-                {
-                    int res;
-                    if (Statistics.Rows[e.RowIndex].Cells[2].Value.ToString().Contains("Сведения"))
-                    {
-                        MessageBox.Show("Невозможно отобразить формуляр.");
-                        return;
-                    }
-                    if (!int.TryParse(Statistics.Rows[e.RowIndex].Cells[2].Value.ToString(), out res))
-                    {
-                        MessageBox.Show("Сведения из старой базы не приведены в соответствие с новой! Читатель не может быть найден ввиду невозможности узнать его номер!");
-                        return;
-                    }
-                    tabControl1.SelectedIndex = 1;
-                    numericUpDown3.Value = res;//int.Parse(Statistics.Rows[e.RowIndex].Cells[2].Value.ToString());
-                    button10_Click(sender, new EventArgs());
-                }
-                else
-                {
-                    return;
-                }
+                    
+
+
         }
 
         private void количествоЧитателейВозвращающихЛитературузаПериодToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2289,65 +2277,190 @@ namespace Circulation
         }
 
 
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            DBReader dbr = new DBReader();
+            byte[] fotka = File.ReadAllBytes("f://41_1.jpg");
+            dbr.AddPhoto(fotka);
+        }
+
+        private void RPhoto_Click(object sender, EventArgs e)
+        {
+            ViewFullSizePhoto fullsize = new ViewFullSizePhoto(RPhoto.Image);
+            fullsize.ShowDialog();
+        }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+            ViewFullSizePhoto fullsize = new ViewFullSizePhoto(pictureBox2.Image);
+            fullsize.ShowDialog();
+
+        }
+
+        private void выданныеКнигиНаТекущийМоментToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Statistics.Columns.Clear();
+            //Statistics.Columns.Add("NN", "№ п/п");
+            Statistics.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            Statistics.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            Statistics.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+
+            //DatePeriod f3 = new DatePeriod();
+            //f3.ShowDialog();
+            label19.Text = "Список выданных документов на текущий момент ";
+            label18.Text = "";
+            DBReference dbref = new DBReference();
+            Statistics.DataSource = dbref.GetAllIssuedBook();
+            if (this.Statistics.Rows.Count == 0)
+            {
+                this.Statistics.Columns.Clear();
+                MessageBox.Show("Нет выданных книг!");
+                return;
+            }
+
+            autoinc(Statistics);
+            Statistics.Columns[0].Width = 40;
+            Statistics.Columns[1].HeaderText = "№№";
+            Statistics.Columns[1].HeaderText = "Заглавие";
+            Statistics.Columns[1].Width = 280;
+            Statistics.Columns[2].HeaderText = "Автор";
+            Statistics.Columns[2].Width = 150;
+            Statistics.Columns[3].HeaderText = "Номер читате льского билета";
+            Statistics.Columns[3].Width = 70;
+            Statistics.Columns[4].HeaderText = "Фамилия";
+            Statistics.Columns[4].Width = 100;
+            Statistics.Columns[5].HeaderText = "Имя";
+            Statistics.Columns[5].Width = 100;
+            Statistics.Columns[6].HeaderText = "Отчество";
+            Statistics.Columns[6].Width = 100;
+            Statistics.Columns[7].HeaderText = "Штрихкод";
+            Statistics.Columns[7].Width = 100;
+            Statistics.Columns[8].HeaderText = "Дата выдачи";
+            Statistics.Columns[8].ValueType = typeof(DateTime);
+            Statistics.Columns[8].DefaultCellStyle.Format = "dd.MM.yyyy";
+            Statistics.Columns[8].Width = 85;
+            Statistics.Columns[9].HeaderText = "Предпо лагаемая дата возврата";
+            Statistics.Columns[9].DefaultCellStyle.Format = "dd.MM.yyyy";
+            Statistics.Columns[9].Width = 85;
+            Statistics.Columns[10].Visible = false;
+
+            button12.Enabled = true;
+        }
+
+        private void просроченныеКнигиToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Statistics.Columns.Clear();
+            //Statistics.Columns.Add("NN", "№ п/п");
+            Statistics.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            Statistics.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            Statistics.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+
+            //DatePeriod f3 = new DatePeriod();
+            //f3.ShowDialog();
+            label19.Text = "Список просроченных документов на текущий момент";
+            label18.Text = "";
+            DBReference dbref = new DBReference();
+            Statistics.DataSource = dbref.GetAllOverdueBook();
+            if (this.Statistics.Rows.Count == 0)
+            {
+                this.Statistics.Columns.Clear();
+                MessageBox.Show("Нет выданных книг!");
+                return;
+            }
+
+            autoinc(Statistics);
+            Statistics.Columns[0].HeaderText = "№№";
+            Statistics.Columns[0].Width = 40;
+            Statistics.Columns[1].HeaderText = "Заглавие";
+            Statistics.Columns[1].Width = 250;
+            Statistics.Columns[2].HeaderText = "Автор";
+            Statistics.Columns[2].Width = 130;
+            Statistics.Columns[3].HeaderText = "Номер читате льского билета";
+            Statistics.Columns[3].Width = 70;
+            Statistics.Columns[4].HeaderText = "Фамилия";
+            Statistics.Columns[4].Width = 100;
+            Statistics.Columns[5].HeaderText = "Имя";
+            Statistics.Columns[5].Width = 80;
+            Statistics.Columns[6].HeaderText = "Отчество";
+            Statistics.Columns[6].Width = 80;
+            Statistics.Columns[7].HeaderText = "Штрихкод";
+            Statistics.Columns[7].Width = 80;
+            Statistics.Columns[8].HeaderText = "Дата выдачи";
+            Statistics.Columns[8].ValueType = typeof(DateTime);
+            Statistics.Columns[8].DefaultCellStyle.Format = "dd.MM.yyyy";
+            Statistics.Columns[8].Width = 85;
+            Statistics.Columns[9].HeaderText = "Предпо лагаемая дата возврата";
+            Statistics.Columns[9].DefaultCellStyle.Format = "dd.MM.yyyy";
+            Statistics.Columns[9].Width = 85;
+            Statistics.Columns[10].Visible = false;
+            Statistics.Columns[10].ValueType = typeof(bool);
+            Statistics.Columns[11].HeaderText = "Дата последней отправки email";
+            Statistics.Columns[11].DefaultCellStyle.Format = "dd.MM.yyyy";
+            Statistics.Columns[11].Width = 85;
+            foreach (DataGridViewRow r in Statistics.Rows)
+            {
+                object value = r.Cells[10].Value;
+                if (Convert.ToBoolean(value) == true)
+                {
+                    r.DefaultCellStyle.BackColor = Color.LightYellow;
+                }
+            }
+            button12.Enabled = true;
+        }
+
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            if (lFromularNumber.Text == "")
+            {
+                MessageBox.Show("Введите номер или считайте штрихкод читателя!");
+                return;
+            }
+            ReaderVO reader = new ReaderVO(int.Parse(lFromularNumber.Text)); 
+            EmailSending es = new EmailSending(this, reader);
+            if (es.canshow)
+            {
+                es.ShowDialog();
+            }
+        }
+
+        private void списокДействийОператораЗаПериодToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Statistics.Columns != null)
+                Statistics.Columns.Clear();
+            DatePeriod f3 = new DatePeriod();
+            f3.ShowDialog();
+            label18.Text = "";
+            label19.Text = "";
+            label19.Text = "Список действий оператора за период с " + f3.StartDate.ToString("dd.MM.yyyy") + " по " + f3.EndDate.ToString("dd.MM.yyyy") + ": ";
+            DBGeneral dbg = new DBGeneral();
+            
+            try
+            {
+                Statistics.DataSource = dbg.GetOperatorActions(f3.StartDate, f3.EndDate, EmpID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Statistics.Columns.Clear();
+                return;
+            }
+            autoinc(Statistics);
+            Statistics.Columns[0].HeaderText = "№№";
+            Statistics.Columns[1].Width = 250;
+            Statistics.Columns[1].HeaderText = "Действие";
+            Statistics.Columns[2].HeaderText = "Дата";
+            Statistics.Columns[2].Width = 200;
+            autoinc(Statistics);
+        }
+
+
 
 
 
 
 
     }
-    //public class _BarcScan
-    //{
-    //    public OPOSScannerClass Scanner;
-    //    //public event EventHandler Scanned;
-    //    public Form1 F1;
-    //    public _BarcScan(Form1 _F1)
-    //    {
-
-    //        F1 = _F1;
-    //        //SqlConnectionStringBuilder builder =
-    //        //new SqlConnectionStringBuilder(();
-    //        //CrystalReport1 cr = new CrystalReport1();
-    //        //cr.SetDataSource(
-    //        try
-    //        {
-    //            this.Scanner = new OPOSScannerClass();
-    //            this.Scanner.ErrorEvent += new _IOPOSScannerEvents_ErrorEventEventHandler(Scanner_ErrorEvent);
-    //            this.Scanner.DataEvent += new _IOPOSScannerEvents_DataEventEventHandler(Scanner_DataEvent);
-    //            this.Scanner.Open("STI_SCANNER");
-    //            //MessageBox.Show("1");
-    //            ResultCodeH.Check(this.Scanner.ClaimDevice(7000));
-    //            //MessageBox.Show("2");
-    //            this.Scanner.DeviceEnabled = true;
-    //            ResultCodeH.Check(this.Scanner.ResultCode);
-    //            //MessageBox.Show("3");
-    //            this.Scanner.AutoDisable = true;
-
-    //            ResultCodeH.Check(this.Scanner.ResultCode);
-    //            //MessageBox.Show("4");
-    //            this.Scanner.DataEventEnabled = true;
-    //            ResultCodeH.Check(this.Scanner.ResultCode);
-    //            //MessageBox.Show("5");
-    //        }
-    //        catch (Exception _e)
-    //        {
-    //            MessageBox.Show(_e.Message.ToString());
-    //        }
-    //    }
-    //    void Scanner_DataEvent(int Status)
-    //    {
-    //        this.Scanner.DeviceEnabled = true;
-    //        this.Scanner.DataEventEnabled = true;
-    //        F1.FireScan(this.Scanner, EventArgs.Empty);
-    //    }
-
-    //    void Scanner_ErrorEvent(int ResultCode, int ResultCodeExtended, int ErrorLocus, ref int pErrorResponse)
-    //    {
-    //        pErrorResponse = (int)OPOS_Constants.OPOS_ER_CLEAR;
-    //        MessageBox.Show(ResultCodeH.Message(ResultCode));
-    //        this.Scanner.DeviceEnabled = true;
-    //        this.Scanner.DataEventEnabled = true;
-    //    }
-    //}
+  
     public static class Conn
     {
         public static SqlConnection ReadersCon;

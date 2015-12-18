@@ -134,7 +134,25 @@ namespace Circulation
             DA.InsertCommand.ExecuteNonQuery();
             DA.InsertCommand.Connection.Close();
         }
+        internal void InsertSendEmailAction(int IDEMP, int IDISSUED_ACC)//здесь IDISSUED_ACC - это номер читателя, а не номер выдачи. потому что так! 
+        {
+            DA.InsertCommand.Parameters.Clear();
+            DA.InsertCommand.Parameters.Add("IDACTION", SqlDbType.Int);
+            DA.InsertCommand.Parameters.Add("IDUSER", SqlDbType.Int);
+            DA.InsertCommand.Parameters.Add("IDISSUED_ACC", SqlDbType.Int);
+            DA.InsertCommand.Parameters.Add("DATEACTION", SqlDbType.DateTime);
 
+            DA.InsertCommand.Parameters["IDACTION"].Value = 4;
+            DA.InsertCommand.Parameters["IDUSER"].Value = IDEMP;
+            DA.InsertCommand.Parameters["IDISSUED_ACC"].Value = IDISSUED_ACC;
+            DA.InsertCommand.Parameters["DATEACTION"].Value = DateTime.Now;
+
+            DA.InsertCommand.CommandText = "insert into Reservation_R..ISSUED_ACC_ACTIONS (IDACTION,IDEMP,IDISSUED_ACC,DATEACTION) values " +
+                                            "(@IDACTION,@IDUSER,@IDISSUED_ACC,@DATEACTION)";
+            DA.InsertCommand.Connection.Open();
+            DA.InsertCommand.ExecuteNonQuery();
+            DA.InsertCommand.Connection.Close();
+        }
 
         internal DataTable GetLog()
         {
@@ -162,5 +180,19 @@ namespace Circulation
         }
 
 
+
+        internal object GetOperatorActions(DateTime dateTime, DateTime dateTime_2, int EmpID)
+        {
+            DA.SelectCommand.Parameters.Clear();
+            DA.SelectCommand.Parameters.AddWithValue("start", dateTime.Date);
+            DA.SelectCommand.Parameters.AddWithValue("end", dateTime_2.Date);
+            DA.SelectCommand.CommandText = " select 1 ID,B.ACTION act,A.DATEACTION from Reservation_R..ISSUED_ACC_ACTIONS A " +
+                                           " left join Reservation_R..ACTIONSTYPE B on A.IDACTION = B.ID "+
+                                           " where cast(cast(A.DATEACTION as varchar(11)) as datetime) between @start and @end and IDEMP = " + EmpID;
+            DS = new DataSet();
+            int i = DA.Fill(DS, "act");
+            
+            return DS.Tables["act"];
+        }
     }
 }

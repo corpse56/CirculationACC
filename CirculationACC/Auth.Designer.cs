@@ -80,6 +80,7 @@ namespace Circulation
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(175, 22);
             this.textBox3.TabIndex = 16;
+            this.textBox3.Text = ",./";
             this.textBox3.UseSystemPasswordChar = true;
             // 
             // textBox2
@@ -91,6 +92,7 @@ namespace Circulation
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(175, 22);
             this.textBox2.TabIndex = 14;
+            this.textBox2.Text = "admin";
             // 
             // button4
             // 

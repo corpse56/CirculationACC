@@ -60,7 +60,7 @@ namespace Circulation
             this.numericUpDown1.Size = new System.Drawing.Size(371, 23);
             this.numericUpDown1.TabIndex = 1;
             this.numericUpDown1.Value = new decimal(new int[] {
-            1,
+            21,
             0,
             0,
             0});

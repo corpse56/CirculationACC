@@ -40,6 +40,7 @@ namespace Circulation
             this.bConfirm = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.RPhoto = new System.Windows.Forms.PictureBox();
             this.lReader = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -53,6 +54,8 @@ namespace Circulation
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button2 = new System.Windows.Forms.Button();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
@@ -99,14 +102,20 @@ namespace Circulation
             this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.zAKAZBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.zAKAZBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.выданныеКнигиНаТекущийМоментToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.просроченныеКнигиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокДействийОператораЗаПериодToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RPhoto)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLOG)).BeginInit();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Formular)).BeginInit();
             this.tabPage2.SuspendLayout();
@@ -115,6 +124,7 @@ namespace Circulation
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zAKAZBindingSource)).BeginInit();
+            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label3
@@ -158,7 +168,7 @@ namespace Circulation
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(990, 524);
+            this.tabControl1.Size = new System.Drawing.Size(1193, 524);
             this.tabControl1.TabIndex = 9;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -177,14 +187,14 @@ namespace Circulation
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(982, 495);
+            this.tabPage1.Size = new System.Drawing.Size(1185, 495);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Приём/выдача изданий";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // button14
             // 
-            this.button14.Location = new System.Drawing.Point(877, 461);
+            this.button14.Location = new System.Drawing.Point(1078, 464);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(92, 24);
             this.button14.TabIndex = 7;
@@ -225,20 +235,34 @@ namespace Circulation
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.RPhoto);
             this.groupBox2.Controls.Add(this.lReader);
             this.groupBox2.Location = new System.Drawing.Point(501, 336);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(474, 119);
+            this.groupBox2.Size = new System.Drawing.Size(676, 119);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Читатель";
             // 
+            // RPhoto
+            // 
+            this.RPhoto.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.RPhoto.ErrorImage = global::Circulation.Properties.Resources.nofoto;
+            this.RPhoto.InitialImage = global::Circulation.Properties.Resources.nofoto;
+            this.RPhoto.Location = new System.Drawing.Point(577, 12);
+            this.RPhoto.Name = "RPhoto";
+            this.RPhoto.Size = new System.Drawing.Size(93, 101);
+            this.RPhoto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.RPhoto.TabIndex = 6;
+            this.RPhoto.TabStop = false;
+            this.RPhoto.Click += new System.EventHandler(this.RPhoto_Click);
+            // 
             // lReader
             // 
             this.lReader.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.lReader.Location = new System.Drawing.Point(35, 32);
+            this.lReader.Location = new System.Drawing.Point(6, 19);
             this.lReader.Name = "lReader";
-            this.lReader.Size = new System.Drawing.Size(392, 50);
+            this.lReader.Size = new System.Drawing.Size(565, 89);
             this.lReader.TabIndex = 5;
             // 
             // groupBox1
@@ -303,7 +327,7 @@ namespace Circulation
             this.dgvLOG.Name = "dgvLOG";
             this.dgvLOG.ReadOnly = true;
             this.dgvLOG.RowHeadersVisible = false;
-            this.dgvLOG.Size = new System.Drawing.Size(962, 266);
+            this.dgvLOG.Size = new System.Drawing.Size(1165, 266);
             this.dgvLOG.TabIndex = 2;
             // 
             // dataGridViewTextBoxColumn1
@@ -345,6 +369,8 @@ namespace Circulation
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.button2);
+            this.tabPage4.Controls.Add(this.pictureBox2);
             this.tabPage4.Controls.Add(this.button1);
             this.tabPage4.Controls.Add(this.button21);
             this.tabPage4.Controls.Add(this.button17);
@@ -363,17 +389,40 @@ namespace Circulation
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(982, 495);
+            this.tabPage4.Size = new System.Drawing.Size(1185, 495);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Формуляр читателя";
             this.tabPage4.UseVisualStyleBackColor = true;
             this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(820, 41);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(125, 26);
+            this.button2.TabIndex = 21;
+            this.button2.Text = "Отослать email";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_2);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox2.ErrorImage = global::Circulation.Properties.Resources.nofoto;
+            this.pictureBox2.InitialImage = global::Circulation.Properties.Resources.nofoto;
+            this.pictureBox2.Location = new System.Drawing.Point(593, 9);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(100, 90);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 20;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(786, 73);
+            this.button1.Location = new System.Drawing.Point(951, 69);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(190, 23);
+            this.button1.Size = new System.Drawing.Size(228, 27);
             this.button1.TabIndex = 19;
             this.button1.Text = "Продлить выделенное";
             this.button1.UseVisualStyleBackColor = true;
@@ -381,9 +430,9 @@ namespace Circulation
             // 
             // button21
             // 
-            this.button21.Location = new System.Drawing.Point(748, 40);
+            this.button21.Location = new System.Drawing.Point(951, 6);
             this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(228, 23);
+            this.button21.Size = new System.Drawing.Size(228, 33);
             this.button21.TabIndex = 18;
             this.button21.Text = "Поиск читателя по фамилии";
             this.button21.UseVisualStyleBackColor = true;
@@ -391,24 +440,22 @@ namespace Circulation
             // 
             // button17
             // 
-            this.button17.Location = new System.Drawing.Point(446, 47);
+            this.button17.Location = new System.Drawing.Point(951, 40);
             this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(228, 23);
+            this.button17.Size = new System.Drawing.Size(228, 27);
             this.button17.TabIndex = 16;
             this.button17.Text = "Просмотр сведений о читателе";
             this.button17.UseVisualStyleBackColor = true;
-            this.button17.Visible = false;
             this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
             // button16
             // 
-            this.button16.Location = new System.Drawing.Point(446, 73);
+            this.button16.Location = new System.Drawing.Point(820, 6);
             this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(227, 23);
+            this.button16.Size = new System.Drawing.Size(126, 33);
             this.button16.TabIndex = 15;
-            this.button16.Text = "История выданных документов";
+            this.button16.Text = "История выдач";
             this.button16.UseVisualStyleBackColor = true;
-            this.button16.Visible = false;
             this.button16.Click += new System.EventHandler(this.button16_Click);
             // 
             // crystalReportViewer1
@@ -425,7 +472,7 @@ namespace Circulation
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(10, 76);
+            this.button13.Location = new System.Drawing.Point(244, 113);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(196, 23);
             this.button13.TabIndex = 12;
@@ -436,7 +483,7 @@ namespace Circulation
             // 
             // button11
             // 
-            this.button11.Location = new System.Drawing.Point(213, 47);
+            this.button11.Location = new System.Drawing.Point(11, 113);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(227, 23);
             this.button11.TabIndex = 11;
@@ -537,7 +584,7 @@ namespace Circulation
             this.Formular.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.Formular.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.Formular.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Formular.Size = new System.Drawing.Size(976, 360);
+            this.Formular.Size = new System.Drawing.Size(1176, 360);
             this.Formular.TabIndex = 2;
             // 
             // N
@@ -608,7 +655,7 @@ namespace Circulation
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(982, 495);
+            this.tabPage2.Size = new System.Drawing.Size(1185, 495);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Справка";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -616,7 +663,7 @@ namespace Circulation
             // button12
             // 
             this.button12.Enabled = false;
-            this.button12.Location = new System.Drawing.Point(566, 460);
+            this.button12.Location = new System.Drawing.Point(771, 460);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(234, 28);
             this.button12.TabIndex = 5;
@@ -630,7 +677,7 @@ namespace Circulation
             this.flowLayoutPanel1.Controls.Add(this.label18);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(7, 9);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(968, 28);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1171, 28);
             this.flowLayoutPanel1.TabIndex = 4;
             // 
             // label19
@@ -662,15 +709,16 @@ namespace Circulation
             this.Statistics.Location = new System.Drawing.Point(7, 43);
             this.Statistics.Name = "Statistics";
             this.Statistics.ReadOnly = true;
+            this.Statistics.RowHeadersVisible = false;
             this.Statistics.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Statistics.Size = new System.Drawing.Size(968, 410);
+            this.Statistics.Size = new System.Drawing.Size(1171, 410);
             this.Statistics.TabIndex = 1;
             this.Statistics.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Statistics_ColumnHeaderMouseClick);
             this.Statistics.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Statistics_CellMouseDoubleClick);
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(806, 459);
+            this.button7.Location = new System.Drawing.Point(1009, 459);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(169, 29);
             this.button7.TabIndex = 0;
@@ -731,6 +779,7 @@ namespace Circulation
             this.спрашиваемостьКонкретногоИнвентарногоНомераToolStripMenuItem.Name = "спрашиваемостьКонкретногоИнвентарногоНомераToolStripMenuItem";
             this.спрашиваемостьКонкретногоИнвентарногоНомераToolStripMenuItem.Size = new System.Drawing.Size(375, 22);
             this.спрашиваемостьКонкретногоИнвентарногоНомераToolStripMenuItem.Text = "Спрашиваемость конкретного инвентарного номера";
+            this.спрашиваемостьКонкретногоИнвентарногоНомераToolStripMenuItem.Visible = false;
             this.спрашиваемостьКонкретногоИнвентарногоНомераToolStripMenuItem.Click += new System.EventHandler(this.спрашиваемостьКонкретногоИнвентарногоНомераToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
@@ -745,6 +794,7 @@ namespace Circulation
             this.yfqnToolStripMenuItem.Name = "yfqnToolStripMenuItem";
             this.yfqnToolStripMenuItem.Size = new System.Drawing.Size(375, 22);
             this.yfqnToolStripMenuItem.Text = "Найти книгу по инвентарному номеру";
+            this.yfqnToolStripMenuItem.Visible = false;
             this.yfqnToolStripMenuItem.Click += new System.EventHandler(this.yfqnToolStripMenuItem_Click);
             // 
             // списокНарушителейСдавшихЛитературузаПериодToolStripMenuItem
@@ -759,6 +809,7 @@ namespace Circulation
             this.количествоЛитературычитателейзаПериодToolStripMenuItem.Name = "количествоЛитературычитателейзаПериодToolStripMenuItem";
             this.количествоЛитературычитателейзаПериодToolStripMenuItem.Size = new System.Drawing.Size(375, 22);
             this.количествоЛитературычитателейзаПериодToolStripMenuItem.Text = "Количество литературы/читателей (за период)";
+            this.количествоЛитературычитателейзаПериодToolStripMenuItem.Visible = false;
             this.количествоЛитературычитателейзаПериодToolStripMenuItem.Click += new System.EventHandler(this.количествоЛитературычитателейзаПериодToolStripMenuItem_Click);
             // 
             // списокДействийТекущегоОператораЗАпериодToolStripMenuItem
@@ -802,12 +853,42 @@ namespace Circulation
             this.dataGridViewButtonColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.dataGridViewButtonColumn1.Width = 85;
             // 
+            // contextMenuStrip2
+            // 
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.выданныеКнигиНаТекущийМоментToolStripMenuItem,
+            this.просроченныеКнигиToolStripMenuItem,
+            this.списокДействийОператораЗаПериодToolStripMenuItem});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(287, 92);
+            // 
+            // выданныеКнигиНаТекущийМоментToolStripMenuItem
+            // 
+            this.выданныеКнигиНаТекущийМоментToolStripMenuItem.Name = "выданныеКнигиНаТекущийМоментToolStripMenuItem";
+            this.выданныеКнигиНаТекущийМоментToolStripMenuItem.Size = new System.Drawing.Size(286, 22);
+            this.выданныеКнигиНаТекущийМоментToolStripMenuItem.Text = "Выданные книги на текущий момент";
+            this.выданныеКнигиНаТекущийМоментToolStripMenuItem.Click += new System.EventHandler(this.выданныеКнигиНаТекущийМоментToolStripMenuItem_Click);
+            // 
+            // просроченныеКнигиToolStripMenuItem
+            // 
+            this.просроченныеКнигиToolStripMenuItem.Name = "просроченныеКнигиToolStripMenuItem";
+            this.просроченныеКнигиToolStripMenuItem.Size = new System.Drawing.Size(286, 22);
+            this.просроченныеКнигиToolStripMenuItem.Text = "Просроченные книги";
+            this.просроченныеКнигиToolStripMenuItem.Click += new System.EventHandler(this.просроченныеКнигиToolStripMenuItem_Click);
+            // 
+            // списокДействийОператораЗаПериодToolStripMenuItem
+            // 
+            this.списокДействийОператораЗаПериодToolStripMenuItem.Name = "списокДействийОператораЗаПериодToolStripMenuItem";
+            this.списокДействийОператораЗаПериодToolStripMenuItem.Size = new System.Drawing.Size(286, 22);
+            this.списокДействийОператораЗаПериодToolStripMenuItem.Text = "Список действий оператора за период";
+            this.списокДействийОператораЗаПериодToolStripMenuItem.Click += new System.EventHandler(this.списокДействийОператораЗаПериодToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.bConfirm;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1018, 675);
+            this.ClientSize = new System.Drawing.Size(1221, 675);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.tabControl1);
@@ -827,10 +908,12 @@ namespace Circulation
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.RPhoto)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvLOG)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Formular)).EndInit();
             this.tabPage2.ResumeLayout(false);
@@ -840,6 +923,7 @@ namespace Circulation
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.contextMenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.zAKAZBindingSource)).EndInit();
+            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -918,6 +1002,13 @@ namespace Circulation
         private System.Windows.Forms.ToolStripMenuItem списокДействийТекущегоОператораЗАпериодToolStripMenuItem;
         private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.PictureBox RPhoto;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem выданныеКнигиНаТекущийМоментToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem просроченныеКнигиToolStripMenuItem;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.ToolStripMenuItem списокДействийОператораЗаПериодToolStripMenuItem;
         //private Circulation.BRIT_SOVETDataSetTableAdapters.ZAKAZTableAdapter zAKAZTableAdapter;
         //private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
         //private CrystalReport1 CrystalReport11;
