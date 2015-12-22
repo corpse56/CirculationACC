@@ -182,7 +182,7 @@ namespace Circulation
             }
             foreach (DataColumn col in DS.Tables["lll"].Columns)
             {
-                if ((col.ColumnName == "Photo") || (col.ColumnName == "AbonementType") || (col.ColumnName == "SheetWithoutCard") || (col.ColumnName == "Password") || (col.ColumnName == "FamilyNameFind") || (col.ColumnName == "NameFind") || (col.ColumnName == "FatherNameFind") || (col.ColumnName == "Interest"))
+                if ((col.ColumnName == "Document") || (col.ColumnName == "DocumentNumber") || (col.ColumnName == "Photo") || (col.ColumnName == "Photo") || (col.ColumnName == "AbonementType") || (col.ColumnName == "SheetWithoutCard") || (col.ColumnName == "Password") || (col.ColumnName == "FamilyNameFind") || (col.ColumnName == "NameFind") || (col.ColumnName == "FatherNameFind") || (col.ColumnName == "Interest"))
                 {
                     continue;
                 }

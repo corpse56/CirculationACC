@@ -102,5 +102,12 @@ namespace Circulation
         }
 
 
+
+        internal void RemoveResponsibility(int idiss, int EmpID)
+        {
+            DBGeneral dbg = new DBGeneral();
+            dbg.RemoveResposibility(idiss, EmpID);
+            return;
+        }
     }
 }

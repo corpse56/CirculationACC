@@ -528,22 +528,7 @@ namespace Circulation
             if (p.Days == -99) return;
             DEPARTMENT.Prolong((int)Formular.SelectedRows[0].Cells["idiss"].Value, p.Days,EmpID);
             ReaderVO reader = new ReaderVO((int)Formular.SelectedRows[0].Cells["idr"].Value);
-            Formular.DataSource = reader.GetFormular();
-            Formular.Columns["num"].HeaderText = "№№";
-            Formular.Columns["num"].Width = 40;
-            Formular.Columns["bar"].HeaderText = "Штрихкод";
-            Formular.Columns["bar"].Width = 80;
-            Formular.Columns["avt"].HeaderText = "Автор";
-            Formular.Columns["avt"].Width = 200;
-            Formular.Columns["tit"].HeaderText = "Заглавие";
-            Formular.Columns["tit"].Width = 400;
-            Formular.Columns["iss"].HeaderText = "Дата выдачи";
-            Formular.Columns["iss"].Width = 80;
-            Formular.Columns["ret"].HeaderText = "Предполагаемая дата возврата";
-            Formular.Columns["ret"].Width = 110;
-            Formular.Columns["idiss"].Visible = false;
-            Formular.Columns["idr"].Visible = false;
-            
+            FillFormularGrid(reader);
 
         }
 
@@ -1167,12 +1152,12 @@ namespace Circulation
                 AscDescAvt = !AscDescAvt;
                 Statistics.Sort(Statistics.Columns[6], AscDescAvt ? ListSortDirection.Ascending : ListSortDirection.Descending);
             }*/
-            if (label19.Text.Contains("нарушит"))
+            if (label19.Text.Contains("просроч") || label19.Text.Contains("нарушит"))
             foreach (DataGridViewRow r in Statistics.Rows)
             {
                 if (r.Cells[10].Value.ToString() == "true")
                 {
-                    r.DefaultCellStyle.BackColor = Color.LightYellow;
+                    r.DefaultCellStyle.BackColor = Color.Yellow;
                 }
             }
             autoinc(Statistics);
@@ -1424,110 +1409,53 @@ namespace Circulation
         Span MyDateSpan;
         private void button12_Click(object sender, EventArgs e)
         {
-            if (Statistics.Columns.Count == 3)
+            if (Statistics.Rows.Count == 0)
             {
-                PrintDialog MyPrintDialog = new PrintDialog();
-                MyPrintDialog.AllowCurrentPage = false;
-                MyPrintDialog.AllowPrintToFile = false;
-                MyPrintDialog.AllowSelection = false;
-                MyPrintDialog.AllowSomePages = false;
-                MyPrintDialog.PrintToFile = false;
-                MyPrintDialog.ShowHelp = false;
-                MyPrintDialog.ShowNetwork = false;
-                if (MyPrintDialog.ShowDialog() != DialogResult.OK)
-                    return;
-                pd = new System.Drawing.Printing.PrintDocument();
-                pd.DocumentName = "Сверка фонда";
-                //pd.PrinterSettings = MyPrintDialog.PrinterSettings;
-                pd.DefaultPageSettings = pd.PrinterSettings.DefaultPageSettings;
-                pd.DefaultPageSettings.Margins = new System.Drawing.Printing.Margins(20, 20, 20, 20);
-                pd.DefaultPageSettings.Landscape = false;
-                pd.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(pd_PrintPage);
-                string tit =  "Количество литературы/читателей \nза период с "+MyDateSpan.start.ToShortDateString() + " по " + MyDateSpan.end.ToShortDateString() + ".";
-                prin = new DataGridViewPrinter(Statistics, pd, true, true, tit, new Font("Tahoma", 18), Color.Black, false);
-                pd.Print();
+                MessageBox.Show("Нечего экспортировать!");
+                return;
             }
-            else
+            string strExport = "";
+            //Loop through all the columns in DataGridView to Set the 
+            //Column Heading
+            foreach (DataGridViewColumn dc in Statistics.Columns)
             {
-                //распечатать выделенное
-                ListSortDirection SO = ListSortDirection.Ascending;
-                dgw2 = new DataGridView();
-                //DataGridViewRow[] arr = new DataGridViewRow[Statistics.SelectedRows.Count];
-                DataGridViewColumn[] arr1 = new DataGridViewColumn[Statistics.Columns.Count];
-                //Statistics.SelectedRows.CopyTo(arr, 0);
-                Statistics.Columns.CopyTo(arr1, 0);
-                dgw2.AutoGenerateColumns = false;
-                dgw2.Columns.Clear();
-                dgw2.Font = new Font("Times New Roman", 10);
-                //dgw2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-                //dgw2.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-                //dgw2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-                dgw2.AllowUserToAddRows = false;
-                //dgw2.Columns.AddRange(arr1);
-                foreach (DataGridViewColumn col in arr1)
+                strExport += dc.HeaderText.Replace(";", " ") + "  ; ";
+            }
+            strExport = strExport.Substring(0, strExport.Length - 3) + Environment.NewLine.ToString();
+            //Loop through all the row and append the value with 3 spaces
+            foreach (DataGridViewRow dr in Statistics.Rows)
+            {
+                foreach (DataGridViewCell dc in dr.Cells)
                 {
-                    //dgw2.Columns.Add((DataGridViewColumn)col.Clone());
-                    dgw2.Columns.Add("","");
-                }
-                int i = 0;
-                for (int ri = 0; ri < Statistics.Rows.Count; ri++)
-                {
-                    
-                    dgw2.Rows.Add();// (DataGridViewRow)Statistics.SelectedRows[ri].Clone();
-                    DataGridViewRow clonedRow = dgw2.Rows[i];
-                    for (Int32 index = 0; index < Statistics.Rows[ri].Cells.Count; index++)
+                    if (dc.Value != null)
                     {
-                        dgw2.Rows[i].Cells[index].Value = Statistics.Rows[ri].Cells[index].Value;
+                        strExport += dc.FormattedValue.ToString().Replace(";", " ") + " ;  ";
                     }
-                    //dgw2.Rows.Add(clonedRow);
-                    i++;
                 }
-                dgw2.AutoSize = false;
-                dgw2.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-                dgw2.ColumnHeadersDefaultCellStyle.WrapMode = DataGridViewTriState.True;
-                dgw2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-                dgw2.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-                //Statistics.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.None;
-                dgw2.Columns[0].Width = 35;
-                dgw2.Columns[1].Width = 470;
-                dgw2.Columns[2].Width = 215;
-                dgw2.Columns[2].Visible = true;
+                strExport += Environment.NewLine.ToString();
+            }
+            strExport = strExport.Substring(0, strExport.Length - 3) + Environment.NewLine.ToString() + Environment.NewLine.ToString() + DateTime.Now.ToString("dd.MM.yyyy") + "  номер сотрудника " + this.EmpID + " - " + this.textBox1.Text;
+            //Create a TextWrite object to write to file, select a file name with .csv extention
+            string tmp = label19.Text + "_" + DateTime.Now.ToString("hh:mm:ss.nnn") + ".csv";
+            tmp = label19.Text + "_" + DateTime.Now.Ticks.ToString() + ".csv";
+            SaveFileDialog sd = new SaveFileDialog();
+            sd.Title = "Сохранить в файл";
+            sd.Filter = "csv files (*.csv)|*.csv";
+            sd.FilterIndex = 1;
+            TextWriter tw;
+            sd.FileName = tmp;
+            if (sd.ShowDialog() == DialogResult.OK)
+            {
+                tmp = sd.FileName;
+                tw = new System.IO.StreamWriter(tmp, false, Encoding.UTF8);
+                //Write the Text to file
+                //tw.Encoding = Encoding.Unicode;
+                tw.Write(strExport);
+                //Close the Textwrite
+                tw.Close();
+            }
 
-                dgw2.Columns[3].Width = 70;
-                dgw2.Columns[4].Visible = false;
-                dgw2.Columns[5].Visible = false;
-                dgw2.Columns[6].Visible = false;
-                dgw2.Columns[7].Width = 70;
-                dgw2.Columns[8].Width = 100;
-                dgw2.Columns[9].Visible = false;
-                dgw2.Columns[10].Width = 70;
-                dgw2.Columns[11].Width = 70;
-                dgw2.Columns[1].HeaderText = "Заглавие";
-                dgw2.Columns[2].HeaderText = "Автор";
-                dgw2.Columns[3].HeaderText = "Инв. номер";
-                dgw2.Columns[4].HeaderText = "Спрашиваемость";
-                dgw2.Columns[7].HeaderText = "Номер билета";
-                dgw2.Columns[8].HeaderText = "ФИО";
-                dgw2.Columns[10].HeaderText = "Дата выдачи";
-                dgw2.Columns[10].ValueType = typeof(DateTime);
-                dgw2.Columns[11].HeaderText = "Дата возврата";
-                if (Statistics.SortedColumn != null)
-                {
-                    if (Statistics.Columns[Statistics.SortedColumn.Index].HeaderCell.SortGlyphDirection == System.Windows.Forms.SortOrder.Ascending)
-                    {
-                        SO = ListSortDirection.Ascending;
-                    }
-                    if (Statistics.Columns[Statistics.SortedColumn.Index].HeaderCell.SortGlyphDirection == System.Windows.Forms.SortOrder.Descending)
-                    {
-                        SO = ListSortDirection.Descending;
-                    }
-                    dgw2.Sort(dgw2.Columns[Statistics.SortedColumn.Index], SO);
-                }
-                //dgw2
-                autoinc(dgw2);
-                if (SetupThePrinting())
-                    pd.Print();
-            }
+            
             
         
         }
@@ -2013,10 +1941,16 @@ namespace Circulation
             //        return;
             //    }
             if (e.RowIndex == -1) return;
-            if (label19.Text.IndexOf("Список просроченных документов на текущий момент") != -1)
+            if ((label19.Text.IndexOf("Список просроченных документов на текущий момент") != -1) )
             {
                 tabControl1.SelectedIndex = 1;
                 numericUpDown3.Value = int.Parse(Statistics.Rows[e.RowIndex].Cells[3].Value.ToString());
+                button10_Click(sender, new EventArgs());
+            }
+            if (label19.Text.Contains("нарушит"))
+            {
+                tabControl1.SelectedIndex = 1;
+                numericUpDown3.Value = int.Parse(Statistics.Rows[e.RowIndex].Cells[1].Value.ToString());
                 button10_Click(sender, new EventArgs());
             }
                     
@@ -2320,7 +2254,7 @@ namespace Circulation
 
             autoinc(Statistics);
             Statistics.Columns[0].Width = 40;
-            Statistics.Columns[1].HeaderText = "№№";
+            Statistics.Columns[0].HeaderText = "№№";
             Statistics.Columns[1].HeaderText = "Заглавие";
             Statistics.Columns[1].Width = 280;
             Statistics.Columns[2].HeaderText = "Автор";
@@ -2402,7 +2336,7 @@ namespace Circulation
                 object value = r.Cells[10].Value;
                 if (Convert.ToBoolean(value) == true)
                 {
-                    r.DefaultCellStyle.BackColor = Color.LightYellow;
+                    r.DefaultCellStyle.BackColor = Color.Yellow;
                 }
             }
             button12.Enabled = true;
@@ -2452,6 +2386,243 @@ namespace Circulation
             Statistics.Columns[2].Width = 200;
             autoinc(Statistics);
         }
+
+        private void отчётОтделаЗаПериодToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Statistics.Columns != null)
+                Statistics.Columns.Clear();
+            DatePeriod f3 = new DatePeriod();
+            f3.ShowDialog();
+            label18.Text = "";
+            label19.Text = "Отчёт отдела за период с " + f3.StartDate.ToString("dd.MM.yyyy") + " по " + f3.EndDate.ToString("dd.MM.yyyy") + ": ";
+            DBGeneral dbg = new DBGeneral();
+
+            try
+            {
+                Statistics.DataSource = dbg.GetDepReport(f3.StartDate, f3.EndDate);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Statistics.Columns.Clear();
+                return;
+            }
+            autoinc(Statistics);
+            Statistics.Columns[0].HeaderText = "№№";
+            Statistics.Columns[1].Width = 250;
+            Statistics.Columns[1].HeaderText = "Наименование";
+            Statistics.Columns[2].HeaderText = "Количество";
+            Statistics.Columns[2].Width = 200;
+            autoinc(Statistics);
+        }
+        private void отчётТекущегоОператораЗаПериодToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Statistics.Columns != null)
+                Statistics.Columns.Clear();
+            DatePeriod f3 = new DatePeriod();
+            f3.ShowDialog();
+            label18.Text = "";
+            label19.Text = "Отчёт текущего оператора за период с " + f3.StartDate.ToString("dd.MM.yyyy") + " по " + f3.EndDate.ToString("dd.MM.yyyy") + ": ";
+            DBGeneral dbg = new DBGeneral();
+
+            try
+            {
+                Statistics.DataSource = dbg.GetOprReport(f3.StartDate, f3.EndDate, this.EmpID);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                Statistics.Columns.Clear();
+                return;
+            }
+            autoinc(Statistics);
+            Statistics.Columns[0].HeaderText = "№№";
+            Statistics.Columns[1].Width = 250;
+            Statistics.Columns[1].HeaderText = "Наименование";
+            Statistics.Columns[2].HeaderText = "Количество";
+            Statistics.Columns[2].Width = 200;
+            autoinc(Statistics);
+        }
+        private void всеКнигиЦентраАмериканскойКультурыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Statistics.Columns.Clear();
+            //Statistics.Columns.Add("NN", "№ п/п");
+            Statistics.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            Statistics.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            Statistics.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+
+            //DatePeriod f3 = new DatePeriod();
+            //f3.ShowDialog();
+            label19.Text = "Список всех документов Американского центра ";
+            label18.Text = "";
+            DBReference dbref = new DBReference();
+            Statistics.DataSource = dbref.GetAllBooks();
+            if (this.Statistics.Rows.Count == 0)
+            {
+                this.Statistics.Columns.Clear();
+                MessageBox.Show("Нет выданных книг!");
+                return;
+            }
+
+            autoinc(Statistics);
+            Statistics.Columns[0].Width = 70;
+            Statistics.Columns[0].HeaderText = "№№";
+            Statistics.Columns[1].HeaderText = "Заглавие";
+            Statistics.Columns[1].Width = 500;
+            Statistics.Columns[2].HeaderText = "Автор";
+            Statistics.Columns[2].Width = 200;
+            Statistics.Columns[3].HeaderText = "Штрихкод";
+            Statistics.Columns[3].Width = 100;
+
+            button12.Enabled = true;
+        }
+
+        private void обращаемостьКнигToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Statistics.Columns.Clear();
+            //Statistics.Columns.Add("NN", "№ п/п");
+            Statistics.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            Statistics.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            Statistics.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+
+            //DatePeriod f3 = new DatePeriod();
+            //f3.ShowDialog();
+            label19.Text = "Обращаемость документов Американского центра ";
+            label18.Text = "";
+            DBReference dbref = new DBReference();
+            Statistics.DataSource = dbref.GetBookNegotiability();
+            if (this.Statistics.Rows.Count == 0)
+            {
+                this.Statistics.Columns.Clear();
+                MessageBox.Show("Нет выданных книг!");
+                return;
+            }
+
+            autoinc(Statistics);
+            Statistics.Columns[0].Width = 70;
+            Statistics.Columns[0].HeaderText = "№№";
+            Statistics.Columns[1].HeaderText = "Заглавие";
+            Statistics.Columns[1].Width = 500;
+            Statistics.Columns[2].HeaderText = "Автор";
+            Statistics.Columns[2].Width = 200;
+            Statistics.Columns[3].HeaderText = "Штрихкод";
+            Statistics.Columns[3].Width = 100;
+            Statistics.Columns[4].HeaderText = "Обращаемость";
+            Statistics.Columns[4].Width = 100;
+
+            button12.Enabled = true;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (Formular.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Выделите строку!");
+                return;
+            }
+            DialogResult dr = MessageBox.Show("Вы действительно хотите снять ответственность за выделенную книгу?", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
+            if (dr == DialogResult.No) return;
+            DEPARTMENT.RemoveResponsibility((int)Formular.SelectedRows[0].Cells["idiss"].Value, EmpID);
+            ReaderVO reader = new ReaderVO((int)Formular.SelectedRows[0].Cells["idr"].Value);
+            FillFormularGrid(reader);
+        }
+
+        private void списокКнигСКоторыхСнятаОтветственностьToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Statistics.Columns.Clear();
+            //Statistics.Columns.Add("NN", "№ п/п");
+            Statistics.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            Statistics.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            Statistics.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+
+            //DatePeriod f3 = new DatePeriod();
+            //f3.ShowDialog();
+            label19.Text = "Обращаемость документов Американского центра ";
+            label18.Text = "";
+            DBReference dbref = new DBReference();
+            Statistics.DataSource = dbref.GetBooksWithRemovedResponsibility();
+            if (this.Statistics.Rows.Count == 0)
+            {
+                this.Statistics.Columns.Clear();
+                MessageBox.Show("Нет выданных книг!");
+                return;
+            }
+
+            autoinc(Statistics);
+            Statistics.Columns[0].HeaderText = "№№";
+            Statistics.Columns[0].Width = 40;
+            Statistics.Columns[1].HeaderText = "Заглавие";
+            Statistics.Columns[1].Width = 250;
+            Statistics.Columns[2].HeaderText = "Автор";
+            Statistics.Columns[2].Width = 130;
+            Statistics.Columns[3].HeaderText = "Номер читате льского билета";
+            Statistics.Columns[3].Width = 70;
+            Statistics.Columns[4].HeaderText = "Фамилия";
+            Statistics.Columns[4].Width = 100;
+            Statistics.Columns[5].HeaderText = "Имя";
+            Statistics.Columns[5].Width = 80;
+            Statistics.Columns[6].HeaderText = "Отчество";
+            Statistics.Columns[6].Width = 80;
+            Statistics.Columns[7].HeaderText = "Штрихкод";
+            Statistics.Columns[7].Width = 80;
+            Statistics.Columns[8].HeaderText = "Дата выдачи";
+            Statistics.Columns[8].ValueType = typeof(DateTime);
+            Statistics.Columns[8].DefaultCellStyle.Format = "dd.MM.yyyy";
+            Statistics.Columns[8].Width = 85;
+            Statistics.Columns[9].HeaderText = "Дата снятия ответственности";
+            Statistics.Columns[9].DefaultCellStyle.Format = "dd.MM.yyyy";
+            Statistics.Columns[9].Width = 85;
+            button12.Enabled = true;
+        }
+
+        private void списокНарушителейСроковПользованияToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Statistics.Columns.Clear();
+            //Statistics.Columns.Add("NN", "№ п/п");
+            Statistics.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            Statistics.RowTemplate.DefaultCellStyle.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            Statistics.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+
+            //DatePeriod f3 = new DatePeriod();
+            //f3.ShowDialog();
+            label19.Text = "Список нарушителей сроков пользования ";
+            label18.Text = "";
+            DBReference dbref = new DBReference();
+            Statistics.DataSource = dbref.GetViolators();
+            if (this.Statistics.Rows.Count == 0)
+            {
+                this.Statistics.Columns.Clear();
+                MessageBox.Show("Нет выданных книг!");
+                return;
+            }
+
+            autoinc(Statistics);
+            Statistics.Columns[0].HeaderText = "№№";
+            Statistics.Columns[0].Width = 40;
+            Statistics.Columns[1].HeaderText = "Номер читате льского билета";
+            Statistics.Columns[1].Width = 70;
+            Statistics.Columns[2].HeaderText = "Фамилия";
+            Statistics.Columns[2].Width = 120;
+            Statistics.Columns[3].HeaderText = "Имя";
+            Statistics.Columns[3].Width = 120;
+            Statistics.Columns[4].HeaderText = "Отчество";
+            Statistics.Columns[4].Width = 120;
+            Statistics.Columns[5].Visible = false;
+            Statistics.Columns[6].HeaderText = "Дата последней отправки email";
+            Statistics.Columns[6].Width = 150;
+            button12.Enabled = true;
+            foreach (DataGridViewRow r in Statistics.Rows)
+            {
+                object value = r.Cells[5].Value;
+                if (Convert.ToBoolean(value) == true)
+                {
+                    r.DefaultCellStyle.BackColor = Color.Yellow;
+                }
+            }
+        }
+
+       
 
 
 

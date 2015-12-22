@@ -194,5 +194,127 @@ namespace Circulation
             
             return DS.Tables["act"];
         }
+
+        internal object GetDepReport(DateTime dateTime, DateTime dateTime_2)
+        {
+            DA.SelectCommand.Parameters.Clear();
+            DA.SelectCommand.Parameters.AddWithValue("start", dateTime.Date);
+            DA.SelectCommand.Parameters.AddWithValue("end", dateTime_2.Date);
+            DA.SelectCommand.CommandText = " select count(A.DATEACTION) from Reservation_R..ISSUED_ACC_ACTIONS A " +
+                                           " left join Reservation_R..ACTIONSTYPE B on A.IDACTION = B.ID " +
+                                           " where cast(cast(A.DATEACTION as varchar(11)) as datetime) between @start and @end and A.IDACTION = 1";
+            DS = new DataSet();
+            int i = DA.Fill(DS, "rep1");
+            DS.Tables.Add("result");
+            DS.Tables["result"].Columns.Add("num");
+            DS.Tables["result"].Columns.Add("name");
+            DS.Tables["result"].Columns.Add("kolvo");
+            DS.Tables["result"].Rows.Add(new string[] { "1","Количество выданных книг",DS.Tables["rep1"].Rows[0][0].ToString()});
+
+            DA.SelectCommand.Parameters.Clear();
+            DA.SelectCommand.Parameters.AddWithValue("start", dateTime.Date);
+            DA.SelectCommand.Parameters.AddWithValue("end", dateTime_2.Date);
+            DA.SelectCommand.CommandText = " select count(A.DATEACTION) from Reservation_R..ISSUED_ACC_ACTIONS A " +
+                                           " left join Reservation_R..ACTIONSTYPE B on A.IDACTION = B.ID " +
+                                           " where cast(cast(A.DATEACTION as varchar(11)) as datetime) between @start and @end and A.IDACTION = 2";
+            //DS = new DataSet();
+            i = DA.Fill(DS, "rep2");
+            DS.Tables["result"].Rows.Add(new string[] { "2", "Количество принятых книг", DS.Tables["rep2"].Rows[0][0].ToString() });
+
+            DA.SelectCommand.Parameters.Clear();
+            DA.SelectCommand.Parameters.AddWithValue("start", dateTime.Date);
+            DA.SelectCommand.Parameters.AddWithValue("end", dateTime_2.Date);
+            DA.SelectCommand.CommandText = " select count(distinct C.IDREADER) from Reservation_R..ISSUED_ACC_ACTIONS A " +
+                                           " left join Reservation_R..ACTIONSTYPE B on A.IDACTION = B.ID " +
+                                           " left join Reservation_R..ISSUED_ACC C on A.IDISSUED_ACC = C.ID " +
+                                           " where cast(cast(A.DATEACTION as varchar(11)) as datetime) between @start and @end and A.IDACTION = 1";
+            //DS = new DataSet();
+            i = DA.Fill(DS, "rep3");
+            DS.Tables["result"].Rows.Add(new string[] { "3", "Количество читателей, получивших книги", DS.Tables["rep3"].Rows[0][0].ToString() });
+
+            DA.SelectCommand.Parameters.Clear();
+            DA.SelectCommand.Parameters.AddWithValue("start", dateTime.Date);
+            DA.SelectCommand.Parameters.AddWithValue("end", dateTime_2.Date);
+            DA.SelectCommand.CommandText = " select count(A.SORT) from BJACC..DATAEXT A " +
+                                           " where A.MNFIELD = 899 and A.MSFIELD = '$w'";
+            //DS = new DataSet();
+            i = DA.Fill(DS, "rep4");
+            DS.Tables["result"].Rows.Add(new string[] { "4", "Количество всех книг в фонде", DS.Tables["rep4"].Rows[0][0].ToString() });
+
+
+
+            return DS.Tables["result"];
+        }
+
+        internal object GetOprReport(DateTime dateTime, DateTime dateTime_2, int p)
+        {
+            DA.SelectCommand.Parameters.Clear();
+            DA.SelectCommand.Parameters.AddWithValue("start", dateTime.Date);
+            DA.SelectCommand.Parameters.AddWithValue("end", dateTime_2.Date);
+            DA.SelectCommand.CommandText = " select count(A.DATEACTION) from Reservation_R..ISSUED_ACC_ACTIONS A " +
+                                           " left join Reservation_R..ACTIONSTYPE B on A.IDACTION = B.ID " +
+                                           " where cast(cast(A.DATEACTION as varchar(11)) as datetime) between @start and @end and A.IDACTION = 1 and A.IDEMP = "+p;
+            DS = new DataSet();
+            int i = DA.Fill(DS, "rep1");
+            DS.Tables.Add("result");
+            DS.Tables["result"].Columns.Add("num");
+            DS.Tables["result"].Columns.Add("name");
+            DS.Tables["result"].Columns.Add("kolvo");
+            DS.Tables["result"].Rows.Add(new string[] { "1", "Количество выданных книг", DS.Tables["rep1"].Rows[0][0].ToString() });
+
+            DA.SelectCommand.Parameters.Clear();
+            DA.SelectCommand.Parameters.AddWithValue("start", dateTime.Date);
+            DA.SelectCommand.Parameters.AddWithValue("end", dateTime_2.Date);
+            DA.SelectCommand.CommandText = " select count(A.DATEACTION) from Reservation_R..ISSUED_ACC_ACTIONS A " +
+                                           " left join Reservation_R..ACTIONSTYPE B on A.IDACTION = B.ID " +
+                                           " where cast(cast(A.DATEACTION as varchar(11)) as datetime) between @start and @end and A.IDACTION = 2 and A.IDEMP = "+p;
+            //DS = new DataSet();
+            i = DA.Fill(DS, "rep2");
+            DS.Tables["result"].Rows.Add(new string[] { "2", "Количество принятых книг", DS.Tables["rep2"].Rows[0][0].ToString() });
+
+            DA.SelectCommand.Parameters.Clear();
+            DA.SelectCommand.Parameters.AddWithValue("start", dateTime.Date);
+            DA.SelectCommand.Parameters.AddWithValue("end", dateTime_2.Date);
+            DA.SelectCommand.CommandText = " select count(distinct C.IDREADER) from Reservation_R..ISSUED_ACC_ACTIONS A " +
+                                           " left join Reservation_R..ACTIONSTYPE B on A.IDACTION = B.ID " +
+                                           " left join Reservation_R..ISSUED_ACC C on A.IDISSUED_ACC = C.ID " +
+                                           " where cast(cast(A.DATEACTION as varchar(11)) as datetime) between @start and @end and A.IDACTION = 1 and A.IDEMP = "+p;
+            //DS = new DataSet();
+            i = DA.Fill(DS, "rep3");
+            DS.Tables["result"].Rows.Add(new string[] { "3", "Количество читателей, получивших книги", DS.Tables["rep3"].Rows[0][0].ToString() });
+
+
+
+            return DS.Tables["result"];
+        }
+
+        internal void RemoveResposibility(int idiss, int EmpID)
+        {
+            DA.UpdateCommand.Parameters.Clear();
+            DA.UpdateCommand.Parameters.Add("IDISSUED", SqlDbType.Int);
+
+            DA.UpdateCommand.Parameters["IDISSUED"].Value = idiss;
+            DA.UpdateCommand.CommandText = "update Reservation_R..ISSUED_ACC set IDSTATUS = 2 where ID = @IDISSUED";
+            DA.UpdateCommand.Connection.Open();
+            DA.UpdateCommand.ExecuteNonQuery();
+            DA.UpdateCommand.Connection.Close();
+
+            DA.InsertCommand.Parameters.Clear();
+            DA.InsertCommand.Parameters.Add("IDACTION", SqlDbType.Int);
+            DA.InsertCommand.Parameters.Add("IDUSER", SqlDbType.Int);
+            DA.InsertCommand.Parameters.Add("IDISSUED_ACC", SqlDbType.Int);
+            DA.InsertCommand.Parameters.Add("DATEACTION", SqlDbType.DateTime);
+
+            DA.InsertCommand.Parameters["IDACTION"].Value = 5;
+            DA.InsertCommand.Parameters["IDUSER"].Value = EmpID;
+            DA.InsertCommand.Parameters["IDISSUED_ACC"].Value = idiss;
+            DA.InsertCommand.Parameters["DATEACTION"].Value = DateTime.Now;
+
+            DA.InsertCommand.CommandText = "insert into Reservation_R..ISSUED_ACC_ACTIONS (IDACTION,IDEMP,IDISSUED_ACC,DATEACTION) values " +
+                                            "(@IDACTION,@IDUSER,@IDISSUED_ACC,@DATEACTION)";
+            DA.InsertCommand.Connection.Open();
+            DA.InsertCommand.ExecuteNonQuery();
+            DA.InsertCommand.Connection.Close();
+        }
     }
 }

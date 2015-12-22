@@ -36,6 +36,7 @@ namespace Circulation
             int rownum = 0;
             bold = new List<int>();
             //IDISSUED_ACC = IDISS;
+            label2.Text = "Дата последней отправки письма: " + reader.GetLastDateEmail();
 
 
 

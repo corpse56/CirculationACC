@@ -54,6 +54,7 @@ namespace Circulation
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -108,6 +109,12 @@ namespace Circulation
             this.выданные нигиЌа“екущийћоментToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.просроченные нигиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокƒействийќператора«аѕериодToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчЄтќтдела«аѕериодToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.отчЄт“екущегоќператора«аѕериодToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.все ниги÷ентрајмериканской ультурыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.обращаемость нигToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.список ниг— оторых—н€таќтветственностьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.списокЌарушителей—роковѕользовани€ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -369,6 +376,7 @@ namespace Circulation
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.button4);
             this.tabPage4.Controls.Add(this.button2);
             this.tabPage4.Controls.Add(this.pictureBox2);
             this.tabPage4.Controls.Add(this.button1);
@@ -395,11 +403,21 @@ namespace Circulation
             this.tabPage4.UseVisualStyleBackColor = true;
             this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(771, 69);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(175, 27);
+            this.button4.TabIndex = 22;
+            this.button4.Text = "—н€ть ответственность";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(820, 41);
+            this.button2.Location = new System.Drawing.Point(771, 41);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(125, 26);
+            this.button2.Size = new System.Drawing.Size(174, 26);
             this.button2.TabIndex = 21;
             this.button2.Text = "ќтослать email";
             this.button2.UseVisualStyleBackColor = true;
@@ -450,9 +468,9 @@ namespace Circulation
             // 
             // button16
             // 
-            this.button16.Location = new System.Drawing.Point(820, 6);
+            this.button16.Location = new System.Drawing.Point(771, 6);
             this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(126, 33);
+            this.button16.Size = new System.Drawing.Size(175, 33);
             this.button16.TabIndex = 15;
             this.button16.Text = "»стори€ выдач";
             this.button16.UseVisualStyleBackColor = true;
@@ -667,7 +685,7 @@ namespace Circulation
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(234, 28);
             this.button12.TabIndex = 5;
-            this.button12.Text = "–аспечатать";
+            this.button12.Text = "—охранить в файл";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
@@ -858,30 +876,78 @@ namespace Circulation
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.выданные нигиЌа“екущийћоментToolStripMenuItem,
             this.просроченные нигиToolStripMenuItem,
-            this.списокƒействийќператора«аѕериодToolStripMenuItem});
+            this.списокƒействийќператора«аѕериодToolStripMenuItem,
+            this.отчЄтќтдела«аѕериодToolStripMenuItem,
+            this.отчЄт“екущегоќператора«аѕериодToolStripMenuItem,
+            this.все ниги÷ентрајмериканской ультурыToolStripMenuItem,
+            this.обращаемость нигToolStripMenuItem,
+            this.список ниг— оторых—н€таќтветственностьToolStripMenuItem,
+            this.списокЌарушителей—роковѕользовани€ToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(287, 92);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(331, 224);
             // 
             // выданные нигиЌа“екущийћоментToolStripMenuItem
             // 
             this.выданные нигиЌа“екущийћоментToolStripMenuItem.Name = "выданные нигиЌа“екущийћоментToolStripMenuItem";
-            this.выданные нигиЌа“екущийћоментToolStripMenuItem.Size = new System.Drawing.Size(286, 22);
+            this.выданные нигиЌа“екущийћоментToolStripMenuItem.Size = new System.Drawing.Size(330, 22);
             this.выданные нигиЌа“екущийћоментToolStripMenuItem.Text = "¬ыданные книги на текущий момент";
             this.выданные нигиЌа“екущийћоментToolStripMenuItem.Click += new System.EventHandler(this.выданные нигиЌа“екущийћоментToolStripMenuItem_Click);
             // 
             // просроченные нигиToolStripMenuItem
             // 
             this.просроченные нигиToolStripMenuItem.Name = "просроченные нигиToolStripMenuItem";
-            this.просроченные нигиToolStripMenuItem.Size = new System.Drawing.Size(286, 22);
+            this.просроченные нигиToolStripMenuItem.Size = new System.Drawing.Size(330, 22);
             this.просроченные нигиToolStripMenuItem.Text = "ѕросроченные книги";
             this.просроченные нигиToolStripMenuItem.Click += new System.EventHandler(this.просроченные нигиToolStripMenuItem_Click);
             // 
             // списокƒействийќператора«аѕериодToolStripMenuItem
             // 
             this.списокƒействийќператора«аѕериодToolStripMenuItem.Name = "списокƒействийќператора«аѕериодToolStripMenuItem";
-            this.списокƒействийќператора«аѕериодToolStripMenuItem.Size = new System.Drawing.Size(286, 22);
+            this.списокƒействийќператора«аѕериодToolStripMenuItem.Size = new System.Drawing.Size(330, 22);
             this.списокƒействийќператора«аѕериодToolStripMenuItem.Text = "—писок действий оператора за период";
             this.списокƒействийќператора«аѕериодToolStripMenuItem.Click += new System.EventHandler(this.списокƒействийќператора«аѕериодToolStripMenuItem_Click);
+            // 
+            // отчЄтќтдела«аѕериодToolStripMenuItem
+            // 
+            this.отчЄтќтдела«аѕериодToolStripMenuItem.Name = "отчЄтќтдела«аѕериодToolStripMenuItem";
+            this.отчЄтќтдела«аѕериодToolStripMenuItem.Size = new System.Drawing.Size(330, 22);
+            this.отчЄтќтдела«аѕериодToolStripMenuItem.Text = "ќтчЄт отдела за период";
+            this.отчЄтќтдела«аѕериодToolStripMenuItem.Click += new System.EventHandler(this.отчЄтќтдела«аѕериодToolStripMenuItem_Click);
+            // 
+            // отчЄт“екущегоќператора«аѕериодToolStripMenuItem
+            // 
+            this.отчЄт“екущегоќператора«аѕериодToolStripMenuItem.Name = "отчЄт“екущегоќператора«аѕериодToolStripMenuItem";
+            this.отчЄт“екущегоќператора«аѕериодToolStripMenuItem.Size = new System.Drawing.Size(330, 22);
+            this.отчЄт“екущегоќператора«аѕериодToolStripMenuItem.Text = "ќтчЄт текущего оператора за период";
+            this.отчЄт“екущегоќператора«аѕериодToolStripMenuItem.Click += new System.EventHandler(this.отчЄт“екущегоќператора«аѕериодToolStripMenuItem_Click);
+            // 
+            // все ниги÷ентрајмериканской ультурыToolStripMenuItem
+            // 
+            this.все ниги÷ентрајмериканской ультурыToolStripMenuItem.Name = "все ниги÷ентрајмериканской ультурыToolStripMenuItem";
+            this.все ниги÷ентрајмериканской ультурыToolStripMenuItem.Size = new System.Drawing.Size(330, 22);
+            this.все ниги÷ентрајмериканской ультурыToolStripMenuItem.Text = "¬се книги центра американской культуры";
+            this.все ниги÷ентрајмериканской ультурыToolStripMenuItem.Click += new System.EventHandler(this.все ниги÷ентрајмериканской ультурыToolStripMenuItem_Click);
+            // 
+            // обращаемость нигToolStripMenuItem
+            // 
+            this.обращаемость нигToolStripMenuItem.Name = "обращаемость нигToolStripMenuItem";
+            this.обращаемость нигToolStripMenuItem.Size = new System.Drawing.Size(330, 22);
+            this.обращаемость нигToolStripMenuItem.Text = "ќбращаемость книг";
+            this.обращаемость нигToolStripMenuItem.Click += new System.EventHandler(this.обращаемость нигToolStripMenuItem_Click);
+            // 
+            // список ниг— оторых—н€таќтветственностьToolStripMenuItem
+            // 
+            this.список ниг— оторых—н€таќтветственностьToolStripMenuItem.Name = "список ниг— оторых—н€таќтветственностьToolStripMenuItem";
+            this.список ниг— оторых—н€таќтветственностьToolStripMenuItem.Size = new System.Drawing.Size(330, 22);
+            this.список ниг— оторых—н€таќтветственностьToolStripMenuItem.Text = "—писок книг, с которых сн€та ответственность";
+            this.список ниг— оторых—н€таќтветственностьToolStripMenuItem.Click += new System.EventHandler(this.список ниг— оторых—н€таќтветственностьToolStripMenuItem_Click);
+            // 
+            // списокЌарушителей—роковѕользовани€ToolStripMenuItem
+            // 
+            this.списокЌарушителей—роковѕользовани€ToolStripMenuItem.Name = "списокЌарушителей—роковѕользовани€ToolStripMenuItem";
+            this.списокЌарушителей—роковѕользовани€ToolStripMenuItem.Size = new System.Drawing.Size(330, 22);
+            this.списокЌарушителей—роковѕользовани€ToolStripMenuItem.Text = "—писок нарушителей сроков пользовани€";
+            this.списокЌарушителей—роковѕользовани€ToolStripMenuItem.Click += new System.EventHandler(this.списокЌарушителей—роковѕользовани€ToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -1009,6 +1075,13 @@ namespace Circulation
         private System.Windows.Forms.ToolStripMenuItem просроченные нигиToolStripMenuItem;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.ToolStripMenuItem списокƒействийќператора«аѕериодToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem отчЄтќтдела«аѕериодToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem все ниги÷ентрајмериканской ультурыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem отчЄт“екущегоќператора«аѕериодToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem обращаемость нигToolStripMenuItem;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.ToolStripMenuItem список ниг— оторых—н€таќтветственностьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem списокЌарушителей—роковѕользовани€ToolStripMenuItem;
         //private Circulation.BRIT_SOVETDataSetTableAdapters.ZAKAZTableAdapter zAKAZTableAdapter;
         //private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
         //private CrystalReport1 CrystalReport11;
