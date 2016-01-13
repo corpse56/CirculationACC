@@ -2256,19 +2256,19 @@ namespace Circulation
             Statistics.Columns[0].Width = 40;
             Statistics.Columns[0].HeaderText = "№№";
             Statistics.Columns[1].HeaderText = "Заглавие";
-            Statistics.Columns[1].Width = 280;
+            Statistics.Columns[1].Width = 270;
             Statistics.Columns[2].HeaderText = "Автор";
-            Statistics.Columns[2].Width = 150;
+            Statistics.Columns[2].Width = 140;
             Statistics.Columns[3].HeaderText = "Номер читате льского билета";
             Statistics.Columns[3].Width = 70;
             Statistics.Columns[4].HeaderText = "Фамилия";
             Statistics.Columns[4].Width = 100;
             Statistics.Columns[5].HeaderText = "Имя";
-            Statistics.Columns[5].Width = 100;
+            Statistics.Columns[5].Width = 90;
             Statistics.Columns[6].HeaderText = "Отчество";
             Statistics.Columns[6].Width = 100;
             Statistics.Columns[7].HeaderText = "Штрихкод";
-            Statistics.Columns[7].Width = 100;
+            Statistics.Columns[7].Width = 80;
             Statistics.Columns[8].HeaderText = "Дата выдачи";
             Statistics.Columns[8].ValueType = typeof(DateTime);
             Statistics.Columns[8].DefaultCellStyle.Format = "dd.MM.yyyy";
@@ -2277,6 +2277,8 @@ namespace Circulation
             Statistics.Columns[9].DefaultCellStyle.Format = "dd.MM.yyyy";
             Statistics.Columns[9].Width = 85;
             Statistics.Columns[10].Visible = false;
+            Statistics.Columns[11].HeaderText = "Расстановочный шифр";
+            Statistics.Columns[11].Width = 100;
 
             button12.Enabled = true;
         }
@@ -2306,9 +2308,9 @@ namespace Circulation
             Statistics.Columns[0].HeaderText = "№№";
             Statistics.Columns[0].Width = 40;
             Statistics.Columns[1].HeaderText = "Заглавие";
-            Statistics.Columns[1].Width = 250;
+            Statistics.Columns[1].Width = 240;
             Statistics.Columns[2].HeaderText = "Автор";
-            Statistics.Columns[2].Width = 130;
+            Statistics.Columns[2].Width = 120;
             Statistics.Columns[3].HeaderText = "Номер читате льского билета";
             Statistics.Columns[3].Width = 70;
             Statistics.Columns[4].HeaderText = "Фамилия";
@@ -2318,7 +2320,7 @@ namespace Circulation
             Statistics.Columns[6].HeaderText = "Отчество";
             Statistics.Columns[6].Width = 80;
             Statistics.Columns[7].HeaderText = "Штрихкод";
-            Statistics.Columns[7].Width = 80;
+            Statistics.Columns[7].Width = 75;
             Statistics.Columns[8].HeaderText = "Дата выдачи";
             Statistics.Columns[8].ValueType = typeof(DateTime);
             Statistics.Columns[8].DefaultCellStyle.Format = "dd.MM.yyyy";
@@ -2331,6 +2333,8 @@ namespace Circulation
             Statistics.Columns[11].HeaderText = "Дата последней отправки email";
             Statistics.Columns[11].DefaultCellStyle.Format = "dd.MM.yyyy";
             Statistics.Columns[11].Width = 85;
+            Statistics.Columns[12].HeaderText = "Расстановочный шифр";
+            Statistics.Columns[12].Width = 85;
             foreach (DataGridViewRow r in Statistics.Rows)
             {
                 object value = r.Cells[10].Value;

@@ -967,7 +967,7 @@ namespace Circulation
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Книговыдача ЦДД - Абонемент";
+            this.Text = "Книговыдача Центр Американской Культуры";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.tabControl1.ResumeLayout(false);
