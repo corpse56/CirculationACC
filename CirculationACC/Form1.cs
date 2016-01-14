@@ -429,6 +429,8 @@ namespace Circulation
             Formular.Columns["iss"].Width = 80;
             Formular.Columns["ret"].HeaderText = "Предполагаемая дата возврата";
             Formular.Columns["ret"].Width = 110;
+            Formular.Columns["shifr"].HeaderText = "Расстановочный шифр";
+            Formular.Columns["shifr"].Width = 90;
             Formular.Columns["idiss"].Visible = false;
             Formular.Columns["idr"].Visible = false;
             pictureBox2.Image = reader.Photo;

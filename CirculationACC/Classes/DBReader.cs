@@ -64,13 +64,15 @@ namespace Circulation
                                            " avtp.PLAIN avt, " +
                                            " titp.PLAIN tit, " +
                                            " cast(cast(A.DATE_ISSUE as varchar(11)) as datetime) iss, " +
-                                           " cast(cast(A.DATE_RETURN as varchar(11)) as datetime) ret , A.ID idiss, A.IDREADER idr " +
+                                           " cast(cast(A.DATE_RETURN as varchar(11)) as datetime) ret , A.ID idiss, A.IDREADER idr,E.PLAIN shifr " +
                                            "  from Reservation_R..ISSUED_ACC A " +
                                            " left join BJACC..DATAEXT tit on A.IDMAIN = tit.IDMAIN and tit.MNFIELD = 200 and tit.MSFIELD = '$a' " +
                                            " left join BJACC..DATAEXTPLAIN titp on tit.ID = titp.IDDATAEXT " +
                                            " left join BJACC..DATAEXT avt on A.IDMAIN = avt.IDMAIN and avt.MNFIELD = 700 and avt.MSFIELD = '$a' " +
                                            " left join BJACC..DATAEXTPLAIN avtp on avt.ID = avtp.IDDATAEXT " +
                                            " left join BJACC..DATAEXT bar on A.IDDATA = bar.IDDATA and bar.MNFIELD = 899 and bar.MSFIELD = '$w' " +
+                                           " left join BJACC..DATAEXT EE on A.IDMAIN = EE.IDMAIN and EE.MNFIELD = 899 and EE.MSFIELD = '$j'" +
+                                           " left join BJACC..DATAEXTPLAIN E on E.IDDATAEXT = EE.ID" +
 
                                            " where A.IDREADER = " + ID + " and A.IDSTATUS = 1";
             ;
