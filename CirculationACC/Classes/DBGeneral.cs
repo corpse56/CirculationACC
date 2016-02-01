@@ -169,7 +169,7 @@ namespace Circulation
                                            " left join BJACC..DATAEXTPLAIN titp on tit.ID = titp.IDDATAEXT "+
                                            " left join BJACC..DATAEXT avt on A.IDMAIN = avt.IDMAIN and avt.MNFIELD = 700 and avt.MSFIELD = '$a' "+
                                            " left join BJACC..DATAEXTPLAIN avtp on avt.ID = avtp.IDDATAEXT "+
-                                           " left join BJACC..DATAEXT bar on A.IDMAIN = bar.IDMAIN and bar.MNFIELD = 899 and bar.MSFIELD = '$w' "+
+                                           " left join BJACC..DATAEXT bar on A.IDDATA = bar.IDDATA and bar.MNFIELD = 899 and bar.MSFIELD = '$w' "+
                                            " where cast(cast(B.DATEACTION as varchar(11)) as datetime)  "+
                                            " = cast(cast(GETDATE() as varchar(11)) as datetime) " +
                                            " order by time desc";

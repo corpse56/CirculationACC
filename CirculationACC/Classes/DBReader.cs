@@ -71,7 +71,7 @@ namespace Circulation
                                            " left join BJACC..DATAEXT avt on A.IDMAIN = avt.IDMAIN and avt.MNFIELD = 700 and avt.MSFIELD = '$a' " +
                                            " left join BJACC..DATAEXTPLAIN avtp on avt.ID = avtp.IDDATAEXT " +
                                            " left join BJACC..DATAEXT bar on A.IDDATA = bar.IDDATA and bar.MNFIELD = 899 and bar.MSFIELD = '$w' " +
-                                           " left join BJACC..DATAEXT EE on A.IDMAIN = EE.IDMAIN and EE.MNFIELD = 899 and EE.MSFIELD = '$j'" +
+                                           " left join BJACC..DATAEXT EE on A.IDDATA = EE.IDDATA and EE.MNFIELD = 899 and EE.MSFIELD = '$j'" +
                                            " left join BJACC..DATAEXTPLAIN E on E.IDDATAEXT = EE.ID" +
 
                                            " where A.IDREADER = " + ID + " and A.IDSTATUS = 1";

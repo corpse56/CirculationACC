@@ -41,7 +41,8 @@ namespace Circulation
         public List<BJACCRecord> GetBookByBAR(string BAR)
         {
             DA.SelectCommand.CommandText = "select A.*,B.PLAIN from BJACC..DATAEXT A " +
-                                           " left join BJACC..DATAEXTPLAIN B on A.ID = B.IDDATAEXT where A.IDMAIN = (select top 1 IDMAIN from BJACC..DATAEXT where MNFIELD = 899 and MSFIELD = '$w' and SORT = '" + BAR+"')";
+                                           " left join BJACC..DATAEXTPLAIN B on A.ID = B.IDDATAEXT " +
+                                           " where A.IDMAIN = (select top 1 IDMAIN from BJACC..DATAEXT where MNFIELD = 899 and MSFIELD = '$w' and SORT = '" + BAR + "')";
             DS = new DataSet();
             DA.Fill(DS, "t");
             List<BJACCRecord> Book = new List<BJACCRecord>();
