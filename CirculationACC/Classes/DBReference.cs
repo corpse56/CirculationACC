@@ -19,7 +19,7 @@ namespace Circulation
                 " left join Readers..Main B on A.IDREADER = B.NumberReader" +
                 " left join BJACC..DATAEXT CC on A.IDMAIN = CC.IDMAIN and CC.MNFIELD = 200 and CC.MSFIELD = '$a'" +
                 " left join BJACC..DATAEXT DD on A.IDMAIN = DD.IDMAIN and DD.MNFIELD = 700 and DD.MSFIELD = '$a'" +
-                " left join BJACC..DATAEXT EE on A.IDMAIN = EE.IDMAIN and EE.MNFIELD = 899 and EE.MSFIELD = '$j'" +
+                " left join BJACC..DATAEXT EE on A.IDDATA = EE.IDDATA and EE.MNFIELD = 899 and EE.MSFIELD = '$j'" +
                 " left join BJACC..DATAEXTPLAIN C on C.IDDATAEXT = CC.ID" +
                 " left join BJACC..DATAEXTPLAIN D on D.IDDATAEXT = DD.ID" +
                 " left join BJACC..DATAEXTPLAIN E on E.IDDATAEXT = EE.ID" +
@@ -43,7 +43,7 @@ namespace Circulation
                 " left join Readers..Main B on A.IDREADER = B.NumberReader" +
                 " left join BJACC..DATAEXT CC on A.IDMAIN = CC.IDMAIN and CC.MNFIELD = 200 and CC.MSFIELD = '$a'" +
                 " left join BJACC..DATAEXT DD on A.IDMAIN = DD.IDMAIN and DD.MNFIELD = 700 and DD.MSFIELD = '$a'" +
-                " left join BJACC..DATAEXT EE on A.IDMAIN = EE.IDMAIN and EE.MNFIELD = 899 and EE.MSFIELD = '$j'" +
+                " left join BJACC..DATAEXT EE on A.IDDATA = EE.IDDATA and EE.MNFIELD = 899 and EE.MSFIELD = '$j'" +
                 " left join BJACC..DATAEXTPLAIN C on C.IDDATAEXT = CC.ID" +
                 " left join BJACC..DATAEXTPLAIN D on D.IDDATAEXT = DD.ID" +
                 " left join BJACC..DATAEXTPLAIN E on E.IDDATAEXT = EE.ID" +
@@ -93,20 +93,21 @@ namespace Circulation
         {
             DA.SelectCommand.CommandText = "with F1 as  "+
                                            " ( "+
-                                           " select B.IDMAIN,COUNT(B.IDMAIN) cnt "+
+                                           " select B.IDDATA,COUNT(B.IDDATA) cnt " +
                                            " from Reservation_R..ISSUED_ACC_ACTIONS A "+
                                            " left join Reservation_R..ISSUED_ACC B on B.ID = A.IDISSUED_ACC "+
                                            " where A.IDACTION = 2 "+
-                                           " group by B.IDMAIN "+
+                                           " group by B.IDDATA " +
                                            " ) "+
-                                           " select 1 ID,C.PLAIN tit,D.PLAIN avt, "+
+                                           " select distinct 1 ID,C.PLAIN tit,D.PLAIN avt, "+
                                            " INV.SORT inv,A.cnt "+
                                            "  from F1 A "+
-                                           " left join BJACC..DATAEXT CC on A.IDMAIN = CC.IDMAIN and CC.MNFIELD = 200 and CC.MSFIELD = '$a' "+
-                                           "  left join BJACC..DATAEXT DD on A.IDMAIN = DD.IDMAIN and DD.MNFIELD = 700 and DD.MSFIELD = '$a' "+
+                                           " left join BJACC..DATAEXT idm on A.IDDATA = idm.IDDATA " +
+                                           " left join BJACC..DATAEXT CC on idm.IDMAIN = CC.IDMAIN and CC.MNFIELD = 200 and CC.MSFIELD = '$a' " +
+                                           "  left join BJACC..DATAEXT DD on idm.IDMAIN = DD.IDMAIN and DD.MNFIELD = 700 and DD.MSFIELD = '$a' " +
                                            " left join BJACC..DATAEXTPLAIN C on C.IDDATAEXT = CC.ID "+
                                            "  left join BJACC..DATAEXTPLAIN D on D.IDDATAEXT = DD.ID " +
-                                           "  left join BJACC..DATAEXT INV on A.IDMAIN = INV.IDMAIN and INV.MNFIELD = 899 and INV.MSFIELD = '$w'"+
+                                           "  left join BJACC..DATAEXT INV on A.IDDATA = INV.IDDATA and INV.MNFIELD = 899 and INV.MSFIELD = '$w'"+
                                            " order by cnt desc";
             DS = new DataSet();
             DA.Fill(DS, "t");
