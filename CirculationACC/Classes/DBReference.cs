@@ -14,7 +14,7 @@ namespace Circulation
         {
             DA.SelectCommand.CommandText = "select 1,C.PLAIN tit,D.PLAIN avt,A.IDREADER,B.FamilyName,B.[Name],B.FatherName," +
                 " INV.SORT inv,A.DATE_ISSUE,A.DATE_RETURN," +
-                " (case when B.LiveEmail is null and B.RegistrationEmail is null and B.WorkEmail is null then 'false' else 'true' end) email, E.PLAIN shifr" +
+                " (case when B.Email is null then 'false' else 'true' end) email, E.PLAIN shifr" +
                 " from Reservation_R..ISSUED_ACC A" +
                 " left join Readers..Main B on A.IDREADER = B.NumberReader" +
                 " left join BJACC..DATAEXT CC on A.IDMAIN = CC.IDMAIN and CC.MNFIELD = 200 and CC.MSFIELD = '$a'" +
@@ -37,7 +37,7 @@ namespace Circulation
         {
             DA.SelectCommand.CommandText = "select distinct 1,C.PLAIN tit,D.PLAIN avt,A.IDREADER,B.FamilyName,B.[Name],B.FatherName," +
                 " INV.SORT inv,A.DATE_ISSUE,A.DATE_RETURN," +
-                " (case when (B.LiveEmail is null or B.LiveEmail = '')  and (B.RegistrationEmail is null or B.RegistrationEmail = '') and (B.WorkEmail is null or B.WorkEmail = '') then 'false' else 'true' end) isemail," +
+                " (case when (B.Email is null or B.Email = '') then 'false' else 'true' end) isemail," +
                 " case when EM.DATEACTION is null then 'email не отправлялся' else CONVERT (NVARCHAR, EM.DATEACTION, 104) end emailsent, E.PLAIN shifr " +
                 " from Reservation_R..ISSUED_ACC A" +
                 " left join Readers..Main B on A.IDREADER = B.NumberReader" +
@@ -137,7 +137,7 @@ namespace Circulation
         internal object GetViolators()
         {
             DA.SelectCommand.CommandText = "select distinct 1,A.IDREADER,B.FamilyName,B.[Name],B.FatherName," +
-                " (case when (B.LiveEmail is null or B.LiveEmail = '')  and (B.RegistrationEmail is null or B.RegistrationEmail = '') and (B.WorkEmail is null or B.WorkEmail = '') then 'false' else 'true' end) isemail," +
+                " (case when (B.Email is null or B.Email = '') then 'false' else 'true' end) isemail," +
                 " case when EM.DATEACTION is null then 'email не отправлялся' else CONVERT (NVARCHAR, EM.DATEACTION, 104) end emailsent " +
                 " from Reservation_R..ISSUED_ACC A" +
                 " left join Readers..Main B on A.IDREADER = B.NumberReader" +

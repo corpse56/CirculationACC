@@ -22,9 +22,7 @@ namespace Circulation
         string mailtext;
         public bool canshow = false;
         string rn = System.Environment.NewLine;
-        string LiveEmail = "";
-        string WorkEmail = "";
-        string RegEmail = "";
+        string Email = "";
         string htmltext;
         int IDISSUED_ACC;
         public EmailSending(Form1 f1_, ReaderVO reader_)
@@ -40,13 +38,9 @@ namespace Circulation
 
 
 
-            LiveEmail = reader.GetLiveemail();
-            WorkEmail = reader.GetWorkEmail();
-            RegEmail = reader.GetRegEmail();
-            //LiveEmail = "debarkader@gmail.com";
-            //WorkEmail = "debarkader@gmail.com";
+            Email = reader.GetEmail();
 
-            if ((LiveEmail == "") && (WorkEmail == "") && (RegEmail == ""))
+            if (Email == "")
             {
                 MessageBox.Show("Email не существует или имеет неверный формат!");
                 this.Close();
@@ -116,21 +110,12 @@ namespace Circulation
             message.IsBodyHtml = true;
             //LiveEmail = "debarkader@gmail.com";
             //WorkEmail = "debarkader@gmail.com";
-            if (LiveEmail != "")
+            if (Email != "")
             {
-                to = new MailAddress(LiveEmail);
+                to = new MailAddress(Email);
                 message.To.Add(to);
             }
-            if (WorkEmail != "")
-            {
-                to = new MailAddress(WorkEmail);
-                message.To.Add(to);
-            }
-            if (RegEmail != "")
-            {
-                to = new MailAddress(RegEmail);
-                message.To.Add(to);
-            }
+            
             message.Body = htmltext;
             
             message.BodyEncoding = Encoding.UTF8;

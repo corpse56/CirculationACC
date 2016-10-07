@@ -92,23 +92,13 @@ namespace Circulation
         public Image Photo;
         public string FIO;
 
-        internal string GetLiveemail()
+        internal string GetEmail()
         {
             DBReader dbr = new DBReader();
-            return dbr.GetLiveemail(this);
+            return dbr.GetEmail(this);
         }
 
-        internal string GetWorkEmail()
-        {
-            DBReader dbr = new DBReader();
-            return dbr.GetWorkEmail(this);
-        }
 
-        internal string GetRegEmail()
-        {
-            DBReader dbr = new DBReader();
-            return dbr.GetRegEmail(this);
-        }
 
 
         internal string GetLastDateEmail()

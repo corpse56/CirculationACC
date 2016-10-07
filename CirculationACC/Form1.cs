@@ -55,8 +55,8 @@ namespace Circulation
 
 
 
-           // Formular.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-         //   Formular.Columns.Clear();
+            // Formular.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            //   Formular.Columns.Clear();
 
             port = new SerialPort("COM1", 9600, Parity.None, 8, StopBits.One);
             port.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
@@ -75,7 +75,7 @@ namespace Circulation
 
         }
         public delegate void ScanFuncDelegate(string data);
-        
+
         //public static event ScannedEventHandler Scanned;
 
         void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -105,69 +105,69 @@ namespace Circulation
 
                     #endregion
                     break;
-                    #region old_formular
+                #region old_formular
 
-                    ////string _data = ((IOPOSScanner_1_10)sender).ScanData.ToString();
-                    //string _data = fromport;
-                    //if (!dbw.isReader(_data))
-                    //{
-                    //    MessageBox.Show("Неверный штрихкод читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    //    return;
-                    //}
-                    ///*if (_data.Length < 20)
-                    //    _data = _data.Remove(0, 1);*/
-                    ////_data = _data.Remove(_data.Length - 1, 1);
-                    //ReaderRecordFormular = new DBWork.dbReader(_data);
+                ////string _data = ((IOPOSScanner_1_10)sender).ScanData.ToString();
+                //string _data = fromport;
+                //if (!dbw.isReader(_data))
+                //{
+                //    MessageBox.Show("Неверный штрихкод читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //    return;
+                //}
+                ///*if (_data.Length < 20)
+                //    _data = _data.Remove(0, 1);*/
+                ////_data = _data.Remove(_data.Length - 1, 1);
+                //ReaderRecordFormular = new DBWork.dbReader(_data);
 
-                    //if (ReaderRecordFormular.barcode == "notfoundbynumber")
-                    //{
-                    //    MessageBox.Show("Читатель не найден, либо неверный штрихкод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //    return;
-                    //}
-                    //if (ReaderRecordFormular.barcode == "numsoc")
-                    //{
-                    //    MessageBox.Show("Читатель не найден, либо неверный штрикод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //    return;
-                    //}
-                    //if (ReaderRecordFormular.barcode == "sersoc")
-                    //{
-                    //    MessageBox.Show("Не соответствует серия социальной карты!Читатель заменил социальную карту!Номер социальной карты остался прежним, но сменилась серия! Новую социальную карту необходимо зарегистрировать в регистратуре!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //    return;
-                    //}
-                    //label20.Text = ReaderRecordFormular.Surname + " " + ReaderRecordFormular.Name + " " + ReaderRecordFormular.SecondName;
-                    ////textBox6.Text = ReaderRecordFormular.AbonType;
-                    //label25.Text = ReaderRecordFormular.id;
+                //if (ReaderRecordFormular.barcode == "notfoundbynumber")
+                //{
+                //    MessageBox.Show("Читатель не найден, либо неверный штрихкод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    return;
+                //}
+                //if (ReaderRecordFormular.barcode == "numsoc")
+                //{
+                //    MessageBox.Show("Читатель не найден, либо неверный штрикод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    return;
+                //}
+                //if (ReaderRecordFormular.barcode == "sersoc")
+                //{
+                //    MessageBox.Show("Не соответствует серия социальной карты!Читатель заменил социальную карту!Номер социальной карты остался прежним, но сменилась серия! Новую социальную карту необходимо зарегистрировать в регистратуре!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //    return;
+                //}
+                //label20.Text = ReaderRecordFormular.Surname + " " + ReaderRecordFormular.Name + " " + ReaderRecordFormular.SecondName;
+                ////textBox6.Text = ReaderRecordFormular.AbonType;
+                //label25.Text = ReaderRecordFormular.id;
 
-                    ////dbw.SetPenalty(ReaderRecordFormular.id);
-                    ////this.FormularColumnsForming(ReaderRecordFormular.id);
-                
-                    ///*Formular.Columns[1].Width = 100;
-                    //Formular.Columns[2].Visible = false;
-                    //Formular.Columns[4].Visible = false;
-                    //Formular.Columns[3].HeaderText = "Автор";
-                    //Formular.Columns[3].Width = 90;
-                    //Formular.Columns[5].HeaderText = "Год издания";
-                    //Formular.Columns[5].Width = 110;
-                    //Formular.Columns[7].Visible = false;
-                    //Formular.Columns[6].HeaderText = "Место Издания";
-                    //Formular.Columns[6].Width = 170;
-                    //Formular.Columns[8].HeaderText = "Дата выдачи";
-                    //Formular.Columns[8].Width = 130;
-                    //Formular.Columns[9].HeaderText = "Предполагаемая дата возврата";
-                    //Formular.Columns[9].Width = 130;
-                    //Formular.Columns[10].HeaderText = "Фактическая дата возврата";
-                    //Formular.Columns[10].Width = 130;
-                    //Formular.Columns[11].HeaderText = "Нарушение";
-                    //Formular.Columns[11].Width = 130;*/
-                    
-                    
-                    ////Formular.Columns[8].Visible = false;
-                    ////Formular.Columns[9].Visible = false;
-                    //Sorting.WhatStat = Stats.Formular;
-                    //Sorting.AuthorSort = SortDir.None;
-                    //Sorting.ZagSort = SortDir.None;
-                    //break;
-                    #endregion
+                ////dbw.SetPenalty(ReaderRecordFormular.id);
+                ////this.FormularColumnsForming(ReaderRecordFormular.id);
+
+                ///*Formular.Columns[1].Width = 100;
+                //Formular.Columns[2].Visible = false;
+                //Formular.Columns[4].Visible = false;
+                //Formular.Columns[3].HeaderText = "Автор";
+                //Formular.Columns[3].Width = 90;
+                //Formular.Columns[5].HeaderText = "Год издания";
+                //Formular.Columns[5].Width = 110;
+                //Formular.Columns[7].Visible = false;
+                //Formular.Columns[6].HeaderText = "Место Издания";
+                //Formular.Columns[6].Width = 170;
+                //Formular.Columns[8].HeaderText = "Дата выдачи";
+                //Formular.Columns[8].Width = 130;
+                //Formular.Columns[9].HeaderText = "Предполагаемая дата возврата";
+                //Formular.Columns[9].Width = 130;
+                //Formular.Columns[10].HeaderText = "Фактическая дата возврата";
+                //Formular.Columns[10].Width = 130;
+                //Formular.Columns[11].HeaderText = "Нарушение";
+                //Formular.Columns[11].Width = 130;*/
+
+
+                ////Formular.Columns[8].Visible = false;
+                ////Formular.Columns[9].Visible = false;
+                //Sorting.WhatStat = Stats.Formular;
+                //Sorting.AuthorSort = SortDir.None;
+                //Sorting.ZagSort = SortDir.None;
+                //break;
+                #endregion
 
                 case "Приём/выдача изданий":
                     #region priem
@@ -209,196 +209,196 @@ namespace Circulation
 
 
                 //label1.Enabled = true;
-                    
-                    ////_data = "9643909027074162622 1107009";
 
-                    //if ((this.emul == "") || (this.emul == null))
-                    //{
-                    //    _data = FromPort;
-                    //}
-                    //else
-                    //{
-                    //    _data = this.emul;
-                    //}
-                    //if ((this.ReaderRecord != null) && (this.BookRecord != null))
-                    //{
-                    //    MessageBox.Show("Подтвердите предыдущую операцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    //    this.emul = "";
-                    //    return;
-                    //}
-                    ////MessageBox.Show(_data);
-                    //ReaderRecordWork = null;
-                    //BookRecordWork = null;
-                    //if (dbw.isReader(_data))
-                    //{
-                    //    /*if (_data.Length < 20)
-                    //        _data = _data.Remove(0, 1);*/
-                    //    //_data = _data.Remove(_data.Length - 1, 1);
-                    //    ReaderRecordWork = new DBWork.dbReader(_data);
-                    //    if (ReaderRecordWork.barcode == "notfoundbynumber")
-                    //    {
-                    //        MessageBox.Show("Читатель не найден, либо неверный штрихкод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //        this.emul = "";
-                    //        return;
-                    //    }
-                    //    if (ReaderRecordWork.barcode == "numsoc")
-                    //    {
-                    //        MessageBox.Show("Читатель не найден, либо неверный штрикод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //        this.emul = "";
-                    //        return;
-                    //    }
-                    //    if (ReaderRecordWork.barcode == "sersoc")
-                    //    {
-                    //        MessageBox.Show("Не соответствует серия социальной карты!Читатель заменил социальную карту!Номер социальной карты остался прежним, но сменилась серия! Новую социальную карту необходимо зарегистрировать в регистратуре!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //        this.emul = "";
-                    //        return;
-                    //    }
+                ////_data = "9643909027074162622 1107009";
 
-                    //    if (this.ReaderRecord != null)
-                    //    {
-                    //        this.emul = "";
-                    //        return;
-                    //    }
-                    //    if (this.ReaderRecord != null)
-                    //    {
-                    //        MessageBox.Show("Подтвердите предыдущую операцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    //        this.emul = "";
-                    //        return;
-                    //    }
-                    //    if (ReaderRecordWork.barcode == "error")
-                    //    {
-                    //        MessageBox.Show("Читатель не зарегистрирован либо не соответствует серия социальной карты!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //        this.emul = "";
-                    //        return;
-                    //    }
-                    //    /*if (ReaderRecordWork.RegInMos != DateTime.MinValue)
-                    //    {
-                    //        if ((ReaderRecordWork.RegInMos - DateTime.Today).Days < 60)
-                    //        {
-                    //            MessageBox.Show("У читателя заканчивается срок регистрации в Москве! Осталось менее 60 дней!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    //            this.emul = "";
-                    //        }
-                    //    }*/
-                        
-                    //}
-                    //else
-                    //{
-                    //    //_data = _data.Remove(_data.Length - 1, 1);
-                    //    BookRecordWork = new DBWork.dbBook(_data);
-                    //    if (BookRecordWork.id == "Неверный штрихкод")
-                    //    {
-                    //        MessageBox.Show("Считан неверный штрихкод либо изданию не присвоен (новый) штрихкод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //        this.emul = "";
-                    //        return;
-                    //     }
-                        
-                    //}
-                    //if ((BookRecord != null) && (BookRecordWork != null))
-                    //{
-                    //    MessageBox.Show("Считаны штрихкоды 2-х изданий подряд! Считайте штрихкод читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    //    this.emul = "";
-                    //    return;
-                    //}
+                //if ((this.emul == "") || (this.emul == null))
+                //{
+                //    _data = FromPort;
+                //}
+                //else
+                //{
+                //    _data = this.emul;
+                //}
+                //if ((this.ReaderRecord != null) && (this.BookRecord != null))
+                //{
+                //    MessageBox.Show("Подтвердите предыдущую операцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //    this.emul = "";
+                //    return;
+                //}
+                ////MessageBox.Show(_data);
+                //ReaderRecordWork = null;
+                //BookRecordWork = null;
+                //if (dbw.isReader(_data))
+                //{
+                //    /*if (_data.Length < 20)
+                //        _data = _data.Remove(0, 1);*/
+                //    //_data = _data.Remove(_data.Length - 1, 1);
+                //    ReaderRecordWork = new DBWork.dbReader(_data);
+                //    if (ReaderRecordWork.barcode == "notfoundbynumber")
+                //    {
+                //        MessageBox.Show("Читатель не найден, либо неверный штрихкод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //        this.emul = "";
+                //        return;
+                //    }
+                //    if (ReaderRecordWork.barcode == "numsoc")
+                //    {
+                //        MessageBox.Show("Читатель не найден, либо неверный штрикод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //        this.emul = "";
+                //        return;
+                //    }
+                //    if (ReaderRecordWork.barcode == "sersoc")
+                //    {
+                //        MessageBox.Show("Не соответствует серия социальной карты!Читатель заменил социальную карту!Номер социальной карты остался прежним, но сменилась серия! Новую социальную карту необходимо зарегистрировать в регистратуре!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //        this.emul = "";
+                //        return;
+                //    }
 
-                    //if (ReaderRecord == null)
-                    //{
-                    //    if (BookRecord != null)
-                    //    {
-                    //        if (ReaderRecordWork != null)
-                    //        {
-                    //            ReaderRecord = ReaderRecordWork.Clone();
-                    //            this.label5.Text = ReaderRecord.FIO;
-                    //            //заполнена книга и читатель ждать нажати я подтвердить или отмена
-                    //            button2.Enabled = true;
-                    //            button4.Enabled = true;
-                    //            button2.Focus();
-                    //            this.AcceptButton = button2;
-                    //            label1.Text = "Подтвердите выдачу";
-                    //        }
-                    //        else
-                    //        {
-                    //            MessageBox.Show("Считаны штрихкоды 2-х изданий подряд! Считайте штрихкод читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    //            this.emul = "";
-                    //            return;
-                    //        }
-                    //    }
-                    //    else
-                    //    {
-                    //        if (ReaderRecordWork != null)
-                    //        {
-                    //            MessageBox.Show("Считан штрихкод читателя! Считайте штрихкод издания!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    //            this.emul = "";
-                    //            return;
-                    //        }
-                    //        else
-                    //        {
-                    //            if (dbw.isBookBusy(_data))
-                    //            {
-                    //                string expireddays = GetExpiredDays(BookRecordWork.inv);
-                    //                dbw.setBookReturned(BookRecordWork.id, BookRecordWork);
-                                    
-                    //                if (int.Parse(expireddays) > 0)
-                    //                {
-                    //                    MessageBox.Show("Возврат данной книги просрочен на " + expireddays + " дней. Штраф составляет ");// + CalculatePeny(BookRecordWork.vzv, DateTime.Today).ToString() + " руб.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    //                }
+                //    if (this.ReaderRecord != null)
+                //    {
+                //        this.emul = "";
+                //        return;
+                //    }
+                //    if (this.ReaderRecord != null)
+                //    {
+                //        MessageBox.Show("Подтвердите предыдущую операцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //        this.emul = "";
+                //        return;
+                //    }
+                //    if (ReaderRecordWork.barcode == "error")
+                //    {
+                //        MessageBox.Show("Читатель не зарегистрирован либо не соответствует серия социальной карты!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //        this.emul = "";
+                //        return;
+                //    }
+                //    /*if (ReaderRecordWork.RegInMos != DateTime.MinValue)
+                //    {
+                //        if ((ReaderRecordWork.RegInMos - DateTime.Today).Days < 60)
+                //        {
+                //            MessageBox.Show("У читателя заканчивается срок регистрации в Москве! Осталось менее 60 дней!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //            this.emul = "";
+                //        }
+                //    }*/
 
-                    //                dataGridView1.Rows.Insert(0, 1);
-                    //                dataGridView1.Rows[0].Cells[0].Value = BookRecordWork.inv;
-                    //                dataGridView1.Rows[0].Cells[1].Value = BookRecordWork.name;
-                    //                if (BookRecordWork.rname == "-1")
-                    //                {
-                    //                    BookRecordWork.rname = "Неизвестен";
-                    //                }
-                    //                dataGridView1.Rows[0].Cells[2].Value = BookRecordWork.rname;
-                    //                dataGridView1.Rows[0].Cells[3].Value = "Возвращено";
-                    //                dbw.InsertActionRETURNED(new DBWork.dbReader(BookRecordWork.rbar), BookRecordWork);
-                    //                BookRecord = null;
-                    //                ReaderRecord = null;
-                    //                button2.Enabled = false;
-                    //                button4.Enabled = false;
-                    //                label1.Text = "Считайте штрихкод издания";
-                    //                //MessageBox.Show("Книга возвращена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    //                this.emul = "";
-                    //                return;
-                    //            }
-                    //            else
-                    //            {
-                    //                this.label8.Text = BookRecordWork.author;
-                    //                this.label9.Text = BookRecordWork.name;
-                    //                this.label1.Text = "Считайте штрих код читателя";
-                    //                this.button4.Enabled = true;
-                    //                BookRecord = BookRecordWork.Clone();
-                    //                this.emul = "";
-                    //                return;
-                    //            }
-                    //        }
-                    //    }
-                    //}
-                    //else
-                    //{
-                    //    if (BookRecord != null)
-                    //    {
-                    //        MessageBox.Show("Подтвердите предыдущую операцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    //        button2.Enabled = true;
-                    //        button4.Enabled = true;
-                    //        this.emul = "";
-                    //        return;
-                    //    }
-                    //    else
-                    //    {
-                    //        this.label1.Text = "Считайте штрих код издания!";
-                    //        BookRecord = null;
-                    //        ReaderRecord = null;
-                    //    }
-                    //}
+                //}
+                //else
+                //{
+                //    //_data = _data.Remove(_data.Length - 1, 1);
+                //    BookRecordWork = new DBWork.dbBook(_data);
+                //    if (BookRecordWork.id == "Неверный штрихкод")
+                //    {
+                //        MessageBox.Show("Считан неверный штрихкод либо изданию не присвоен (новый) штрихкод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //        this.emul = "";
+                //        return;
+                //     }
 
-                    ///*if (dbw.isReader(_data))
-                    //    ReaderRecord = dbw.getDbReader(_data);
-                    //else
-                    //    BookRecord = dbw.getDbBook(_data);*/
-                    //this.emul = "";
-                    //break;
-                    #endregion
+                //}
+                //if ((BookRecord != null) && (BookRecordWork != null))
+                //{
+                //    MessageBox.Show("Считаны штрихкоды 2-х изданий подряд! Считайте штрихкод читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //    this.emul = "";
+                //    return;
+                //}
+
+                //if (ReaderRecord == null)
+                //{
+                //    if (BookRecord != null)
+                //    {
+                //        if (ReaderRecordWork != null)
+                //        {
+                //            ReaderRecord = ReaderRecordWork.Clone();
+                //            this.label5.Text = ReaderRecord.FIO;
+                //            //заполнена книга и читатель ждать нажати я подтвердить или отмена
+                //            button2.Enabled = true;
+                //            button4.Enabled = true;
+                //            button2.Focus();
+                //            this.AcceptButton = button2;
+                //            label1.Text = "Подтвердите выдачу";
+                //        }
+                //        else
+                //        {
+                //            MessageBox.Show("Считаны штрихкоды 2-х изданий подряд! Считайте штрихкод читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //            this.emul = "";
+                //            return;
+                //        }
+                //    }
+                //    else
+                //    {
+                //        if (ReaderRecordWork != null)
+                //        {
+                //            MessageBox.Show("Считан штрихкод читателя! Считайте штрихкод издания!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //            this.emul = "";
+                //            return;
+                //        }
+                //        else
+                //        {
+                //            if (dbw.isBookBusy(_data))
+                //            {
+                //                string expireddays = GetExpiredDays(BookRecordWork.inv);
+                //                dbw.setBookReturned(BookRecordWork.id, BookRecordWork);
+
+                //                if (int.Parse(expireddays) > 0)
+                //                {
+                //                    MessageBox.Show("Возврат данной книги просрочен на " + expireddays + " дней. Штраф составляет ");// + CalculatePeny(BookRecordWork.vzv, DateTime.Today).ToString() + " руб.", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //                }
+
+                //                dataGridView1.Rows.Insert(0, 1);
+                //                dataGridView1.Rows[0].Cells[0].Value = BookRecordWork.inv;
+                //                dataGridView1.Rows[0].Cells[1].Value = BookRecordWork.name;
+                //                if (BookRecordWork.rname == "-1")
+                //                {
+                //                    BookRecordWork.rname = "Неизвестен";
+                //                }
+                //                dataGridView1.Rows[0].Cells[2].Value = BookRecordWork.rname;
+                //                dataGridView1.Rows[0].Cells[3].Value = "Возвращено";
+                //                dbw.InsertActionRETURNED(new DBWork.dbReader(BookRecordWork.rbar), BookRecordWork);
+                //                BookRecord = null;
+                //                ReaderRecord = null;
+                //                button2.Enabled = false;
+                //                button4.Enabled = false;
+                //                label1.Text = "Считайте штрихкод издания";
+                //                //MessageBox.Show("Книга возвращена!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //                this.emul = "";
+                //                return;
+                //            }
+                //            else
+                //            {
+                //                this.label8.Text = BookRecordWork.author;
+                //                this.label9.Text = BookRecordWork.name;
+                //                this.label1.Text = "Считайте штрих код читателя";
+                //                this.button4.Enabled = true;
+                //                BookRecord = BookRecordWork.Clone();
+                //                this.emul = "";
+                //                return;
+                //            }
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    if (BookRecord != null)
+                //    {
+                //        MessageBox.Show("Подтвердите предыдущую операцию!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //        button2.Enabled = true;
+                //        button4.Enabled = true;
+                //        this.emul = "";
+                //        return;
+                //    }
+                //    else
+                //    {
+                //        this.label1.Text = "Считайте штрих код издания!";
+                //        BookRecord = null;
+                //        ReaderRecord = null;
+                //    }
+                //}
+
+                ///*if (dbw.isReader(_data))
+                //    ReaderRecord = dbw.getDbReader(_data);
+                //else
+                //    BookRecord = dbw.getDbBook(_data);*/
+                //this.emul = "";
+                //break;
+                #endregion
             }
         }
 
@@ -449,7 +449,7 @@ namespace Circulation
         {
             if (DEPARTMENT.ScannedReader.IsAlreadyIssuedMoreThanFourBooks())
             {
-                DialogResult res =  MessageBox.Show("Читателю уже выдано более 4 наименований! Всё равно хотите выдать?","Внимание", MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation);
+                DialogResult res = MessageBox.Show("Читателю уже выдано более 4 наименований! Всё равно хотите выдать?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                 if (res == DialogResult.No)
                 {
                     CancelIssue();
@@ -504,7 +504,7 @@ namespace Circulation
             {
                 c.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-            
+
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -528,7 +528,7 @@ namespace Circulation
             Prolong p = new Prolong();
             p.ShowDialog();
             if (p.Days == -99) return;
-            DEPARTMENT.Prolong((int)Formular.SelectedRows[0].Cells["idiss"].Value, p.Days,EmpID);
+            DEPARTMENT.Prolong((int)Formular.SelectedRows[0].Cells["idiss"].Value, p.Days, EmpID);
             ReaderVO reader = new ReaderVO((int)Formular.SelectedRows[0].Cells["idr"].Value);
             FillFormularGrid(reader);
 
@@ -538,10 +538,10 @@ namespace Circulation
 
         private string GetExpiredDays(string inv)
         {
-            Conn.SQLDA.SelectCommand.CommandText = "select * from Reservation_R..ISSUED where INV = '"+inv+"' and IDMAIN <> 0" ;
+            Conn.SQLDA.SelectCommand.CommandText = "select * from Reservation_R..ISSUED where INV = '" + inv + "' and IDMAIN <> 0";
             Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
             DataSet DS = new DataSet();
-            int i  = Conn.SQLDA.Fill(DS, "tmp");
+            int i = Conn.SQLDA.Fill(DS, "tmp");
             if (i == 0) return "0";
             DateTime vzv = (DateTime)DS.Tables["tmp"].Rows[0]["DATE_VOZV"];
             TimeSpan rtr = DateTime.Today - vzv;
@@ -774,7 +774,7 @@ namespace Circulation
                     Log();
                     //CancelIssue();
                     label1.Enabled = true;
-                    
+
                     //label1.Text = "Считайте штрихкод издания";
                     break;
                 case "Справка":
@@ -844,7 +844,7 @@ namespace Circulation
             }
             //Statistics.Rows[Statistics.Rows.Count - 1].Cells[0].Value = "";
         }
-        
+
 
         private void toolStripMenuItem3_Click(object sender, EventArgs e)
         {
@@ -866,7 +866,7 @@ namespace Circulation
             //int p2 = 0;
             //Action<int>
             //backgroundWorker2.RunWorkerAsync();
-            
+
 
             /*progressBar1.Invoke(delegate()
             {
@@ -902,7 +902,7 @@ namespace Circulation
                 }
             }).Start();*/
 
-            
+
             //backgroundWorker2.RunWorkerAsync(backgroundWorker1.IsBusy);
             //Statistics.DataSource = dbw.GetAllBooks();
             /*autoinc(Statistics);
@@ -1155,15 +1155,15 @@ namespace Circulation
                 Statistics.Sort(Statistics.Columns[6], AscDescAvt ? ListSortDirection.Ascending : ListSortDirection.Descending);
             }*/
             if (label19.Text.Contains("просроч") || label19.Text.Contains("нарушит"))
-            foreach (DataGridViewRow r in Statistics.Rows)
-            {
-                if (r.Cells[10].Value.ToString() == "true")
+                foreach (DataGridViewRow r in Statistics.Rows)
                 {
-                    r.DefaultCellStyle.BackColor = Color.Yellow;
+                    if (r.Cells[10].Value.ToString() == "true")
+                    {
+                        r.DefaultCellStyle.BackColor = Color.Yellow;
+                    }
                 }
-            }
             autoinc(Statistics);
-            
+
         }
 
 
@@ -1193,7 +1193,7 @@ namespace Circulation
             {
                 case "but":
                     if (e.RowIndex == -1) break;
-                    
+
                     if (((DataGridViewDisableButtonCell)Formular.Rows[e.RowIndex].Cells["but"]).Value.ToString() == "Снять нарушение")
                     {
                         switch (MessageBox.Show("Вы уверены что хотите снять нарушение? После подтверждения книга исчезнет из этого списка, т.к. она возвращена и сейчас снимается нарушение.", "Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Question))
@@ -1202,9 +1202,9 @@ namespace Circulation
                                 this.dbw.RemPenalty(this.Formular.Rows[e.RowIndex].Cells["zi"].Value.ToString());
                                 Conn.SQLDA.InsertCommand = new SqlCommand();
                                 Conn.SQLDA.InsertCommand.Connection = Conn.ZakazCon;
-                                Conn.SQLDA.InsertCommand.CommandText = "insert into Reservation_R..PENY_HIST (SUM, PDATE, INV, IDREADER, IDMAIN) values "+
-                                                                       " ('"+Formular.Rows[e.RowIndex].Cells["peny"].Value.ToString()+
-                                                                       "' , '"+DateTime.Now.ToString("yyyyMMdd")+
+                                Conn.SQLDA.InsertCommand.CommandText = "insert into Reservation_R..PENY_HIST (SUM, PDATE, INV, IDREADER, IDMAIN) values " +
+                                                                       " ('" + Formular.Rows[e.RowIndex].Cells["peny"].Value.ToString() +
+                                                                       "' , '" + DateTime.Now.ToString("yyyyMMdd") +
                                                                        "' ,  '" + Formular.Rows[e.RowIndex].Cells["inv"].Value.ToString() +
                                                                        "' , " + lFromularNumber.Text + ", " + Formular.Rows[e.RowIndex].Cells["idmain"].Value.ToString() + ")";
                                 if (Conn.SQLDA.InsertCommand.Connection.State == ConnectionState.Closed)
@@ -1216,13 +1216,13 @@ namespace Circulation
                                 this.Formular.Rows.RemoveAt(e.RowIndex);
                                 this.autoinc(Formular);
                                 return;
-                                //break;
+                            //break;
                             case DialogResult.No:
                                 return;
-                                //break;
+                            //break;
                         }
                     }
-                        
+
                     f4 = new Prolong();
                     f4.ShowDialog();
                     if (f4.Days == -99)
@@ -1238,7 +1238,7 @@ namespace Circulation
                     Formular.Rows[e.RowIndex].Cells["vozv"].Value = DateTime.Parse(Formular.Rows[e.RowIndex].Cells["vozv"].Value.ToString()).AddDays(f4.Days);
                     //Formular.Rows[e.RowIndex].Cells["peny"].Value = CalculatePeny(Formular.Rows[e.RowIndex]).ToString() + " р.";
                     return;
-                    //break;
+                //break;
                 case "pen":
                     if (e.RowIndex == -1) break;
                     if (Formular.Rows[e.RowIndex].Cells["pen"].Value.ToString().ToLower() == "true")
@@ -1270,11 +1270,11 @@ namespace Circulation
                         //Formular.Rows[e.RowIndex].Cells["pen"].Value = false;
                     }
                     break;
-                
+
             }
         }
 
-      
+
 
         private void Formular_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -1366,7 +1366,7 @@ namespace Circulation
             LostBook lb = new LostBook(lFromularNumber.Text, this, Formular);
             lb.ShowDialog();
             //FormularColumnsForming(ReaderRecordFormular.id);
-            
+
         }
         System.Drawing.Printing.PrintDocument pd;
         DataGridViewPrinter prin;
@@ -1392,7 +1392,7 @@ namespace Circulation
             pd.DefaultPageSettings.Landscape = true;
             pd.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(pd_PrintPage);
             prin = new DataGridViewPrinter(dgw2, pd, true, false, string.Empty, new Font("Tahoma", 18), Color.Black, false);
-            
+
 
             return true;
         }
@@ -1457,14 +1457,14 @@ namespace Circulation
                 tw.Close();
             }
 
-            
-            
-        
+
+
+
         }
 
         private void button13_Click(object sender, EventArgs e)
         {
-#region old
+            #region old
             /*if (label25.Text == "")
             {
                 MessageBox.Show("Читатель не выбран! Сначала выберите читателя!");
@@ -1591,7 +1591,7 @@ namespace Circulation
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             e.Result = dbw.GetAllBooks();
-            
+
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -1624,7 +1624,7 @@ namespace Circulation
             //Statistics.Columns[0].SortMode = DataGridViewColumnSortMode.Programmatic;
             //Statistics.Columns[2].SortMode = DataGridViewColumnSortMode.;
             button12.Enabled = true;
-           // backgroundWorker2.CancelAsync();
+            // backgroundWorker2.CancelAsync();
         }
 
 
@@ -1633,7 +1633,7 @@ namespace Circulation
 
         private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
-            
+
             /*Action dlg = delegate()
             {
                 if (progressBar1.Value == 100)
@@ -1648,7 +1648,7 @@ namespace Circulation
             }*/
             Action delegProgress = delegate()
             {
-                
+
                 RndPrg = new ExtGui.RoundProgress();
                 RndPrg.Visible = true;
                 RndPrg.Name = "progress";
@@ -1659,14 +1659,14 @@ namespace Circulation
                 RndPrg.BackColor = SystemColors.AppWorkspace;
             };
             this.Invoke(delegProgress);
-            
+
         }
 
         private void backgroundWorker2_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-           // progressBar1.Value = e.ProgressPercentage;
-           // if (progressBar1.Value == 100)
-           //     progressBar1.Value = 0;
+            // progressBar1.Value = e.ProgressPercentage;
+            // if (progressBar1.Value == 100)
+            //     progressBar1.Value = 0;
         }
 
         private void Form1_Shown(object sender, EventArgs e)
@@ -1720,7 +1720,7 @@ namespace Circulation
                 return;
             }
             ReaderVO reader = new ReaderVO(int.Parse(lFromularNumber.Text));
-            ReaderInformation f9 = new ReaderInformation(reader,this);
+            ReaderInformation f9 = new ReaderInformation(reader, this);
             f9.ShowDialog();
         }
 
@@ -1755,10 +1755,10 @@ namespace Circulation
             }
             if (lTitle.Text == "")
             {
-                MessageBox.Show("Сначала считайте штрихкод с книги!","Внимание",MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Сначала считайте штрихкод с книги!", "Внимание", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            
+
             IssueWithoutBAR f17 = new IssueWithoutBAR(this);
             f17.ShowDialog();
 
@@ -1790,7 +1790,7 @@ namespace Circulation
         {
             DatePeriod f3 = new DatePeriod();
             f3.ShowDialog();
-                
+
             Statistics.Columns.Clear();
             Statistics.Columns.Add("NN", "№ п/п");
             label19.Text = "Список нарушителей сроков пользования  на " + DateTime.Now.ToShortDateString() + " :";
@@ -1845,7 +1845,7 @@ namespace Circulation
 
         private void button24_Click(object sender, EventArgs e)
         {
-          
+
         }
 
         private void yfqnToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1857,7 +1857,7 @@ namespace Circulation
 
         private void списокВыданныхДокументовToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             Statistics.Columns.Clear();
             Statistics.Columns.Add("NN", "№ п/п");
             Statistics.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
@@ -1943,7 +1943,7 @@ namespace Circulation
             //        return;
             //    }
             if (e.RowIndex == -1) return;
-            if ((label19.Text.IndexOf("Список просроченных документов на текущий момент") != -1) )
+            if ((label19.Text.IndexOf("Список просроченных документов на текущий момент") != -1))
             {
                 tabControl1.SelectedIndex = 1;
                 numericUpDown3.Value = int.Parse(Statistics.Rows[e.RowIndex].Cells[3].Value.ToString());
@@ -1955,7 +1955,7 @@ namespace Circulation
                 numericUpDown3.Value = int.Parse(Statistics.Rows[e.RowIndex].Cells[1].Value.ToString());
                 button10_Click(sender, new EventArgs());
             }
-                    
+
 
 
         }
@@ -1969,8 +1969,8 @@ namespace Circulation
                                                    " group by DATE_FACT_VOZV,IDREADER";
             DataSet DS = new DataSet();
             int i = Conn.SQLDA.Fill(DS, "t");
-            
-            MessageBox.Show("Количество читателей, вернувших литературу за указанный период, составило " + i.ToString(),"Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            MessageBox.Show("Количество читателей, вернувших литературу за указанный период, составило " + i.ToString(), "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void количествоЧитателейВзявшихЛитературузаПериодToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2007,7 +2007,7 @@ namespace Circulation
             Conn.SQLDA.SelectCommand.CommandText = "with A as ( " +
                                                     "select IDREADER,DATE_ISSUE  " +
                                                     "from Reservation_R..ISSUED   " +
-                                                    "where DATE_ISSUE between '"+f3.StartDate.ToString("yyyyMMdd")+"' and '"+f3.EndDate.ToString("yyyyMMdd")+"' " +
+                                                    "where DATE_ISSUE between '" + f3.StartDate.ToString("yyyyMMdd") + "' and '" + f3.EndDate.ToString("yyyyMMdd") + "' " +
                                                     "group by DATE_ISSUE,IDREADER " +
                                                     "), " +
                                                     "B as ( " +
@@ -2174,7 +2174,7 @@ namespace Circulation
 
         }
 
- 
+
 
         private void button20_Click_1(object sender, EventArgs e)
         {
@@ -2192,7 +2192,7 @@ namespace Circulation
             label19.Text = "Список действий оператора за период с " + f3.StartDate.ToString("dd.MM.yyyy") + " по " + f3.EndDate.ToString("dd.MM.yyyy") + ": ";
             try
             {
-                Statistics.DataSource = dbw.GetActions(f3.StartDate,f3.EndDate,f3.UserID);//StatDS.Tables[0];
+                Statistics.DataSource = dbw.GetActions(f3.StartDate, f3.EndDate, f3.UserID);//StatDS.Tables[0];
             }
             catch (Exception ex)
             {
@@ -2355,7 +2355,7 @@ namespace Circulation
                 MessageBox.Show("Введите номер или считайте штрихкод читателя!");
                 return;
             }
-            ReaderVO reader = new ReaderVO(int.Parse(lFromularNumber.Text)); 
+            ReaderVO reader = new ReaderVO(int.Parse(lFromularNumber.Text));
             EmailSending es = new EmailSending(this, reader);
             if (es.canshow)
             {
@@ -2373,7 +2373,7 @@ namespace Circulation
             label19.Text = "";
             label19.Text = "Список действий оператора за период с " + f3.StartDate.ToString("dd.MM.yyyy") + " по " + f3.EndDate.ToString("dd.MM.yyyy") + ": ";
             DBGeneral dbg = new DBGeneral();
-            
+
             try
             {
                 Statistics.DataSource = dbg.GetOperatorActions(f3.StartDate, f3.EndDate, EmpID);
@@ -2628,7 +2628,7 @@ namespace Circulation
             }
         }
 
-       
+
 
 
 
@@ -2637,7 +2637,7 @@ namespace Circulation
 
 
     }
-  
+
     public static class Conn
     {
         public static SqlConnection ReadersCon;
@@ -2696,7 +2696,7 @@ namespace Circulation
         //}
         public DataSet getBooksForReader(string reader)
         {
-            Conn.SQLDA.SelectCommand.CommandText = "WITH FC AS (SELECT dt.ID,dt.SORT, "+
+            Conn.SQLDA.SelectCommand.CommandText = "WITH FC AS (SELECT dt.ID,dt.SORT, " +
                                                                         "dt.MNFIELD, " +
                                                                         "dt.MSFIELD, " +
                                                                         "dt.IDMAIN, " +
@@ -2704,11 +2704,11 @@ namespace Circulation
 
                                                                    "FROM   BJACC..DATAEXT dt " +
                                                                           "JOIN BJACC..DATAEXTPLAIN dtp " +
-                                                                          "     ON  dt.ID = dtp.IDDATAEXT) "+
+                                                                          "     ON  dt.ID = dtp.IDDATAEXT) " +
 
-                                                    "select COL1.PLAIN zag,dtpa.PLAIN avt,Z.IDREADER,Z.IDMAIN,Z.INV inv from FC COL1 "+
-                                                     "left join FC dtpa ON COL1.IDMAIN = dtpa.IDMAIN and dtpa.MNFIELD = 700 and dtpa.MSFIELD = '$a' "+
-                                                     "left join Reservation_R..ISSUED Z on Z.IDMAIN = COL1.IDMAIN and Z.INV = COL1.PLAIN and COL1.MNFIELD = 899 and COL1.MSFIELD = '$p'"+
+                                                    "select COL1.PLAIN zag,dtpa.PLAIN avt,Z.IDREADER,Z.IDMAIN,Z.INV inv from FC COL1 " +
+                                                     "left join FC dtpa ON COL1.IDMAIN = dtpa.IDMAIN and dtpa.MNFIELD = 700 and dtpa.MSFIELD = '$a' " +
+                                                     "left join Reservation_R..ISSUED Z on Z.IDMAIN = COL1.IDMAIN and Z.INV = COL1.PLAIN and COL1.MNFIELD = 899 and COL1.MSFIELD = '$p'" +
                                                      "where COL1.MNFIELD = 200 and COL1.MSFIELD = '$a' and Z.IDREADER =  " + reader +
                                                     "and Z.IDMAIN != 0";
             Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
@@ -2731,7 +2731,7 @@ namespace Circulation
 
         public void setBookForReader(dbBook book, dbReader reader, int days)
         {
-            Conn.SQLDA.SelectCommand.CommandText = "select * from Reservation_R..ADVORDER where INV = '" + book.inv+"'";
+            Conn.SQLDA.SelectCommand.CommandText = "select * from Reservation_R..ADVORDER where INV = '" + book.inv + "'";
             DataSet DS = new DataSet();
             int c = Conn.SQLDA.Fill(DS, "t");
             if (c != 0)
@@ -2810,8 +2810,8 @@ namespace Circulation
                 retval = true;
             }
 
-            return retval; 
-                //((DateTime)ReaderMain.Tables["right"].Rows[0]["DataEndReaderRight"] < DateTime.Now) ? true : false;
+            return retval;
+            //((DateTime)ReaderMain.Tables["right"].Rows[0]["DataEndReaderRight"] < DateTime.Now) ? true : false;
         }
         public void ProlongRights(string s)
         {
@@ -2823,48 +2823,48 @@ namespace Circulation
             ReaderMain.Tables[0].Rows[0]["DataEndReaderRight"] = ((DateTime)ReaderMain.Tables[0].Rows[0]["DataEndReaderRight"]).AddYears(1);
             Conn.ReaderDA.Update(ReaderMain.Tables[0]);
         }
-/*            class Class1
-{
-   bool  aviableToTakeABook ();
-   bool isExpired ();
-}
+        /*            class Class1
+        {
+           bool  aviableToTakeABook ();
+           bool isExpired ();
+        }
 
-Class1 cl;
+        Class1 cl;
 
-if (cl.aviableToTakeABook ())
-   return;
+        if (cl.aviableToTakeABook ())
+           return;
 
-string mes = cl.isExpired () ? "Продлить?" : "Назначить права?";
+        string mes = cl.isExpired () ? "Продлить?" : "Назначить права?";
 
- Mor (13:31:57 12/08/2009)
-Хотя и так, наверное, можно:
+         Mor (13:31:57 12/08/2009)
+        Хотя и так, наверное, можно:
 
- Mor (13:37:05 12/08/2009)
-class Rights {}
-class TakeResult
-{
-   bool Expired;
-   Rights Rights;
-   bool Ok
-}
+         Mor (13:37:05 12/08/2009)
+        class Rights {}
+        class TakeResult
+        {
+           bool Expired;
+           Rights Rights;
+           bool Ok
+        }
 
-class A
-{
-  TakeResul       TakeABook ();
-}
+        class A
+        {
+          TakeResul       TakeABook ();
+        }
 
-A a;
-TakeResult tr = a.TakeABook ();
+        A a;
+        TakeResult tr = a.TakeABook ();
 
-if (tr.Ok)
-   return;
+        if (tr.Ok)
+           return;
 
-if (tr.Expired)
-  mes = "Продлить?"
+        if (tr.Expired)
+          mes = "Продлить?"
 
-if (tr.Right == null || tr.Rights == None)
-  mes = "Права?"*/
-        
+        if (tr.Right == null || tr.Rights == None)
+          mes = "Права?"*/
+
         public void setReaderRight(string s)
         {
             Conn.ReaderDA.SelectCommand.CommandText = "select * from [Readers].[dbo].ReaderRight where IDReader = -1";
@@ -2875,7 +2875,7 @@ if (tr.Right == null || tr.Rights == None)
             DataRow row = ReaderMain.Tables["right"].NewRow();
             row["IDReader"] = s;
             row["IDReaderRight"] = 4;
-            row["DataEndReaderRight"] = new DateTime(DateTime.Now.AddYears(1).Year,12,31);
+            row["DataEndReaderRight"] = new DateTime(DateTime.Now.AddYears(1).Year, 12, 31);
             ReaderMain.Tables["right"].Rows.Add(row);
             Conn.ReaderDA.Update(ReaderMain, "right");
             Conn.ReaderDA.SelectCommand.CommandText = "select * from [Readers].[dbo].ReaderRight where IDReader = -1";
@@ -2884,7 +2884,7 @@ if (tr.Right == null || tr.Rights == None)
         }
         public void setBookReturned(string s, dbBook book)
         {
-            Conn.SQLDA.SelectCommand.CommandText = "select * from [Reservation_R].[dbo].[ISSUED] where IDMAIN = " + s + " and BAR = '"+book.barcode+"' ";
+            Conn.SQLDA.SelectCommand.CommandText = "select * from [Reservation_R].[dbo].[ISSUED] where IDMAIN = " + s + " and BAR = '" + book.barcode + "' ";
             Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
             SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(Conn.SQLDA);
             DataSet B = new DataSet();
@@ -2899,12 +2899,12 @@ if (tr.Right == null || tr.Rights == None)
             }
             Conn.SQLDA.UpdateCommand = new SqlCommand();
             Conn.SQLDA.UpdateCommand.Connection = Conn.BJVVVConn;
-            Conn.SQLDA.UpdateCommand.CommandText = "update Reservation_R..ISSUED set IDMAIN = 0, IDROLD = '',DATE_FACT_VOZV = '"+DateTime.Today.ToString("yyyyMMdd")+"' where ID = " + B.Tables[0].Rows[0]["ID"].ToString();
+            Conn.SQLDA.UpdateCommand.CommandText = "update Reservation_R..ISSUED set IDMAIN = 0, IDROLD = '',DATE_FACT_VOZV = '" + DateTime.Today.ToString("yyyyMMdd") + "' where ID = " + B.Tables[0].Rows[0]["ID"].ToString();
             if (Conn.SQLDA.UpdateCommand.Connection.State == ConnectionState.Closed)
             {
                 Conn.SQLDA.UpdateCommand.Connection.Open();
             }
-            
+
             int rc = Conn.SQLDA.UpdateCommand.ExecuteNonQuery();
             Conn.SQLDA.UpdateCommand.Connection.Close();
             //B.Tables[0].Rows[0]["IDMAIN"] = "0";
@@ -2928,7 +2928,7 @@ if (tr.Right == null || tr.Rights == None)
             {
                 Conn.SQLDA.DeleteCommand.Connection.Open();
             }
-         
+
             Conn.SQLDA.DeleteCommand.CommandText = "delete from BJVVV.dbo.DATAEXT where ID = " + DS.Tables["t"].Rows[0][0].ToString();
             int rc = Conn.SQLDA.DeleteCommand.ExecuteNonQuery();
             Conn.SQLDA.DeleteCommand.CommandText = "delete from BJVVV.dbo.DATAEXTPLAIN where IDDATAEXT = " + DS.Tables["t"].Rows[0][0].ToString();
@@ -3017,7 +3017,7 @@ if (tr.Right == null || tr.Rights == None)
             DataSet Z = new DataSet();
             i = Conn.SQLDA.Fill(Z);
             //string j = Book.Tables[0].Rows[0]["Creator"].ToString();
-            return new dbBook(B.Tables[0].Rows[0]["IDMAIN"].ToString(), B.Tables[0].Rows[0]["BARCODE"].ToString(), Z.Tables[0].Rows[0]["SORT"].ToString(), "", "",DateTime.Now,DateTime.Now);
+            return new dbBook(B.Tables[0].Rows[0]["IDMAIN"].ToString(), B.Tables[0].Rows[0]["BARCODE"].ToString(), Z.Tables[0].Rows[0]["SORT"].ToString(), "", "", DateTime.Now, DateTime.Now);
         }
         public string GetDateRet(string s)
         {
@@ -3039,7 +3039,7 @@ if (tr.Right == null || tr.Rights == None)
             {
                 i = Conn.ReaderDA.Fill(R);
             }
-            catch 
+            catch
             {
                 //MessageBox.Show(e.Message);
                 //MessageBox.Show("Считан неверный штрихкод!");
@@ -3149,7 +3149,7 @@ if (tr.Right == null || tr.Rights == None)
                         this.RegInMos = (DateTime)DS.Tables["t"].Rows[0]["RegInMoscow"];
                     }
                 }
-                
+
             }
             public dbReader(dbReader Reader)
             {
@@ -3206,12 +3206,12 @@ if (tr.Right == null || tr.Rights == None)
                     if (Bar.Contains(" "))
                     {
                         Bar = Bar.Remove(19, 1);
-                    } 
+                    }
                     string Ser = Bar.Substring(19, 8);
                     Bar = Bar.Substring(0, 19);
                     //Conn.ReaderDA.SelectCommand.CommandText = "select NumberReader, BarCode, FamilyName, Name, FatherName from main where NumberSC = '" + Bar + "' and SerialSC = '" + Ser + "'";
                     Conn.ReaderDA.SelectCommand.CommandText = "select NumberReader, BarCode, FamilyName, Name, FatherName,AbonementType,NameAbonType,IDOldAbonement from main inner join AbonementType on main.AbonementType= AbonementType.IDAbonemetType where NumberSC = '" + Bar + "'";
-                    DS = new DataSet(); 
+                    DS = new DataSet();
                     int c = Conn.ReaderDA.Fill(DS);
                     if (c == 0)
                         NumSocCard = true;
@@ -3376,9 +3376,9 @@ if (tr.Right == null || tr.Rights == None)
                 }
             }
 
-            internal string GetLiveemail()
+            internal string GetEmail()
             {
-                Conn.SQLDA.SelectCommand.CommandText = "select LiveEmail from Readers..Main where NumberReader = " + this.id;
+                Conn.SQLDA.SelectCommand.CommandText = "select Email from Readers..Main where NumberReader = " + this.id;
                 Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
                 DataSet D = new DataSet();
                 int i = Conn.SQLDA.Fill(D);
@@ -3391,7 +3391,7 @@ if (tr.Right == null || tr.Rights == None)
                 {
                     return "";
                 }
-                
+
             }
             public static bool IsValidEmail(string strIn)
             {
@@ -3400,1108 +3400,971 @@ if (tr.Right == null || tr.Rights == None)
                        @"^(?("")("".+?""@)|(([0-9a-zA-Z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-zA-Z])@))" +
                        @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$");
             }
-
-            internal string GetWorkEmail()
-            {
-                Conn.SQLDA.SelectCommand.CommandText = "select WorkEmail from Readers..Main where NumberReader = " + this.id;
-                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-                DataSet D = new DataSet();
-                int i = Conn.SQLDA.Fill(D);
-                if (i == 0) return "";
-                if (dbReader.IsValidEmail(D.Tables[0].Rows[0][0].ToString()))
-                {
-                    return D.Tables[0].Rows[0][0].ToString();
-                }
-                else
-                {
-                    return "";
-                }
-            }
-
-            internal string GetRegEmail()
-            {
-                Conn.SQLDA.SelectCommand.CommandText = "select RegistrationEmail from Readers..Main where NumberReader = " + this.id;
-                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-                DataSet D = new DataSet();
-                int i = Conn.SQLDA.Fill(D);
-                if (i == 0) return "";
-                if (dbReader.IsValidEmail(D.Tables[0].Rows[0][0].ToString()))
-                {
-                    return D.Tables[0].Rows[0][0].ToString();
-                }
-                else
-                {
-                    return "";
-                }
-            }
         }
-        public class dbBook
-        {
-            public dbBook Clone()
+
+            public class dbBook
             {
-                return new dbBook(this);
-            }
-            public dbBook()
-            {
-                this.author = "";
-                this.barcode = "";
-                this.id = "";
-                this.name = "";
-                this.rname = "";
-                this.inv = "";
-                this.vzv = new DateTime();
-                this.fctvzv = new DateTime();
-                this.iddata = 0;
+                public dbBook Clone()
+                {
+                    return new dbBook(this);
+                }
+                public dbBook()
+                {
+                    this.author = "";
+                    this.barcode = "";
+                    this.id = "";
+                    this.name = "";
+                    this.rname = "";
+                    this.inv = "";
+                    this.vzv = new DateTime();
+                    this.fctvzv = new DateTime();
+                    this.iddata = 0;
+                }
+
+                public dbBook(dbBook Book)
+                {
+                    this.author = Book.author;
+                    this.barcode = Book.barcode;
+                    this.id = Book.id;
+                    this.name = Book.name;
+                    this.rname = Book.rname;
+                    this.inv = Book.inv;
+                    this.fctvzv = Book.fctvzv;
+                    this.vzv = Book.vzv;
+                    this.iddata = Book.iddata;
+                    this.name = Book.name;
+                    this.rname = Book.rname;
+                }
+                public dbBook(string id, string barcode, string name, string rname, string inv_, DateTime vzv_, DateTime fctvzv_)
+                {
+                    this.id = id;
+                    this.barcode = barcode;
+                    this.name = name;
+                    this.rname = rname;
+                    this.author = "";
+                    this.inv = inv_;
+                    this.vzv = vzv_;
+                    this.fctvzv = fctvzv_;
+                }
+                public dbBook(string Bar)
+                {
+                    Conn.SQLDA.SelectCommand.CommandText = "select  ID, IDMAIN, SORT, IDDATA from BJACC..DATAEXT where SORT = '" + Bar + "' and MNFIELD = 899 and MSFIELD = '$w'";
+                    Conn.SQLDA.SelectCommand.Connection = Conn.BRIT_SOVETCon;
+                    //Book.Tables.Clear();
+                    DataSet B = new DataSet();
+                    int i = Conn.SQLDA.Fill(B);
+                    string IDDATA = B.Tables[0].Rows[0]["IDDATA"].ToString();
+                    if (i == 0)
+                    {
+                        this.id = "Неверный штрихкод";
+                        return;
+                    }
+                    this.id = B.Tables[0].Rows[0]["IDMAIN"].ToString();
+                    this.barcode = B.Tables[0].Rows[0]["SORT"].ToString();
+                    this.iddata = (int)B.Tables[0].Rows[0]["IDDATA"];
+                    Conn.SQLDA.SelectCommand.CommandText = "select  ID, IDMAIN, SORT, IDDATA from BJACC..DATAEXT where IDDATA = '" + IDDATA + "' and MNFIELD = 899 and MSFIELD = '$p'";
+                    Conn.SQLDA.SelectCommand.Connection = Conn.BRIT_SOVETCon;
+                    B = new DataSet();
+                    i = Conn.SQLDA.Fill(B);
+                    string INVN = B.Tables[0].Rows[0]["SORT"].ToString();
+
+                    Conn.SQLDA.SelectCommand.CommandText = "WITH FC AS (SELECT dt.ID,dt.SORT, " +
+                                                              "dt.MNFIELD, " +
+                                                              "dt.MSFIELD, " +
+                                                              "dt.IDMAIN, " +
+                                                              "dtp.PLAIN " +
+                                                       "FROM   BJACC..DATAEXT dt " +
+                                                       "       JOIN BJACC..DATAEXTPLAIN dtp " +
+                                                       "            ON  dt.ID = dtp.IDDATAEXT) " +
+                                                       "select  COL1.PLAIN zag,dtpa.PLAIN avt from FC COL1 " +
+                                                       "left join FC dtpa ON COL1.IDMAIN = dtpa.IDMAIN and dtpa.MNFIELD = 700 and dtpa.MSFIELD = '$a' " +
+                                                       "where COL1.MNFIELD = 200 and COL1.MSFIELD = '$a'  and COL1.IDMAIN = " + this.id;
+                    Conn.SQLDA.SelectCommand.Connection = Conn.BRIT_SOVETCon;
+                    B = new DataSet();
+                    i = Conn.SQLDA.Fill(B);
+                    this.name = B.Tables[0].Rows[0]["zag"].ToString(); ;
+                    this.author = B.Tables[0].Rows[0]["avt"].ToString();
+                    Conn.SQLDA.SelectCommand.CommandText = "select B.SORT from BJACC..DATAEXT A, BJACC..DATAEXT B " +
+                                                           " where A.IDMAIN  = " + this.id + " and A.SORT = '" + this.barcode +
+                                                           "' and A.MSFIELD = '$w' and A.MNFIELD = 899  and " +
+                                                           " A.IDDATA = B.IDDATA and B.MNFIELD= 899 and B.MSFIELD = '$p' ";
+                    B = new DataSet();
+                    i = Conn.SQLDA.Fill(B);
+                    this.inv = B.Tables[0].Rows[0]["SORT"].ToString();
+
+                    Conn.SQLDA.SelectCommand.CommandText = "select * from Reservation_R..ISSUED where IDMAIN = " + this.id + " and IDDATA = " + this.iddata;
+                    Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                    B = new DataSet();
+                    this.rname = "";
+                    try
+                    {
+                        i = Conn.SQLDA.Fill(B);
+                        this.rid = B.Tables[0].Rows[0]["IDREADER"].ToString();
+                        this.vzv = DateTime.Parse(B.Tables[0].Rows[0]["DATE_VOZV"].ToString());
+                        this.fctvzv = DateTime.Parse(B.Tables[0].Rows[0]["DATE_FACT_VOZV"].ToString());
+                    }
+                    catch
+                    {
+                        this.rname = "";
+                    }
+                    if ((this.rid != "") && (this.rid != "-1") && (this.rid != null))
+                    {
+                        Conn.ReaderDA.SelectCommand.CommandText = "select NumberReader, BarCode, FamilyName, Name, FatherName,NumberSC,SerialSC from main where NumberReader = " + this.rid;
+                        DataSet R = new DataSet();
+                        Conn.ReaderDA.Fill(R);
+                        string name = "";
+                        string secondName = "";
+                        try
+                        {
+                            name = R.Tables[0].Rows[0]["Name"].ToString().Remove(1, R.Tables[0].Rows[0]["Name"].ToString().Length - 1) + ". ";
+                        }
+                        catch
+                        {
+                            name = "";
+                        }
+                        try
+                        {
+                            secondName = R.Tables[0].Rows[0]["FatherName"].ToString().Remove(1, R.Tables[0].Rows[0]["FatherName"].ToString().Length - 1) + ".";
+                        }
+                        catch
+                        {
+                            secondName = "";
+                        }
+                        this.rname = R.Tables[0].Rows[0]["FamilyName"].ToString() + " " + name + secondName;
+                        this.rbar = R.Tables[0].Rows[0]["BarCode"].ToString();
+                        if (this.rbar == "0")
+                            this.rbar = R.Tables[0].Rows[0]["NumberSC"].ToString().Trim().Replace("\0", "") + " " + R.Tables[0].Rows[0]["SerialSC"].ToString().Trim().Replace("\0", ""); ;
+                        //this.rname = R.Tables[0].Rows[0]["FamilyName"].ToString() + " " + R.Tables[0].Rows[0]["Name"].ToString().Remove(1, R.Tables[0].Rows[0]["Name"].ToString().Length - 1) + ". " + R.Tables[0].Rows[0]["FatherName"].ToString().Remove(1, R.Tables[0].Rows[0]["FatherName"].ToString().Length - 1) + ".";
+                    }
+                    /*                finally
+                                    {
+                                        this.rname = "";
+                                    }*/
+
+                    //this.rname = ;
+                }
+                public string barcode;
+                public string id;
+                public string name;
+                public string rname;
+                public string author;
+                public string inv;
+                public DateTime vzv;
+                public DateTime fctvzv;
+                public int iddata;
+                public string rid;
+                public string rbar;
             }
 
-            public dbBook(dbBook Book)
-            {
-                this.author = Book.author;
-                this.barcode = Book.barcode;
-                this.id = Book.id;
-                this.name = Book.name;
-                this.rname = Book.rname;
-                this.inv = Book.inv;
-                this.fctvzv = Book.fctvzv;
-                this.vzv = Book.vzv;
-                this.iddata = Book.iddata;
-                this.name = Book.name;
-                this.rname = Book.rname;
+
+
+
+
+
+            public DataTable GetDebtors()
+            {                                                                                                                                                                                                                                                                                       // "+DateTime.Now.ToString("MM/dd/yyyy")+"                   
+                Conn.SQLDA.SelectCommand.CommandText = "select X.IDMAIN, X.PLAIN, Y.SORT, Y.MNFIELD, Z.DATE_VOZV, Z.IDREADER from BJACC..DATAEXTPLAIN X join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT join Reservation_R..ISSUED Z on Z.IDMAIN = Y.IDMAIN where (Z.IDMAIN <> 0) and (Z.DATE_VOZV < '" + DateTime.Now.ToString("yyyyMMdd") + "') and ((Y.MNFIELD = 200 and Y.MSFIELD = '$a') or (Y.MSFIELD = '$a' and Y.MNFIELD = 700)) order by X.IDMAIN";
+                //Conn.SQLDA.SelectCommand.CommandText = "select DATE_VOZV, IDREADER from ZAKAZ where IDMAIN <> 0 and DATE_VOZV < '11.11.2008'"; //" + DateTime.Now.ToString("MM/dd/yyyy") + "'";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                DataSet R = new DataSet();
+                DataSet D = new DataSet();
+                R.Tables.Add("vperemeshku");
+                R.Tables.Add("distinct");
+                int i = Conn.SQLDA.Fill(R.Tables["vperemeshku"]);
+                Conn.SQLDA.SelectCommand.CommandText = "select DATE_VOZV, IDREADER from Reservation_R..ISSUED where IDMAIN <> 0 and DATE_VOZV < '" + DateTime.Now.ToString("yyyyMMdd") + "' order by IDMAIN";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                i = Conn.SQLDA.Fill(R.Tables["distinct"]);
+
+                R.Tables.Add("postolbcam");
+                R.Tables["postolbcam"].Columns.Add("date");
+                R.Tables["postolbcam"].Columns.Add("num");
+                R.Tables["postolbcam"].Columns.Add("fam");
+                R.Tables["postolbcam"].Columns.Add("name");
+                R.Tables["postolbcam"].Columns.Add("secname");
+                R.Tables["postolbcam"].Columns.Add("Zagl");
+                R.Tables["postolbcam"].Columns.Add("Avtor");
+                R.Tables["postolbcam"].Columns.Add("ZagSort");
+                R.Tables["postolbcam"].Columns.Add("AvtorSort");
+
+                DataRow ARow = R.Tables["postolbcam"].NewRow();
+                string id = R.Tables["vperemeshku"].Rows[0]["IDMAIN"].ToString();
+                ARow["date"] = DateTime.Parse(R.Tables["vperemeshku"].Rows[0]["DATE_VOZV"].ToString()).ToString("yyyy-MM-dd");
+                if (R.Tables["vperemeshku"].Rows[0]["IDREADER"].ToString() == "-1")
+                {
+                    ARow["num"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                    ARow["fam"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                    ARow["name"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                    ARow["secname"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                }
+                else
+                {
+                    Conn.ReaderDA.SelectCommand.CommandText = "select NumberReader, BarCode, FamilyName, Name, FatherName from main where NumberReader = " + R.Tables["vperemeshku"].Rows[0]["IDREADER"].ToString();
+                    i = Conn.ReaderDA.Fill(D);
+                    ARow["num"] = D.Tables[0].Rows[0]["NumberReader"].ToString();
+                    ARow["fam"] = D.Tables[0].Rows[0]["FamilyName"].ToString();
+                    ARow["name"] = D.Tables[0].Rows[0]["Name"].ToString();
+                    ARow["secname"] = D.Tables[0].Rows[0]["FatherName"].ToString();
+                }
+                //ARow["sprash"] = R.Tables["vperemeshku"].Rows[0]["sp"].ToString();
+                foreach (DataRow row in R.Tables["vperemeshku"].Rows)
+                {
+                    if (id != row["IDMAIN"].ToString())
+                    {
+                        D.Clear();
+                        R.Tables["postolbcam"].Rows.Add(ARow);
+                        ARow = R.Tables["postolbcam"].NewRow();
+                        id = row["IDMAIN"].ToString();
+                        ARow["date"] = DateTime.Parse(row["DATE_VOZV"].ToString()).ToString("yyyy-MM-dd");
+                        if (row["IDREADER"].ToString() == "-1")
+                        {
+                            ARow["num"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                            ARow["fam"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                            ARow["name"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                            ARow["secname"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                        }
+                        else
+                        {
+                            Conn.ReaderDA.SelectCommand.CommandText = "select NumberReader, BarCode, FamilyName, Name, FatherName from main where NumberReader = " + row["IDREADER"].ToString();
+                            i = Conn.ReaderDA.Fill(D);
+                            ARow["num"] = D.Tables[0].Rows[0]["NumberReader"].ToString();
+                            ARow["fam"] = D.Tables[0].Rows[0]["FamilyName"].ToString();
+                            ARow["name"] = D.Tables[0].Rows[0]["Name"].ToString();
+                            ARow["secname"] = D.Tables[0].Rows[0]["FatherName"].ToString();
+                        }
+                    }
+
+                    switch (row["MNFIELD"].ToString())
+                    {
+                        case "200":
+                            ARow["Zagl"] = row["PLAIN"].ToString();
+                            ARow["ZagSort"] = row["SORT"].ToString();
+                            break;
+                        case "700":
+                            ARow["Avtor"] = row["PLAIN"].ToString();
+                            ARow["AvtorSort"] = row["SORT"].ToString();
+                            break;
+                    }
+                }
+                R.Tables["postolbcam"].Rows.Add(ARow);
+
+                return R.Tables["postolbcam"];
             }
-            public dbBook(string id, string barcode, string name, string rname, string inv_, DateTime vzv_, DateTime fctvzv_)
+
+            public DataTable GetIssuedBooks(DateTime start_, DateTime finish_)
             {
-                this.id = id;
-                this.barcode = barcode;
-                this.name = name;
-                this.rname = rname;
-                this.author = "";
-                this.inv = inv_;
-                this.vzv = vzv_;
-                this.fctvzv = fctvzv_;
+                Conn.SQLDA.SelectCommand.CommandText = "select  X.IDMAIN, X.PLAIN, Y.SORT, Y.MNFIELD,Y.MSFIELD, (count(Z.BAR)) as sp, Z.DATE_VOZV,Z.DATE_ISSUE,Z.IDREADER " +
+                                                       " from BJACC..DATAEXTPLAIN X " +
+                                                       "  join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT " +
+                                                       "  join Reservation_R..ISSUED Z on Z.IDMAIN = Y.IDMAIN " +
+                                                       "  join Reservation_R..ISSUED ZZ on Z.IDMAIN = ZZ.IDMAIN_CONST " +
+                                                       " where ((Y.MNFIELD = 200 and Y.MSFIELD = '$a') or (Y.MSFIELD = '$a' and Y.MNFIELD = 700) " +
+                                                       " or (Y.MSFIELD = '$p' and Y.MNFIELD = 899 and Y.SORT collate Cyrillic_General_CI_AI  =  Z.INV)) and (Z.DATE_ISSUE between '" + start_.ToString("yyyyMMdd") + "' and '" + finish_.ToString("yyyyMMdd") + "') " +
+                                                       " group by X.PLAIN, Y.SORT, Y.MNFIELD,Y.MSFIELD, X.IDMAIN,Z.DATE_VOZV,Z.DATE_ISSUE,Z.IDREADER order by X.IDMAIN"; //inner join TECHNOLOG..ZAKAZ Y on Y.BAR=Z.BAR";
+                //Conn.SQLDA.SelectCommand.CommandText = "select  X.PREOPS, X.PREOPSAUTHOR,count(Z.BAR) as спрашиваемость from technolog..zakaz Z inner join BRIT_SOVET..MAIN X on Z.IDMAIN_CONST = X.ID  group by X.PREOPS,X.PREOPSAUTHOR";
+                //Conn.SQLDA.SelectCommand.CommandText = "select  BRIT_SOVET..MAIN.PREOPS, BRIT_SOVET..MAIN.PREOPSAUTHOR from technolog..zakaz inner join BRIT_SOVET..MAIN on ZAKAZ.IDMAIN = MAIN.ID";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                DataSet R = new DataSet();
+                DataSet D = new DataSet();
+                R.Tables.Add("vperemeshku");
+                R.Tables.Add("distinct");
+                int i = Conn.SQLDA.Fill(R.Tables["vperemeshku"]);
+                Conn.SQLDA.SelectCommand.CommandText = "select distinct Y.IDMAIN from BJACC..DATAEXT Y inner join Reservation_R..ISSUED Z on Z.IDMAIN = Y.IDMAIN  where Z.IDMAIN != 0 and Z.INV collate Cyrillic_General_CI_AI = Y.SORT and Y.MNFIELD = 899 and Y.MSFIELD = '$p' order by Y.IDMAIN";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon; //
+                i = Conn.SQLDA.Fill(R.Tables["distinct"]);
+                R.Tables.Add("postolbcam");
+                R.Tables["postolbcam"].Columns.Add("Zagl");
+                R.Tables["postolbcam"].Columns.Add("Avtor");
+                R.Tables["postolbcam"].Columns.Add("Inv");
+                R.Tables["postolbcam"].Columns.Add("sprash");
+                R.Tables["postolbcam"].Columns.Add("ZagSort");
+                R.Tables["postolbcam"].Columns.Add("AvtorSort");
+
+                R.Tables["postolbcam"].Columns.Add("NN");
+                R.Tables["postolbcam"].Columns.Add("FIO");
+                R.Tables["postolbcam"].Columns.Add("abn");
+                R.Tables["postolbcam"].Columns.Add("diss");
+                R.Tables["postolbcam"].Columns.Add("dvzv");
+                R.Tables["postolbcam"].Columns["diss"].DataType = typeof(DateTime);
+                R.Tables["postolbcam"].Columns["dvzv"].DataType = typeof(DateTime);
+                DataRow ARow = R.Tables["postolbcam"].NewRow();
+                string id = R.Tables["vperemeshku"].Rows[0]["IDMAIN"].ToString();
+                ARow["dvzv"] = DateTime.Parse(R.Tables["vperemeshku"].Rows[0]["DATE_VOZV"].ToString()).ToString();
+                ARow["diss"] = DateTime.Parse(R.Tables["vperemeshku"].Rows[0]["DATE_ISSUE"].ToString()).ToString();
+                dbReader rdr = new dbReader(int.Parse(R.Tables["vperemeshku"].Rows[0]["IDREADER"].ToString()));
+                ARow["NN"] = rdr.id;
+                ARow["FIO"] = rdr.FIO;
+                ARow["abn"] = R.Tables["vperemeshku"].Rows[0]["SORT"].ToString();//rdr.AbonType;
+                ARow["sprash"] = R.Tables["vperemeshku"].Rows[0]["sp"].ToString();
+                foreach (DataRow row in R.Tables["vperemeshku"].Rows)
+                {
+                    if (id != row["IDMAIN"].ToString())
+                    {
+                        R.Tables["postolbcam"].Rows.Add(ARow);
+                        ARow = R.Tables["postolbcam"].NewRow();
+                        id = row["IDMAIN"].ToString();
+                        ARow["sprash"] = row["sp"].ToString();
+                        rdr = new dbReader(int.Parse(row["IDREADER"].ToString()));
+                        ARow["NN"] = rdr.id;
+                        ARow["FIO"] = rdr.FIO;
+                        ARow["abn"] = row["SORT"].ToString();//rdr.AbonType;
+                    }
+
+                    switch (row["MNFIELD"].ToString() + row["MSFIELD"].ToString())
+                    {
+                        case "200$a":
+                            ARow["Zagl"] = row["PLAIN"].ToString();
+                            ARow["ZagSort"] = row["SORT"].ToString();
+                            ARow["dvzv"] = DateTime.Parse(row["DATE_VOZV"].ToString()).ToString();
+                            ARow["diss"] = DateTime.Parse(row["DATE_ISSUE"].ToString()).ToString();
+                            break;
+                        case "700$a":
+                            ARow["Avtor"] = row["PLAIN"].ToString();
+                            ARow["AvtorSort"] = row["SORT"].ToString();
+                            break;
+                        case "899$p":
+                            ARow["Inv"] = row["SORT"].ToString();
+                            break;
+                    }
+                }
+                R.Tables["postolbcam"].Rows.Add(ARow);
+
+                return R.Tables["postolbcam"];
+
+                /*R.Tables.Add();
+                int i = Conn.SQLDA.Fill(R.Tables[0]);
+
+                return R;*/
             }
-            public dbBook(string Bar)
+
+            public string GetReaderCount(DateTime Start, DateTime End)
             {
-                Conn.SQLDA.SelectCommand.CommandText = "select  ID, IDMAIN, SORT, IDDATA from BJACC..DATAEXT where SORT = '" + Bar + "' and MNFIELD = 899 and MSFIELD = '$w'";
-                Conn.SQLDA.SelectCommand.Connection = Conn.BRIT_SOVETCon;
-                //Book.Tables.Clear();
+                Conn.SQLDA.SelectCommand.CommandText = "select distinct IDREADER,DATE_ISSUE from Reservation_R..ISSUED where DATE_ISSUE >= '" + Start.ToString("yyyyMMdd") + "' and DATE_ISSUE <= '" + End.ToString("yyyyMMdd") + "'";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                DataSet R = new DataSet();
+
+                int i = Conn.SQLDA.Fill(R);
+                return i.ToString();
+            }
+
+            public string GetBooksCount(DateTime Start, DateTime End)
+            {
+                Conn.SQLDA.SelectCommand.CommandText = "select BAR from Reservation_R..ISSUED where DATE_ISSUE >= '" + Start.ToString("yyyyMMdd") + "' and DATE_ISSUE <= '" + End.ToString("yyyyMMdd") + "'";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                DataSet R = new DataSet();
+                int i = Conn.SQLDA.Fill(R);
+                //CultureInfo.CurrentCulture = ...
+                return i.ToString();
+            }
+
+            public DataTable GetAllBooks()
+            {
+                Conn.SQLDA.SelectCommand.CommandText =
+                        " select X.IDMAIN, Y.MNFIELD, X.PLAIN, Y.SORT, ( count(Z.BAR)) as sp, Z.IDMAIN as idm, Z.IDMAIN_CONST as idmc,ZZ.IDMAIN as zid, " +
+                        " max(case when ZZ.IDMAIN is null then 'Свободно' else 'Выдано' end) as vida,Z.BAR bar, Y.MSFIELD " +
+                        " from BJACC..DATAEXTPLAIN X " +
+                        " join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT " +
+                        " left join Reservation_R..ISSUED Z on Z.IDMAIN_CONST=Y.IDMAIN " +
+                        " left join Reservation_R..ISSUED ZZ on ZZ.IDMAIN=X.IDMAIN " +
+                        " where ((Y.MNFIELD = 200 and Y.MSFIELD = '$a') or (Y.MSFIELD = '$a' and Y.MNFIELD = 700) or (Y.MSFIELD = '$d' and Y.MNFIELD = 2100) or (Y.MSFIELD = '$c' and Y.MNFIELD = 899) or (Y.MSFIELD = '$w' and Y.MNFIELD = 899)) " +
+                        " and ((Z.IDMAIN is null and Z.IDMAIN_CONST is null) or " +
+                        " (Z.IDMAIN != Z.IDMAIN_CONST) or " +
+                        " not exists (select * from Reservation_R..ISSUED t2 where t2.IDMAIN = 0 and t2.IDMAIN_CONST = Z.IDMAIN_CONST)) " +
+                        " group by X.PLAIN, Y.SORT, X.IDMAIN, Y.MNFIELD, Z.IDMAIN, Z.IDMAIN_CONST, ZZ.IDMAIN,Z.BAR,Y.MSFIELD " +
+                        " order by X.IDMAIN";
+                //Conn.SQLDA.SelectCommand.CommandText = "select X.IDMAIN,X.MNFIELD, X.SORT, (count(Y.BAR)) as sp from BRIT_SOVET..DATAEXT X left join TECHNOLOG..ZAKAZ Y on Y.IDMAIN_CONST=X.IDMAIN where (X.MSFIELD = '$a' and X.MNFIELD = 200) or (X.MSFIELD = '$a' and X.MNFIELD = 700) or (X.MSFIELD = '$d' and X.MNFIELD = 2100) group by X.IDMAIN,X.SORT,X.MNFIELD";
+                //Conn.SQLDA.SelectCommand.CommandText = "select IDMAIN, SORT, MNFIELD from BRIT_SOVET..DATAEXT where (MSFIELD = '$a' and MNFIELD = 200) or (MSFIELD = '$a' and MNFIELD = 700) or (MSFIELD = '$d' and MNFIELD = 2100)";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                DataSet R = new DataSet();
+                R.Tables.Add("vperemeshku");
+                R.Tables.Add("distinct");
+                int i = Conn.SQLDA.Fill(R.Tables["vperemeshku"]);
+                Conn.SQLDA.SelectCommand.CommandText = "select distinct IDMAIN from BJACC..DATAEXT order by IDMAIN ";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                i = Conn.SQLDA.Fill(R.Tables["distinct"]);
+                R.Tables.Add("postolbcam");
+                R.Tables["postolbcam"].Columns.Add("Polka");
+                R.Tables["postolbcam"].Columns.Add("bar");
+                R.Tables["postolbcam"].Columns.Add("Zagl");
+                R.Tables["postolbcam"].Columns.Add("Avtor");
+                R.Tables["postolbcam"].Columns.Add("God");
+                Type t = i.GetType();
+                R.Tables["postolbcam"].Columns.Add("sprash", t);
+                R.Tables["postolbcam"].Columns.Add("ZagSort");
+                R.Tables["postolbcam"].Columns.Add("AvtorSort");
+                R.Tables["postolbcam"].Columns.Add("vidacha");
+
+                DataRow ARow = R.Tables["postolbcam"].NewRow();
+                string id = R.Tables["vperemeshku"].Rows[0]["IDMAIN"].ToString();
+                ARow["sprash"] = R.Tables["vperemeshku"].Rows[0]["sp"];
+                //string vida = R.Tables["vperemeshku"].Rows[0]["idm"].ToString();
+                ARow["vidacha"] = R.Tables["vperemeshku"].Rows[0]["vida"].ToString();
+                ARow["bar"] = R.Tables["vperemeshku"].Rows[0]["bar"].ToString();
+                foreach (DataRow row in R.Tables["vperemeshku"].Rows)
+                {
+                    if (id != row["IDMAIN"].ToString())
+                    {
+                        R.Tables["postolbcam"].Rows.Add(ARow);
+                        ARow = R.Tables["postolbcam"].NewRow();
+                        id = row["IDMAIN"].ToString();
+                        ARow["sprash"] = row["sp"];
+                        //vida = row["idm"].ToString();
+                        //if (vida != "")
+                        //MessageBox.Show(vida);
+                        ARow["vidacha"] = row["vida"].ToString();
+                        ARow["bar"] = row["bar"].ToString();
+                    }
+
+                    switch (row["MNFIELD"].ToString() + row["MSFIELD"].ToString())
+                    {
+                        case "200$a":
+                            ARow["Zagl"] = row["PLAIN"].ToString();
+                            ARow["ZagSort"] = row["SORT"].ToString();
+                            break;
+                        case "700$a":
+                            ARow["Avtor"] = row["PLAIN"].ToString();
+                            ARow["AvtorSort"] = row["SORT"].ToString();
+                            break;
+                        case "2100$d":
+                            ARow["God"] = row["PLAIN"].ToString();
+                            break;
+                        case "899$c":
+                            ARow["Polka"] = row["PLAIN"].ToString();
+                            break;
+                        case "899$w":
+                            ARow["bar"] = row["PLAIN"].ToString();
+                            break;
+                    }
+                }
+                R.Tables["postolbcam"].Rows.Add(ARow);
+
+                return R.Tables["postolbcam"];
+            }
+
+            internal DataTable GetFormular(string p)
+            {
+                Conn.SQLDA.SelectCommand.Parameters["@IDR"].Value = p;
+                Conn.SQLDA.SelectCommand.CommandText = "select zagp.PLAIN zag,zag.SORT Заглавие_sort,avtp.PLAIN Автор,avt.SORT Автор_sort, " +
+                                                       " B.INV inv,zag.IDMAIN idmain, B.DATE_ISSUE issue,B.DATE_VOZV vozv,B.DATE_FACT_VOZV fact,  " +
+                                                       " B.IDMAIN zkid,B.ID zi,B.PENALTY penalty,B.REMPENALTY rempenalty,B.BAR bar " +
+                                                       " from Reservation_R..ISSUED B  " +
+                                                       " left join BJACC..DATAEXT A on B.BAR collate Cyrillic_General_CI_AI = A.SORT and A.MNFIELD = 899 and A.MSFIELD = '$w' " +
+                                                       " left join BJACC..DATAEXT zag on " +
+                                                                                        " zag.MNFIELD = 200 and " +
+                                                                                        " zag.MSFIELD = '$a' and " +
+                                                                                        " zag.IDMAIN = B.IDMAIN_CONST " +
+                                                       " left join BJACC..DATAEXT avt on " +
+                                                                                        " avt.MNFIELD = 700 and " +
+                                                                                        " avt.MSFIELD = '$a' " +
+                                                                                        " and avt.IDMAIN = B.IDMAIN_CONST " +
+                                                       " left join BJACC..DATAEXTPLAIN zagp on zagp.IDDATAEXT = zag.ID " +
+                                                       " left join BJACC..DATAEXTPLAIN avtp on avtp.IDDATAEXT = avt.ID " +
+                                                       " where B.IDREADER = @IDR " +
+                                                       " and (B.IDMAIN != 0 or (B.IDMAIN = 0 and B.PENALTY = 1))";
+
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                DataSet R = new DataSet();
+                R.Tables.Add("form");
+                int i = Conn.SQLDA.Fill(R.Tables["form"]);
+
+                return R.Tables["form"];
+            }
+
+            internal bool Prolong(int x, string idb, string inv)
+            {
+                Conn.SQLDA.SelectCommand.CommandText = "select * from [Reservation_R].[dbo].ISSUED where IDMAIN = '" + idb + "' and INV = '" + inv + "'";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                if (Conn.SQLDA.SelectCommand.Connection.State == ConnectionState.Closed)
+                {
+                    Conn.SQLDA.SelectCommand.Connection.Open();
+                }
+                Conn.SQLDA.UpdateCommand = new SqlCommand();
+                Conn.SQLDA.UpdateCommand.Connection = Conn.ZakazCon;
+                if (Conn.SQLDA.UpdateCommand.Connection.State == ConnectionState.Closed)
+                {
+                    Conn.SQLDA.UpdateCommand.Connection.Open();
+                }
+
+                DataSet B = new DataSet();
+                int i = Conn.SQLDA.Fill(B, "t");
+
+
+                DateTime dt = DateTime.Parse(B.Tables[0].Rows[0]["DATE_VOZV"].ToString()).AddDays(x);
+                bool result = false;
+                if (dt >= DateTime.Parse(DateTime.Now.ToShortDateString()))
+                {
+                    result = false;
+                    Conn.SQLDA.UpdateCommand.CommandText = "update Reservation_R..ISSUED set PENALTY = 'false', DATE_PROLONG = '" + DateTime.Today.ToString("yyyyMMdd") + "', DATE_VOZV =  '" + dt.ToString("yyyyMMdd") + "' where IDMAIN = '" + idb + "' and INV = '" + inv + "'";
+                }
+                else
+                {
+                    result = true;
+                    Conn.SQLDA.UpdateCommand.CommandText = "update Reservation_R..ISSUED set PENALTY = 'true', DATE_PROLONG = '" + DateTime.Today.ToString("yyyyMMdd") + "', DATE_VOZV =  '" + dt.ToString("yyyyMMdd") + "' where IDMAIN = '" + idb + "' and INV = '" + inv + "'";
+                }
+                Conn.SQLDA.UpdateCommand.ExecuteNonQuery();
+                Conn.SQLDA.UpdateCommand.Connection.Close();
+                Conn.SQLDA.SelectCommand.Connection.Close();
+                return result;
+            }
+
+            internal void SetPenalty(string idr)
+            {
+                Conn.SQLDA.SelectCommand.Parameters["@IDR"].Value = idr;
+                Conn.SQLDA.SelectCommand.CommandText = "select * from [Reservation_R].[dbo].ISSUED where IDREADER = @IDR";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                if (Conn.SQLDA.SelectCommand.Connection.State == ConnectionState.Closed)
+                {
+                    Conn.SQLDA.SelectCommand.Connection.Open();
+                }
+                DataSet B = new DataSet();
+                int i = Conn.SQLDA.Fill(B, "t");
+                Conn.SQLDA.UpdateCommand = null;
+                SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(Conn.SQLDA);
+                foreach (DataRow row in B.Tables["t"].Rows)
+                {
+                    bool isReturned = (int)row["IDMAIN"] == 0;
+                    bool isFactReturned = (row["DATE_FACT_VOZV"].ToString() != string.Empty);//по хорошему надо узнать как правильно сравнить
+                    DateTime vozv = (DateTime)row["DATE_VOZV"];//здесь не сравнивается с нулом потому что типа всегда это поле долно иметь значение
+
+                    bool isRetLater = (isFactReturned) ? (DateTime)row["DATE_VOZV"] < (DateTime)row["DATE_FACT_VOZV"] : true;
+                    bool isTimeOver = (DateTime)row["DATE_VOZV"] < DateTime.Now;
+                    bool wasPenalty = (bool)row["REMPENALTY"];
+                    bool nowPenalty = (bool)row["PENALTY"];
+
+                    if ((!isFactReturned || isRetLater) && isTimeOver && !wasPenalty && !nowPenalty)
+                    //if ((((row["DATE_FACT_VOZV"].ToString() == null) && (DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Now)) || ((DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Parse(row["DATE_FACT_VOZV"].ToString()) && (row["REMPENALTY"].ToString().ToLower() == "false")))))// вроде исправил
+                    //if ((row["IDMAIN"].ToString() != "0") && ((row["DATE_FACT_VOZV"].ToString() == string.Empty) || (DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Parse(row["DATE_FACT_VOZV"].ToString()))) && (DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Now) && (!(bool)row["REMPENALTY"]) && (!(bool)row["PENALTY"]))
+                    {
+                        row["PENALTY"] = true;
+                        row["REMPENALTY"] = false;
+                        //row["REMPENALTY"] = true;
+                    }
+                }
+
+                Conn.SQLDA.Update(B.Tables["t"]);
+                Conn.SQLDA.SelectCommand.Connection.Close();
+            }
+            internal void SetPenaltyAll()
+            {
+                //Conn.SQLDA.SelectCommand.Parameters["@IDR"].Value = idr;
+                Conn.SQLDA.SelectCommand.CommandText = "select * from [Reservation_R].[dbo].ISSUED";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                if (Conn.SQLDA.SelectCommand.Connection.State == ConnectionState.Closed)
+                {
+                    Conn.SQLDA.SelectCommand.Connection.Open();
+                }
+                DataSet B = new DataSet();
+                int i = Conn.SQLDA.Fill(B, "t");
+                Conn.SQLDA.UpdateCommand = null;
+                SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(Conn.SQLDA);
+                foreach (DataRow row in B.Tables["t"].Rows)
+                {
+                    bool isReturned = (int)row["IDMAIN"] == 0;
+                    bool isFactReturned = (row["DATE_FACT_VOZV"].ToString() != string.Empty);//по хорошему надо узнать как правильно сравнить
+                    DateTime vozv = (DateTime)row["DATE_VOZV"];//здесь не сравнивается с нулом потому что типа всегда это поле долно иметь значение
+
+                    bool isRetLater = (isFactReturned) ? (DateTime)row["DATE_VOZV"] < (DateTime)row["DATE_FACT_VOZV"] : true;
+                    bool isTimeOver = (DateTime)row["DATE_VOZV"] < DateTime.Now;
+                    bool wasPenalty = (bool)row["REMPENALTY"];
+                    bool nowPenalty = (bool)row["PENALTY"];
+
+                    if ((!isFactReturned || isRetLater) && isTimeOver && !wasPenalty && !nowPenalty)
+                    //if ((((row["DATE_FACT_VOZV"].ToString() == null) && (DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Now)) || ((DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Parse(row["DATE_FACT_VOZV"].ToString()) && (row["REMPENALTY"].ToString().ToLower() == "false")))))// вроде исправил
+                    //if ((row["IDMAIN"].ToString() != "0") && ((row["DATE_FACT_VOZV"].ToString() == string.Empty) || (DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Parse(row["DATE_FACT_VOZV"].ToString()))) && (DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Now) && (!(bool)row["REMPENALTY"]) && (!(bool)row["PENALTY"]))
+                    {
+                        row["PENALTY"] = true;
+                        row["REMPENALTY"] = false;
+                        //row["REMPENALTY"] = true;
+                    }
+                }
+
+                int rn = Conn.SQLDA.Update(B.Tables["t"]);
+                Conn.SQLDA.SelectCommand.Connection.Close();
+            }
+
+            internal void RemPenalty(string zid)
+            {
+                /*Conn.SQLDA.SelectCommand.CommandText = "select * from [Reservation_R].[dbo].ISSUED where ID = '" + zid + "'";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                //SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(Conn.SQLDA);
                 DataSet B = new DataSet();
                 int i = Conn.SQLDA.Fill(B);
-                string IDDATA = B.Tables[0].Rows[0]["IDDATA"].ToString();
-                if (i == 0)
+                B.Tables[0].Rows[0]["REMPENALTY"] = true;
+                B.Tables[0].Rows[0]["PENALTY"] = false;
+                Conn.SQLDA.Update(B.Tables[0]);
+                */
+                Conn.SQLDA.UpdateCommand = new SqlCommand();
+                Conn.SQLDA.UpdateCommand.Connection = Conn.ZakazCon;
+                if (Conn.SQLDA.UpdateCommand.Connection.State == ConnectionState.Closed)
                 {
-                    this.id = "Неверный штрихкод";
-                    return;
+                    Conn.SQLDA.UpdateCommand.Connection.Open();
                 }
-                this.id = B.Tables[0].Rows[0]["IDMAIN"].ToString();
-                this.barcode = B.Tables[0].Rows[0]["SORT"].ToString();
-                this.iddata = (int)B.Tables[0].Rows[0]["IDDATA"];
-                Conn.SQLDA.SelectCommand.CommandText = "select  ID, IDMAIN, SORT, IDDATA from BJACC..DATAEXT where IDDATA = '" + IDDATA + "' and MNFIELD = 899 and MSFIELD = '$p'";
-                Conn.SQLDA.SelectCommand.Connection = Conn.BRIT_SOVETCon;
-                B = new DataSet();
-                i = Conn.SQLDA.Fill(B);
-                string INVN = B.Tables[0].Rows[0]["SORT"].ToString();
+                Conn.SQLDA.UpdateCommand.CommandText = "update Reservation_R..ISSUED set PENALTY = 'false', REMPENALTY = 'true' where ID = " + zid;
+                Conn.SQLDA.UpdateCommand.ExecuteNonQuery();
+                Conn.SQLDA.UpdateCommand.Connection.Close();
 
-                Conn.SQLDA.SelectCommand.CommandText = "WITH FC AS (SELECT dt.ID,dt.SORT, "+
-                                                          "dt.MNFIELD, "+
-                                                          "dt.MSFIELD, "+
-                                                          "dt.IDMAIN, "+
-                                                          "dtp.PLAIN "+
-                                                   "FROM   BJACC..DATAEXT dt " +
-                                                   "       JOIN BJACC..DATAEXTPLAIN dtp " +
-                                                   "            ON  dt.ID = dtp.IDDATAEXT) "+
-                                                   "select  COL1.PLAIN zag,dtpa.PLAIN avt from FC COL1 "+
-                                                   "left join FC dtpa ON COL1.IDMAIN = dtpa.IDMAIN and dtpa.MNFIELD = 700 and dtpa.MSFIELD = '$a' "+
-                                                   "where COL1.MNFIELD = 200 and COL1.MSFIELD = '$a'  and COL1.IDMAIN = " + this.id;
-                Conn.SQLDA.SelectCommand.Connection = Conn.BRIT_SOVETCon;
-                B = new DataSet();
-                i = Conn.SQLDA.Fill(B);
-                this.name = B.Tables[0].Rows[0]["zag"].ToString(); ;
-                this.author = B.Tables[0].Rows[0]["avt"].ToString();
-                Conn.SQLDA.SelectCommand.CommandText = "select B.SORT from BJACC..DATAEXT A, BJACC..DATAEXT B " +
-                                                       " where A.IDMAIN  = " + this.id + " and A.SORT = '" + this.barcode +
-                                                       "' and A.MSFIELD = '$w' and A.MNFIELD = 899  and " +
-                                                       " A.IDDATA = B.IDDATA and B.MNFIELD= 899 and B.MSFIELD = '$p' ";
-                B = new DataSet();
-                i = Conn.SQLDA.Fill(B);
-                this.inv = B.Tables[0].Rows[0]["SORT"].ToString();
+                //throw new Exception("The method or operation is not implemented.");
+            }
 
-                Conn.SQLDA.SelectCommand.CommandText = "select * from Reservation_R..ISSUED where IDMAIN = " + this.id + " and IDDATA = " + this.iddata;
+            internal int GetBookCountForReader(string idr)
+            {
+                Conn.SQLDA.SelectCommand.CommandText = "select * from Reservation_R..ISSUED where IDREADER = '" + idr + "' and IDMAIN != 0 and REMPENALTY = 'false'";
                 Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-                B = new DataSet();
-                this.rname = "";
-                try
-                {
-                    i = Conn.SQLDA.Fill(B);
-                    this.rid = B.Tables[0].Rows[0]["IDREADER"].ToString();
-                    this.vzv = DateTime.Parse(B.Tables[0].Rows[0]["DATE_VOZV"].ToString());
-                    this.fctvzv = DateTime.Parse(B.Tables[0].Rows[0]["DATE_FACT_VOZV"].ToString());
-                }
-                catch
-                {
-                    this.rname = "";
-                }
-                if ((this.rid != "") && (this.rid != "-1") && (this.rid != null))
-                {
-                    Conn.ReaderDA.SelectCommand.CommandText = "select NumberReader, BarCode, FamilyName, Name, FatherName,NumberSC,SerialSC from main where NumberReader = " + this.rid;
-                    DataSet R = new DataSet();
-                    Conn.ReaderDA.Fill(R);
-                    string name = "";
-                    string secondName = "";
-                    try
-                    {
-                        name = R.Tables[0].Rows[0]["Name"].ToString().Remove(1, R.Tables[0].Rows[0]["Name"].ToString().Length - 1) + ". ";
-                    }
-                    catch
-                    {
-                        name = "";
-                    }
-                    try
-                    {
-                        secondName = R.Tables[0].Rows[0]["FatherName"].ToString().Remove(1, R.Tables[0].Rows[0]["FatherName"].ToString().Length - 1) + ".";
-                    }
-                    catch
-                    {
-                        secondName = "";
-                    }
-                    this.rname = R.Tables[0].Rows[0]["FamilyName"].ToString() + " " + name + secondName;
-                    this.rbar = R.Tables[0].Rows[0]["BarCode"].ToString();
-                    if (this.rbar == "0")
-                        this.rbar = R.Tables[0].Rows[0]["NumberSC"].ToString().Trim().Replace("\0", "") + " " + R.Tables[0].Rows[0]["SerialSC"].ToString().Trim().Replace("\0", ""); ;
-                    //this.rname = R.Tables[0].Rows[0]["FamilyName"].ToString() + " " + R.Tables[0].Rows[0]["Name"].ToString().Remove(1, R.Tables[0].Rows[0]["Name"].ToString().Length - 1) + ". " + R.Tables[0].Rows[0]["FatherName"].ToString().Remove(1, R.Tables[0].Rows[0]["FatherName"].ToString().Length - 1) + ".";
-                }
-                /*                finally
-                                {
-                                    this.rname = "";
-                                }*/
-
-                //this.rname = ;
+                SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(Conn.SQLDA);
+                DataSet B = new DataSet();
+                return Conn.SQLDA.Fill(B);
             }
-            public string barcode;
-            public string id;
-            public string name;
-            public string rname;
-            public string author;
-            public string inv;
-            public DateTime vzv;
-            public DateTime fctvzv;
-            public int iddata;
-            public string rid;
-            public string rbar;
-        }
 
-
-
-
-
-
-        public DataTable GetDebtors()
-        {                                                                                                                                                                                                                                                                                       // "+DateTime.Now.ToString("MM/dd/yyyy")+"                   
-            Conn.SQLDA.SelectCommand.CommandText = "select X.IDMAIN, X.PLAIN, Y.SORT, Y.MNFIELD, Z.DATE_VOZV, Z.IDREADER from BJACC..DATAEXTPLAIN X join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT join Reservation_R..ISSUED Z on Z.IDMAIN = Y.IDMAIN where (Z.IDMAIN <> 0) and (Z.DATE_VOZV < '" + DateTime.Now.ToString("yyyyMMdd") + "') and ((Y.MNFIELD = 200 and Y.MSFIELD = '$a') or (Y.MSFIELD = '$a' and Y.MNFIELD = 700)) order by X.IDMAIN";
-            //Conn.SQLDA.SelectCommand.CommandText = "select DATE_VOZV, IDREADER from ZAKAZ where IDMAIN <> 0 and DATE_VOZV < '11.11.2008'"; //" + DateTime.Now.ToString("MM/dd/yyyy") + "'";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            DataSet R = new DataSet();
-            DataSet D = new DataSet();
-            R.Tables.Add("vperemeshku");
-            R.Tables.Add("distinct");
-            int i = Conn.SQLDA.Fill(R.Tables["vperemeshku"]);
-            Conn.SQLDA.SelectCommand.CommandText = "select DATE_VOZV, IDREADER from Reservation_R..ISSUED where IDMAIN <> 0 and DATE_VOZV < '" + DateTime.Now.ToString("yyyyMMdd") +"' order by IDMAIN";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            i = Conn.SQLDA.Fill(R.Tables["distinct"]);
-
-            R.Tables.Add("postolbcam");
-            R.Tables["postolbcam"].Columns.Add("date");
-            R.Tables["postolbcam"].Columns.Add("num");
-            R.Tables["postolbcam"].Columns.Add("fam");
-            R.Tables["postolbcam"].Columns.Add("name");
-            R.Tables["postolbcam"].Columns.Add("secname");
-            R.Tables["postolbcam"].Columns.Add("Zagl");
-            R.Tables["postolbcam"].Columns.Add("Avtor");
-            R.Tables["postolbcam"].Columns.Add("ZagSort");
-            R.Tables["postolbcam"].Columns.Add("AvtorSort");
-
-            DataRow ARow = R.Tables["postolbcam"].NewRow();
-            string id = R.Tables["vperemeshku"].Rows[0]["IDMAIN"].ToString();
-            ARow["date"] = DateTime.Parse(R.Tables["vperemeshku"].Rows[0]["DATE_VOZV"].ToString()).ToString("yyyy-MM-dd"); 
-            if (R.Tables["vperemeshku"].Rows[0]["IDREADER"].ToString() == "-1")
+            internal void SetReaderAbonement(string idr, string abt)
             {
-                ARow["num"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                ARow["fam"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                ARow["name"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                ARow["secname"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                Conn.ReaderDA.SelectCommand.CommandText = "select * from [Readers].[dbo].Main where NumberReader = " + idr;
+                Conn.ReaderDA.SelectCommand.Connection = Conn.ReadersCon;
+
+                SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(Conn.ReaderDA);
+                DataSet B = new DataSet();
+                int i = Conn.ReaderDA.Fill(B);
+                B.Tables[0].Rows[0]["AbonementType"] = abt;
+                Conn.ReaderDA.Update(B);
             }
-            else
+
+            internal object GetDebtors(DateTime start, DateTime finish)
             {
-                Conn.ReaderDA.SelectCommand.CommandText = "select NumberReader, BarCode, FamilyName, Name, FatherName from main where NumberReader = " + R.Tables["vperemeshku"].Rows[0]["IDREADER"].ToString();
-                i = Conn.ReaderDA.Fill(D);
-                ARow["num"] = D.Tables[0].Rows[0]["NumberReader"].ToString();
-                ARow["fam"] = D.Tables[0].Rows[0]["FamilyName"].ToString();
-                ARow["name"] = D.Tables[0].Rows[0]["Name"].ToString();
-                ARow["secname"] = D.Tables[0].Rows[0]["FatherName"].ToString();
+                Conn.SQLDA.SelectCommand.CommandText = "select A.DATE_VOZV,A.IDREADER,B.FamilyName,B.[Name],B.FatherName," +
+                        " C.PLAIN,D.PLAIN,CC.SORT,DD.SORT," +
+                        " (case when B.Email is null then 'false' else 'true' end) email" +
+                        " from Reservation_R..ISSUED A" +
+                        " left join Readers..Main B on A.IDREADER = B.NumberReader" +
+                        " left join BJACC..DATAEXT CC on A.IDMAIN = CC.IDMAIN and CC.MNFIELD = 200 and CC.MSFIELD = '$a'" +
+                        " left join BJACC..DATAEXT DD on A.IDMAIN = DD.IDMAIN and DD.MNFIELD = 700 and DD.MSFIELD = '$a'" +
+                        " left join BJACC..DATAEXTPLAIN C on C.IDDATAEXT = CC.ID" +
+                        " left join BJACC..DATAEXTPLAIN D on D.IDDATAEXT = DD.ID" +
+                        " where " +
+                        " A.DATE_VOZV between '" + start.ToString("yyyyMMdd") + "' and '" + finish.ToString("yyyyMMdd") + "'" +
+                        " and A.IDMAIN != 0 and A.PENALTY = 1";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                DataSet DS = new DataSet();
+                int i = Conn.SQLDA.Fill(DS, "t");
+                return DS.Tables[0];
+
+
             }
-            //ARow["sprash"] = R.Tables["vperemeshku"].Rows[0]["sp"].ToString();
-            foreach (DataRow row in R.Tables["vperemeshku"].Rows)
+            internal object GetDebtorsFCT(DateTime start, DateTime finish)
             {
-                if (id != row["IDMAIN"].ToString())
-                {
-                    D.Clear();
-                    R.Tables["postolbcam"].Rows.Add(ARow);
-                    ARow = R.Tables["postolbcam"].NewRow();
-                    id = row["IDMAIN"].ToString();
-                    ARow["date"] = DateTime.Parse(row["DATE_VOZV"].ToString()).ToString("yyyy-MM-dd");
-                    if (row["IDREADER"].ToString() == "-1")
-                    {
-                        ARow["num"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                        ARow["fam"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                        ARow["name"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                        ARow["secname"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                    }
-                    else
-                    {
-                        Conn.ReaderDA.SelectCommand.CommandText = "select NumberReader, BarCode, FamilyName, Name, FatherName from main where NumberReader = " + row["IDREADER"].ToString();
-                        i = Conn.ReaderDA.Fill(D);
-                        ARow["num"] = D.Tables[0].Rows[0]["NumberReader"].ToString();
-                        ARow["fam"] = D.Tables[0].Rows[0]["FamilyName"].ToString();
-                        ARow["name"] = D.Tables[0].Rows[0]["Name"].ToString();
-                        ARow["secname"] = D.Tables[0].Rows[0]["FatherName"].ToString();
-                    }
-                }
-
-                switch (row["MNFIELD"].ToString())
-                {
-                    case "200":
-                        ARow["Zagl"] = row["PLAIN"].ToString();
-                        ARow["ZagSort"] = row["SORT"].ToString();
-                        break;
-                    case "700":
-                        ARow["Avtor"] = row["PLAIN"].ToString();
-                        ARow["AvtorSort"] = row["SORT"].ToString();
-                        break;
-                }
-            }
-            R.Tables["postolbcam"].Rows.Add(ARow);
-
-            return R.Tables["postolbcam"];
-        }
-
-        public DataTable GetIssuedBooks(DateTime start_, DateTime finish_)
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select  X.IDMAIN, X.PLAIN, Y.SORT, Y.MNFIELD,Y.MSFIELD, (count(Z.BAR)) as sp, Z.DATE_VOZV,Z.DATE_ISSUE,Z.IDREADER " +
-                                                   " from BJACC..DATAEXTPLAIN X " +
-                                                   "  join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT " +
-                                                   "  join Reservation_R..ISSUED Z on Z.IDMAIN = Y.IDMAIN " +
-                                                   "  join Reservation_R..ISSUED ZZ on Z.IDMAIN = ZZ.IDMAIN_CONST " +
-                                                   " where ((Y.MNFIELD = 200 and Y.MSFIELD = '$a') or (Y.MSFIELD = '$a' and Y.MNFIELD = 700) " +
-                                                   " or (Y.MSFIELD = '$p' and Y.MNFIELD = 899 and Y.SORT collate Cyrillic_General_CI_AI  =  Z.INV)) and (Z.DATE_ISSUE between '" + start_.ToString("yyyyMMdd") + "' and '" + finish_.ToString("yyyyMMdd") + "') " +
-                                                   " group by X.PLAIN, Y.SORT, Y.MNFIELD,Y.MSFIELD, X.IDMAIN,Z.DATE_VOZV,Z.DATE_ISSUE,Z.IDREADER order by X.IDMAIN"; //inner join TECHNOLOG..ZAKAZ Y on Y.BAR=Z.BAR";
-            //Conn.SQLDA.SelectCommand.CommandText = "select  X.PREOPS, X.PREOPSAUTHOR,count(Z.BAR) as спрашиваемость from technolog..zakaz Z inner join BRIT_SOVET..MAIN X on Z.IDMAIN_CONST = X.ID  group by X.PREOPS,X.PREOPSAUTHOR";
-            //Conn.SQLDA.SelectCommand.CommandText = "select  BRIT_SOVET..MAIN.PREOPS, BRIT_SOVET..MAIN.PREOPSAUTHOR from technolog..zakaz inner join BRIT_SOVET..MAIN on ZAKAZ.IDMAIN = MAIN.ID";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            DataSet R = new DataSet();
-            DataSet D = new DataSet();
-            R.Tables.Add("vperemeshku");
-            R.Tables.Add("distinct");
-            int i = Conn.SQLDA.Fill(R.Tables["vperemeshku"]);
-            Conn.SQLDA.SelectCommand.CommandText = "select distinct Y.IDMAIN from BJACC..DATAEXT Y inner join Reservation_R..ISSUED Z on Z.IDMAIN = Y.IDMAIN  where Z.IDMAIN != 0 and Z.INV collate Cyrillic_General_CI_AI = Y.SORT and Y.MNFIELD = 899 and Y.MSFIELD = '$p' order by Y.IDMAIN";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon; //
-            i = Conn.SQLDA.Fill(R.Tables["distinct"]);
-            R.Tables.Add("postolbcam");
-            R.Tables["postolbcam"].Columns.Add("Zagl");
-            R.Tables["postolbcam"].Columns.Add("Avtor");
-            R.Tables["postolbcam"].Columns.Add("Inv");
-            R.Tables["postolbcam"].Columns.Add("sprash");
-            R.Tables["postolbcam"].Columns.Add("ZagSort");
-            R.Tables["postolbcam"].Columns.Add("AvtorSort");
-
-            R.Tables["postolbcam"].Columns.Add("NN");
-            R.Tables["postolbcam"].Columns.Add("FIO");
-            R.Tables["postolbcam"].Columns.Add("abn");
-            R.Tables["postolbcam"].Columns.Add("diss");
-            R.Tables["postolbcam"].Columns.Add("dvzv");
-            R.Tables["postolbcam"].Columns["diss"].DataType = typeof(DateTime);
-            R.Tables["postolbcam"].Columns["dvzv"].DataType = typeof(DateTime);
-            DataRow ARow = R.Tables["postolbcam"].NewRow();
-            string id = R.Tables["vperemeshku"].Rows[0]["IDMAIN"].ToString();
-            ARow["dvzv"] = DateTime.Parse(R.Tables["vperemeshku"].Rows[0]["DATE_VOZV"].ToString()).ToString();
-            ARow["diss"] = DateTime.Parse(R.Tables["vperemeshku"].Rows[0]["DATE_ISSUE"].ToString()).ToString();
-            dbReader rdr = new dbReader(int.Parse(R.Tables["vperemeshku"].Rows[0]["IDREADER"].ToString()));
-            ARow["NN"] = rdr.id;
-            ARow["FIO"] = rdr.FIO;
-            ARow["abn"] = R.Tables["vperemeshku"].Rows[0]["SORT"].ToString();//rdr.AbonType;
-            ARow["sprash"] = R.Tables["vperemeshku"].Rows[0]["sp"].ToString();
-            foreach (DataRow row in R.Tables["vperemeshku"].Rows)
-            {
-                if (id != row["IDMAIN"].ToString())
-                {
-                    R.Tables["postolbcam"].Rows.Add(ARow);
-                    ARow = R.Tables["postolbcam"].NewRow();
-                    id = row["IDMAIN"].ToString();
-                    ARow["sprash"] = row["sp"].ToString();
-                    rdr = new dbReader(int.Parse(row["IDREADER"].ToString()));
-                    ARow["NN"] = rdr.id;
-                    ARow["FIO"] = rdr.FIO;
-                    ARow["abn"] = row["SORT"].ToString();//rdr.AbonType;
-                }
-
-                switch (row["MNFIELD"].ToString()+row["MSFIELD"].ToString())
-                {
-                    case "200$a":
-                        ARow["Zagl"] = row["PLAIN"].ToString();
-                        ARow["ZagSort"] = row["SORT"].ToString();
-                        ARow["dvzv"] = DateTime.Parse(row["DATE_VOZV"].ToString()).ToString();
-                        ARow["diss"] = DateTime.Parse(row["DATE_ISSUE"].ToString()).ToString();
-                        break;
-                    case "700$a":
-                        ARow["Avtor"] = row["PLAIN"].ToString();
-                        ARow["AvtorSort"] = row["SORT"].ToString();
-                        break;
-                    case "899$p":
-                        ARow["Inv"] = row["SORT"].ToString();
-                        break;
-                }
-            }
-            R.Tables["postolbcam"].Rows.Add(ARow);
-
-            return R.Tables["postolbcam"];
-
-            /*R.Tables.Add();
-            int i = Conn.SQLDA.Fill(R.Tables[0]);
-
-            return R;*/
-        }
-
-        public string GetReaderCount(DateTime Start, DateTime End)
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select distinct IDREADER,DATE_ISSUE from Reservation_R..ISSUED where DATE_ISSUE >= '" + Start.ToString("yyyyMMdd") + "' and DATE_ISSUE <= '" + End.ToString("yyyyMMdd") +"'";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            DataSet R = new DataSet();
-
-            int i = Conn.SQLDA.Fill(R);
-            return i.ToString();
-        }
-
-        public string GetBooksCount(DateTime Start, DateTime End)
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select BAR from Reservation_R..ISSUED where DATE_ISSUE >= '" + Start.ToString("yyyyMMdd") + "' and DATE_ISSUE <= '" + End.ToString("yyyyMMdd") +"'";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            DataSet R = new DataSet();
-            int i = Conn.SQLDA.Fill(R);
-            //CultureInfo.CurrentCulture = ...
-            return i.ToString();
-        }
-
-        public DataTable GetAllBooks()
-        {
-            Conn.SQLDA.SelectCommand.CommandText =
-                    " select X.IDMAIN, Y.MNFIELD, X.PLAIN, Y.SORT, ( count(Z.BAR)) as sp, Z.IDMAIN as idm, Z.IDMAIN_CONST as idmc,ZZ.IDMAIN as zid, " +
-                    " max(case when ZZ.IDMAIN is null then 'Свободно' else 'Выдано' end) as vida,Z.BAR bar, Y.MSFIELD " +
-                    " from BJACC..DATAEXTPLAIN X " +
-                    " join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT " +
-                    " left join Reservation_R..ISSUED Z on Z.IDMAIN_CONST=Y.IDMAIN " +
-                    " left join Reservation_R..ISSUED ZZ on ZZ.IDMAIN=X.IDMAIN " +
-                    " where ((Y.MNFIELD = 200 and Y.MSFIELD = '$a') or (Y.MSFIELD = '$a' and Y.MNFIELD = 700) or (Y.MSFIELD = '$d' and Y.MNFIELD = 2100) or (Y.MSFIELD = '$c' and Y.MNFIELD = 899) or (Y.MSFIELD = '$w' and Y.MNFIELD = 899)) " +
-                    " and ((Z.IDMAIN is null and Z.IDMAIN_CONST is null) or " +
-                    " (Z.IDMAIN != Z.IDMAIN_CONST) or " +
-                    " not exists (select * from Reservation_R..ISSUED t2 where t2.IDMAIN = 0 and t2.IDMAIN_CONST = Z.IDMAIN_CONST)) " +
-                    " group by X.PLAIN, Y.SORT, X.IDMAIN, Y.MNFIELD, Z.IDMAIN, Z.IDMAIN_CONST, ZZ.IDMAIN,Z.BAR,Y.MSFIELD " +
-                    " order by X.IDMAIN";
-            //Conn.SQLDA.SelectCommand.CommandText = "select X.IDMAIN,X.MNFIELD, X.SORT, (count(Y.BAR)) as sp from BRIT_SOVET..DATAEXT X left join TECHNOLOG..ZAKAZ Y on Y.IDMAIN_CONST=X.IDMAIN where (X.MSFIELD = '$a' and X.MNFIELD = 200) or (X.MSFIELD = '$a' and X.MNFIELD = 700) or (X.MSFIELD = '$d' and X.MNFIELD = 2100) group by X.IDMAIN,X.SORT,X.MNFIELD";
-            //Conn.SQLDA.SelectCommand.CommandText = "select IDMAIN, SORT, MNFIELD from BRIT_SOVET..DATAEXT where (MSFIELD = '$a' and MNFIELD = 200) or (MSFIELD = '$a' and MNFIELD = 700) or (MSFIELD = '$d' and MNFIELD = 2100)";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            DataSet R = new DataSet();
-            R.Tables.Add("vperemeshku");
-            R.Tables.Add("distinct");
-            int i = Conn.SQLDA.Fill(R.Tables["vperemeshku"]);
-            Conn.SQLDA.SelectCommand.CommandText = "select distinct IDMAIN from BJACC..DATAEXT order by IDMAIN ";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            i = Conn.SQLDA.Fill(R.Tables["distinct"]);
-            R.Tables.Add("postolbcam");
-            R.Tables["postolbcam"].Columns.Add("Polka");
-            R.Tables["postolbcam"].Columns.Add("bar");
-            R.Tables["postolbcam"].Columns.Add("Zagl");
-            R.Tables["postolbcam"].Columns.Add("Avtor");
-            R.Tables["postolbcam"].Columns.Add("God");
-            Type t = i.GetType();
-            R.Tables["postolbcam"].Columns.Add("sprash",t);
-            R.Tables["postolbcam"].Columns.Add("ZagSort");
-            R.Tables["postolbcam"].Columns.Add("AvtorSort");
-            R.Tables["postolbcam"].Columns.Add("vidacha");
-
-            DataRow ARow = R.Tables["postolbcam"].NewRow();
-            string id = R.Tables["vperemeshku"].Rows[0]["IDMAIN"].ToString();
-            ARow["sprash"] = R.Tables["vperemeshku"].Rows[0]["sp"];
-            //string vida = R.Tables["vperemeshku"].Rows[0]["idm"].ToString();
-            ARow["vidacha"] = R.Tables["vperemeshku"].Rows[0]["vida"].ToString();
-            ARow["bar"] = R.Tables["vperemeshku"].Rows[0]["bar"].ToString();
-            foreach (DataRow row in R.Tables["vperemeshku"].Rows)
-            {
-                if (id != row["IDMAIN"].ToString())
-                {
-                    R.Tables["postolbcam"].Rows.Add(ARow);
-                    ARow = R.Tables["postolbcam"].NewRow();
-                    id = row["IDMAIN"].ToString();
-                    ARow["sprash"] = row["sp"];
-                    //vida = row["idm"].ToString();
-                    //if (vida != "")
-                        //MessageBox.Show(vida);
-                    ARow["vidacha"] = row["vida"].ToString();
-                    ARow["bar"] = row["bar"].ToString();
-                }
-
-                switch (row["MNFIELD"].ToString() + row["MSFIELD"].ToString())
-                {
-                    case "200$a":
-                        ARow["Zagl"] = row["PLAIN"].ToString();
-                        ARow["ZagSort"] = row["SORT"].ToString();
-                        break;
-                    case "700$a":
-                        ARow["Avtor"] = row["PLAIN"].ToString();
-                        ARow["AvtorSort"] = row["SORT"].ToString();
-                        break;
-                    case "2100$d":
-                        ARow["God"] = row["PLAIN"].ToString();
-                        break;
-                    case "899$c":
-                        ARow["Polka"] = row["PLAIN"].ToString();
-                        break;
-                    case "899$w":
-                        ARow["bar"] = row["PLAIN"].ToString();
-                        break;
-                }
-            }
-            R.Tables["postolbcam"].Rows.Add(ARow);
-
-			return R.Tables["postolbcam"];
-		}
-
-        internal DataTable GetFormular(string p)
-        {
-            Conn.SQLDA.SelectCommand.Parameters["@IDR"].Value = p;
-            Conn.SQLDA.SelectCommand.CommandText = "select zagp.PLAIN zag,zag.SORT Заглавие_sort,avtp.PLAIN Автор,avt.SORT Автор_sort, " +
-                                                   " B.INV inv,zag.IDMAIN idmain, B.DATE_ISSUE issue,B.DATE_VOZV vozv,B.DATE_FACT_VOZV fact,  " +
-                                                   " B.IDMAIN zkid,B.ID zi,B.PENALTY penalty,B.REMPENALTY rempenalty,B.BAR bar " +
-                                                   " from Reservation_R..ISSUED B  " +
-                                                   " left join BJACC..DATAEXT A on B.BAR collate Cyrillic_General_CI_AI = A.SORT and A.MNFIELD = 899 and A.MSFIELD = '$w' " +
-                                                   " left join BJACC..DATAEXT zag on " +
-                                                                                    " zag.MNFIELD = 200 and " +
-                                                                                    " zag.MSFIELD = '$a' and " +
-                                                                                    " zag.IDMAIN = B.IDMAIN_CONST " +
-                                                   " left join BJACC..DATAEXT avt on " +
-                                                                                    " avt.MNFIELD = 700 and " +
-                                                                                    " avt.MSFIELD = '$a' " +
-                                                                                    " and avt.IDMAIN = B.IDMAIN_CONST " +
-                                                   " left join BJACC..DATAEXTPLAIN zagp on zagp.IDDATAEXT = zag.ID " +
-                                                   " left join BJACC..DATAEXTPLAIN avtp on avtp.IDDATAEXT = avt.ID " +
-                                                   " where B.IDREADER = @IDR " +
-                                                   " and (B.IDMAIN != 0 or (B.IDMAIN = 0 and B.PENALTY = 1))";
-
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            DataSet R = new DataSet();
-            R.Tables.Add("form");
-            int i = Conn.SQLDA.Fill(R.Tables["form"]);
-            
-            return R.Tables["form"];
-        }
-
-        internal bool Prolong(int x, string idb, string inv)
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select * from [Reservation_R].[dbo].ISSUED where IDMAIN = '" + idb + "' and INV = '" + inv + "'";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            if (Conn.SQLDA.SelectCommand.Connection.State == ConnectionState.Closed)
-            {
-                Conn.SQLDA.SelectCommand.Connection.Open();
-            }
-            Conn.SQLDA.UpdateCommand = new SqlCommand();
-            Conn.SQLDA.UpdateCommand.Connection = Conn.ZakazCon;
-            if (Conn.SQLDA.UpdateCommand.Connection.State == ConnectionState.Closed)
-            {
-                Conn.SQLDA.UpdateCommand.Connection.Open();
-            }
-
-            DataSet B = new DataSet();
-            int i = Conn.SQLDA.Fill(B, "t");
-
-            
-            DateTime dt = DateTime.Parse(B.Tables[0].Rows[0]["DATE_VOZV"].ToString()).AddDays(x);
-            bool result = false;
-            if (dt >= DateTime.Parse(DateTime.Now.ToShortDateString()))
-            {
-                result = false;
-                Conn.SQLDA.UpdateCommand.CommandText = "update Reservation_R..ISSUED set PENALTY = 'false', DATE_PROLONG = '" + DateTime.Today.ToString("yyyyMMdd") + "', DATE_VOZV =  '" + dt.ToString("yyyyMMdd") + "' where IDMAIN = '" + idb + "' and INV = '" + inv + "'";
-            }
-            else
-            {
-                result = true;
-                Conn.SQLDA.UpdateCommand.CommandText = "update Reservation_R..ISSUED set PENALTY = 'true', DATE_PROLONG = '" + DateTime.Today.ToString("yyyyMMdd") + "', DATE_VOZV =  '" + dt.ToString("yyyyMMdd") + "' where IDMAIN = '" + idb + "' and INV = '" + inv + "'";
-            }
-            Conn.SQLDA.UpdateCommand.ExecuteNonQuery();
-            Conn.SQLDA.UpdateCommand.Connection.Close();
-            Conn.SQLDA.SelectCommand.Connection.Close();
-            return result;
-        }
-
-        internal void SetPenalty(string idr)
-        {
-            Conn.SQLDA.SelectCommand.Parameters["@IDR"].Value = idr;
-            Conn.SQLDA.SelectCommand.CommandText = "select * from [Reservation_R].[dbo].ISSUED where IDREADER = @IDR";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            if (Conn.SQLDA.SelectCommand.Connection.State == ConnectionState.Closed)
-            {
-                Conn.SQLDA.SelectCommand.Connection.Open();
-            }
-            DataSet B = new DataSet();
-            int i = Conn.SQLDA.Fill(B, "t");
-            Conn.SQLDA.UpdateCommand = null;
-            SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(Conn.SQLDA);
-            foreach (DataRow row in B.Tables["t"].Rows)
-            {
-                bool isReturned = (int)row["IDMAIN"] == 0;
-                bool isFactReturned = (row["DATE_FACT_VOZV"].ToString() != string.Empty);//по хорошему надо узнать как правильно сравнить
-                DateTime vozv = (DateTime)row["DATE_VOZV"];//здесь не сравнивается с нулом потому что типа всегда это поле долно иметь значение
-                
-                bool isRetLater = (isFactReturned)? (DateTime)row["DATE_VOZV"] < (DateTime)row["DATE_FACT_VOZV"] : true;
-                bool isTimeOver = (DateTime)row["DATE_VOZV"] < DateTime.Now;
-                bool wasPenalty = (bool)row["REMPENALTY"] ;
-                bool nowPenalty = (bool)row["PENALTY"] ;
-
-                if ( (!isFactReturned || isRetLater) && isTimeOver && !wasPenalty && !nowPenalty)
-                //if ((((row["DATE_FACT_VOZV"].ToString() == null) && (DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Now)) || ((DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Parse(row["DATE_FACT_VOZV"].ToString()) && (row["REMPENALTY"].ToString().ToLower() == "false")))))// вроде исправил
-                //if ((row["IDMAIN"].ToString() != "0") && ((row["DATE_FACT_VOZV"].ToString() == string.Empty) || (DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Parse(row["DATE_FACT_VOZV"].ToString()))) && (DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Now) && (!(bool)row["REMPENALTY"]) && (!(bool)row["PENALTY"]))
-                {
-                    row["PENALTY"] = true;
-                    row["REMPENALTY"] = false;
-                    //row["REMPENALTY"] = true;
-                }
-            }
-            
-            Conn.SQLDA.Update(B.Tables["t"]);
-            Conn.SQLDA.SelectCommand.Connection.Close();
-        }
-        internal void SetPenaltyAll()
-        {
-            //Conn.SQLDA.SelectCommand.Parameters["@IDR"].Value = idr;
-            Conn.SQLDA.SelectCommand.CommandText = "select * from [Reservation_R].[dbo].ISSUED";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            if (Conn.SQLDA.SelectCommand.Connection.State == ConnectionState.Closed)
-            {
-                Conn.SQLDA.SelectCommand.Connection.Open();
-            }
-            DataSet B = new DataSet();
-            int i = Conn.SQLDA.Fill(B, "t");
-            Conn.SQLDA.UpdateCommand = null;
-            SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(Conn.SQLDA);
-            foreach (DataRow row in B.Tables["t"].Rows)
-            {
-                bool isReturned = (int)row["IDMAIN"] == 0;
-                bool isFactReturned = (row["DATE_FACT_VOZV"].ToString() != string.Empty);//по хорошему надо узнать как правильно сравнить
-                DateTime vozv = (DateTime)row["DATE_VOZV"];//здесь не сравнивается с нулом потому что типа всегда это поле долно иметь значение
-
-                bool isRetLater = (isFactReturned) ? (DateTime)row["DATE_VOZV"] < (DateTime)row["DATE_FACT_VOZV"] : true;
-                bool isTimeOver = (DateTime)row["DATE_VOZV"] < DateTime.Now;
-                bool wasPenalty = (bool)row["REMPENALTY"];
-                bool nowPenalty = (bool)row["PENALTY"];
-
-                if ((!isFactReturned || isRetLater) && isTimeOver && !wasPenalty && !nowPenalty)
-                //if ((((row["DATE_FACT_VOZV"].ToString() == null) && (DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Now)) || ((DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Parse(row["DATE_FACT_VOZV"].ToString()) && (row["REMPENALTY"].ToString().ToLower() == "false")))))// вроде исправил
-                //if ((row["IDMAIN"].ToString() != "0") && ((row["DATE_FACT_VOZV"].ToString() == string.Empty) || (DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Parse(row["DATE_FACT_VOZV"].ToString()))) && (DateTime.Parse(row["DATE_VOZV"].ToString()) < DateTime.Now) && (!(bool)row["REMPENALTY"]) && (!(bool)row["PENALTY"]))
-                {
-                    row["PENALTY"] = true;
-                    row["REMPENALTY"] = false;
-                    //row["REMPENALTY"] = true;
-                }
-            }
-
-            int rn = Conn.SQLDA.Update(B.Tables["t"]);
-            Conn.SQLDA.SelectCommand.Connection.Close();
-        }
-
-        internal void RemPenalty(string zid)
-        {
-            /*Conn.SQLDA.SelectCommand.CommandText = "select * from [Reservation_R].[dbo].ISSUED where ID = '" + zid + "'";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            //SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(Conn.SQLDA);
-            DataSet B = new DataSet();
-            int i = Conn.SQLDA.Fill(B);
-            B.Tables[0].Rows[0]["REMPENALTY"] = true;
-            B.Tables[0].Rows[0]["PENALTY"] = false;
-            Conn.SQLDA.Update(B.Tables[0]);
-            */
-            Conn.SQLDA.UpdateCommand = new SqlCommand();
-            Conn.SQLDA.UpdateCommand.Connection = Conn.ZakazCon;
-            if (Conn.SQLDA.UpdateCommand.Connection.State == ConnectionState.Closed)
-            {
-                Conn.SQLDA.UpdateCommand.Connection.Open();
-            }
-            Conn.SQLDA.UpdateCommand.CommandText = "update Reservation_R..ISSUED set PENALTY = 'false', REMPENALTY = 'true' where ID = " + zid;
-            Conn.SQLDA.UpdateCommand.ExecuteNonQuery();
-            Conn.SQLDA.UpdateCommand.Connection.Close();
-
-            //throw new Exception("The method or operation is not implemented.");
-        }
-
-        internal int GetBookCountForReader(string idr)
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select * from Reservation_R..ISSUED where IDREADER = '" + idr + "' and IDMAIN != 0 and REMPENALTY = 'false'";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(Conn.SQLDA);
-            DataSet B = new DataSet();
-            return Conn.SQLDA.Fill(B);
-        }
-
-        internal void SetReaderAbonement(string idr, string abt)
-        {
-            Conn.ReaderDA.SelectCommand.CommandText = "select * from [Readers].[dbo].Main where NumberReader = " + idr;
-            Conn.ReaderDA.SelectCommand.Connection = Conn.ReadersCon;
-
-            SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(Conn.ReaderDA);
-            DataSet B = new DataSet();
-            int i = Conn.ReaderDA.Fill(B);
-            B.Tables[0].Rows[0]["AbonementType"] = abt;
-            Conn.ReaderDA.Update(B);
-        }
-
-        internal object GetDebtors(DateTime start, DateTime finish)
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select A.DATE_VOZV,A.IDREADER,B.FamilyName,B.[Name],B.FatherName," +
+                Conn.SQLDA.SelectCommand.CommandText = "select A.DATE_VOZV,A.IDREADER,B.FamilyName,B.[Name],B.FatherName," +
                     " C.PLAIN,D.PLAIN,CC.SORT,DD.SORT," +
-                    " (case when B.LiveEmail is null and B.RegistrationEmail is null and B.WorkEmail is null then 'false' else 'true' end) email" +
+                    " (case when B.Email is null then 'false' else 'true' end) email" +
                     " from Reservation_R..ISSUED A" +
                     " left join Readers..Main B on A.IDREADER = B.NumberReader" +
-                    " left join BJACC..DATAEXT CC on A.IDMAIN = CC.IDMAIN and CC.MNFIELD = 200 and CC.MSFIELD = '$a'" +
-                    " left join BJACC..DATAEXT DD on A.IDMAIN = DD.IDMAIN and DD.MNFIELD = 700 and DD.MSFIELD = '$a'" +
+                    " left join BJACC..DATAEXT CC on A.IDMAIN_CONST = CC.IDMAIN and CC.MNFIELD = 200 and CC.MSFIELD = '$a'" +
+                    " left join BJACC..DATAEXT DD on A.IDMAIN_CONST = DD.IDMAIN and DD.MNFIELD = 700 and DD.MSFIELD = '$a'" +
                     " left join BJACC..DATAEXTPLAIN C on C.IDDATAEXT = CC.ID" +
                     " left join BJACC..DATAEXTPLAIN D on D.IDDATAEXT = DD.ID" +
                     " where " +
-                    " A.DATE_VOZV between '" + start.ToString("yyyyMMdd") + "' and '" + finish.ToString("yyyyMMdd") + "'" +
-                    " and A.IDMAIN != 0 and A.PENALTY = 1";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            DataSet DS = new DataSet();
-            int i = Conn.SQLDA.Fill(DS, "t");
-            return DS.Tables[0];
-            /*Conn.SQLDA.SelectCommand.CommandText = "select X.IDMAIN, X.PLAIN, Y.SORT, Y.MNFIELD, Z.DATE_VOZV, Z.IDREADER " +
-                                                   " from BJACC..DATAEXTPLAIN X join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT " +
-                                                   " join Reservation_R..ISSUED Z on Z.IDMAIN = Y.IDMAIN " +
-                                                   " where (Z.DATE_VOZV between '" + start.ToString("yyyyMMdd") + "' and '"
-                                                   + finish.ToString("yyyyMMdd") + "'  and PENALTY = 'true')" +
-                                                   "  and ((Y.MNFIELD = 200 and Y.MSFIELD = '$a') or (Y.MSFIELD = '$a' and Y.MNFIELD = 700)) " +
-                                                   " order by X.IDMAIN";
-            //Conn.SQLDA.SelectCommand.CommandText = "select DATE_VOZV, IDREADER from ZAKAZ where IDMAIN <> 0 and DATE_VOZV < '11.11.2008'"; //" + DateTime.Now.ToString("MM/dd/yyyy") + "'";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            DataSet R = new DataSet();
-            DataSet D = new DataSet();
-            R.Tables.Add("vperemeshku");
-            R.Tables.Add("distinct");
-            int i = Conn.SQLDA.Fill(R.Tables["vperemeshku"]);
-            Conn.SQLDA.SelectCommand.CommandText = "select DATE_VOZV, IDREADER from Reservation_R..ISSUED where IDMAIN <> 0 and DATE_VOZV < '" + DateTime.Now.ToString("yyyyMMdd") + "' order by IDMAIN";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            i = Conn.SQLDA.Fill(R.Tables["distinct"]);
+                    " A.DATE_FACT_VOZV between '" + start.ToString("yyyyMMdd") + "' and '" + finish.ToString("yyyyMMdd") + "'" +
+                    " and A.IDMAIN = 0 and A.PENALTY = 1";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                DataSet DS = new DataSet();
+                int i = Conn.SQLDA.Fill(DS, "t");
+                return DS.Tables[0];
+                /*Conn.SQLDA.SelectCommand.CommandText = "select X.IDMAIN, X.PLAIN, Y.SORT, Y.MNFIELD, Z.DATE_VOZV, Z.IDREADER " +
+                                                       " from BJACC..DATAEXTPLAIN X join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT " +
+                                                       " join Reservation_R..ISSUED Z on Z.IDMAIN_CONST = Y.IDMAIN " +
+                                                       " where (Z.DATE_FACT_VOZV between '" + start.ToString("yyyyMMdd") + "' and '" + finish.ToString("yyyyMMdd") + "'  and PENALTY = 'true') " +
+                                                       " and ((Y.MNFIELD = 200 and Y.MSFIELD = '$a') or (Y.MSFIELD = '$a' and Y.MNFIELD = 700)) " +
+                                                       " order by X.IDMAIN";
+                //Conn.SQLDA.SelectCommand.CommandText = "select DATE_VOZV, IDREADER from ZAKAZ where IDMAIN <> 0 and DATE_VOZV < '11.11.2008'"; //" + DateTime.Now.ToString("MM/dd/yyyy") + "'";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                DataSet R = new DataSet();
+                DataSet D = new DataSet();
+                R.Tables.Add("vperemeshku");
+                R.Tables.Add("distinct");
+                int i = Conn.SQLDA.Fill(R.Tables["vperemeshku"]);
+                Conn.SQLDA.SelectCommand.CommandText = "select DATE_VOZV, IDREADER from Reservation_R..ISSUED where IDMAIN <> 0 and DATE_VOZV < '" + DateTime.Now.ToString("yyyyMMdd") + "' order by IDMAIN";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                i = Conn.SQLDA.Fill(R.Tables["distinct"]);
 
-            R.Tables.Add("postolbcam");
-            R.Tables["postolbcam"].Columns.Add("date");
-            R.Tables["postolbcam"].Columns.Add("num");
-            //R.Tables["postolbcam"].Columns["num"].DataType = typeof(int);
-            R.Tables["postolbcam"].Columns.Add("fam");
-            R.Tables["postolbcam"].Columns.Add("name");
-            R.Tables["postolbcam"].Columns.Add("secname");
-            R.Tables["postolbcam"].Columns.Add("Zagl");
-            R.Tables["postolbcam"].Columns.Add("Avtor");
-            R.Tables["postolbcam"].Columns.Add("ZagSort");
-            R.Tables["postolbcam"].Columns.Add("AvtorSort");
-            R.Tables["postolbcam"].Columns.Add("Email");
-            R.Tables["postolbcam"].Columns["date"].DataType = typeof(DateTime);
-            R.Tables["postolbcam"].Columns["Email"].DataType = typeof(bool);
+                R.Tables.Add("postolbcam");
+                R.Tables["postolbcam"].Columns.Add("date");
+                R.Tables["postolbcam"].Columns.Add("num");
+                R.Tables["postolbcam"].Columns.Add("fam");
+                R.Tables["postolbcam"].Columns.Add("name");
+                R.Tables["postolbcam"].Columns.Add("secname");
+                R.Tables["postolbcam"].Columns.Add("Zagl");
+                R.Tables["postolbcam"].Columns.Add("Avtor");
+                R.Tables["postolbcam"].Columns.Add("ZagSort");
+                R.Tables["postolbcam"].Columns.Add("AvtorSort");
+                R.Tables["postolbcam"].Columns["date"].DataType = typeof(DateTime);
 
-            DataRow ARow = R.Tables["postolbcam"].NewRow();
-            string id = R.Tables["vperemeshku"].Rows[0]["IDMAIN"].ToString();
-            ARow["date"] = DateTime.Parse(R.Tables["vperemeshku"].Rows[0]["DATE_VOZV"].ToString()).ToString();
-            if (R.Tables["vperemeshku"].Rows[0]["IDREADER"].ToString() == "-1")
-            {
-                ARow["num"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                ARow["fam"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                ARow["name"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                ARow["secname"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                ARow["Email"] = false;
-            }
-            else
-            {
-                Conn.ReaderDA.SelectCommand.CommandText = "select NumberReader, BarCode, FamilyName, Name, FatherName, "+
-                                                          " (case when LiveEmail is null and RegistrationEmail is null and WorkEmail is null then 'false' else 'true' end) email"   +
-                                                          "  from main where NumberReader = "
-                                                          + R.Tables["vperemeshku"].Rows[0]["IDREADER"].ToString();
-                i = Conn.ReaderDA.Fill(D);
-                ARow["num"] = D.Tables[0].Rows[0]["NumberReader"].ToString();
-                ARow["fam"] = D.Tables[0].Rows[0]["FamilyName"].ToString();
-                ARow["name"] = D.Tables[0].Rows[0]["Name"].ToString();
-                ARow["secname"] = D.Tables[0].Rows[0]["FatherName"].ToString();
-                ARow["Email"] = D.Tables[0].Rows[0]["email"];
-            }
-            //ARow["sprash"] = R.Tables["vperemeshku"].Rows[0]["sp"].ToString();
-            foreach (DataRow row in R.Tables["vperemeshku"].Rows)
-            {
-                if (id != row["IDMAIN"].ToString())
+                DataRow ARow = R.Tables["postolbcam"].NewRow();
+                string id = R.Tables["vperemeshku"].Rows[0]["IDMAIN"].ToString();
+                ARow["date"] = DateTime.Parse(R.Tables["vperemeshku"].Rows[0]["DATE_VOZV"].ToString()).ToString();
+                if (R.Tables["vperemeshku"].Rows[0]["IDREADER"].ToString() == "-1")
                 {
-                    D.Clear();
-                    R.Tables["postolbcam"].Rows.Add(ARow);
-                    ARow = R.Tables["postolbcam"].NewRow();
-                    id = row["IDMAIN"].ToString();
-                    ARow["date"] = DateTime.Parse(row["DATE_VOZV"].ToString()).ToString("yyyy-MM-dd");
-                    if (row["IDREADER"].ToString() == "-1")
-                    {
-                        ARow["num"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                        ARow["fam"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                        ARow["name"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                        ARow["secname"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                        ARow["Email"] = false;
-                    }
-                    else
-                    {
-                        Conn.ReaderDA.SelectCommand.CommandText = "select NumberReader, BarCode, FamilyName, Name, FatherName, " +
-                                                                  " (case when LiveEmail is null and RegistrationEmail is null and WorkEmail is null then 'false' else 'true' end) email" +
-                                                                  "  from main where NumberReader = "
-                                                                  + R.Tables["vperemeshku"].Rows[0]["IDREADER"].ToString();
-                        i = Conn.ReaderDA.Fill(D);
-                        ARow["num"] = D.Tables[0].Rows[0]["NumberReader"].ToString();
-                        ARow["fam"] = D.Tables[0].Rows[0]["FamilyName"].ToString();
-                        ARow["name"] = D.Tables[0].Rows[0]["Name"].ToString();
-                        ARow["secname"] = D.Tables[0].Rows[0]["FatherName"].ToString();
-                        ARow["Email"] = D.Tables[0].Rows[0]["email"];
-                    }
+                    ARow["num"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                    ARow["fam"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                    ARow["name"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                    ARow["secname"] = "Сведения из старой базы не приведены в соответствие с новой.";
                 }
-
-                switch (row["MNFIELD"].ToString())
+                else
                 {
-                    case "200":
-                        ARow["Zagl"] = row["PLAIN"].ToString();
-                        ARow["ZagSort"] = row["SORT"].ToString();
-                        break;
-                    case "700":
-                        ARow["Avtor"] = row["PLAIN"].ToString();
-                        ARow["AvtorSort"] = row["SORT"].ToString();
-                        break;
+                    Conn.ReaderDA.SelectCommand.CommandText = "select NumberReader, BarCode, FamilyName, Name, FatherName from main where NumberReader = " + R.Tables["vperemeshku"].Rows[0]["IDREADER"].ToString();
+                    i = Conn.ReaderDA.Fill(D);
+                    ARow["num"] = D.Tables[0].Rows[0]["NumberReader"].ToString();
+                    ARow["fam"] = D.Tables[0].Rows[0]["FamilyName"].ToString();
+                    ARow["name"] = D.Tables[0].Rows[0]["Name"].ToString();
+                    ARow["secname"] = D.Tables[0].Rows[0]["FatherName"].ToString();
                 }
-            }
-            R.Tables["postolbcam"].Rows.Add(ARow);
-
-            return R.Tables["postolbcam"];*/
-
-        }
-        internal object GetDebtorsFCT(DateTime start, DateTime finish)
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select A.DATE_VOZV,A.IDREADER,B.FamilyName,B.[Name],B.FatherName," +
-                " C.PLAIN,D.PLAIN,CC.SORT,DD.SORT," +
-                " (case when B.LiveEmail is null and B.RegistrationEmail is null and B.WorkEmail is null then 'false' else 'true' end) email" +
-                " from Reservation_R..ISSUED A" +
-                " left join Readers..Main B on A.IDREADER = B.NumberReader" +
-                " left join BJACC..DATAEXT CC on A.IDMAIN_CONST = CC.IDMAIN and CC.MNFIELD = 200 and CC.MSFIELD = '$a'" +
-                " left join BJACC..DATAEXT DD on A.IDMAIN_CONST = DD.IDMAIN and DD.MNFIELD = 700 and DD.MSFIELD = '$a'" +
-                " left join BJACC..DATAEXTPLAIN C on C.IDDATAEXT = CC.ID" +
-                " left join BJACC..DATAEXTPLAIN D on D.IDDATAEXT = DD.ID" +
-                " where " +
-                " A.DATE_FACT_VOZV between '" + start.ToString("yyyyMMdd") + "' and '" + finish.ToString("yyyyMMdd") + "'" +
-                " and A.IDMAIN = 0 and A.PENALTY = 1";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            DataSet DS = new DataSet();
-            int i = Conn.SQLDA.Fill(DS, "t");
-            return DS.Tables[0];
-            /*Conn.SQLDA.SelectCommand.CommandText = "select X.IDMAIN, X.PLAIN, Y.SORT, Y.MNFIELD, Z.DATE_VOZV, Z.IDREADER " +
-                                                   " from BJACC..DATAEXTPLAIN X join BJACC..DATAEXT Y on Y.ID=X.IDDATAEXT " +
-                                                   " join Reservation_R..ISSUED Z on Z.IDMAIN_CONST = Y.IDMAIN " +
-                                                   " where (Z.DATE_FACT_VOZV between '" + start.ToString("yyyyMMdd") + "' and '" + finish.ToString("yyyyMMdd") + "'  and PENALTY = 'true') " +
-                                                   " and ((Y.MNFIELD = 200 and Y.MSFIELD = '$a') or (Y.MSFIELD = '$a' and Y.MNFIELD = 700)) " +
-                                                   " order by X.IDMAIN";
-            //Conn.SQLDA.SelectCommand.CommandText = "select DATE_VOZV, IDREADER from ZAKAZ where IDMAIN <> 0 and DATE_VOZV < '11.11.2008'"; //" + DateTime.Now.ToString("MM/dd/yyyy") + "'";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            DataSet R = new DataSet();
-            DataSet D = new DataSet();
-            R.Tables.Add("vperemeshku");
-            R.Tables.Add("distinct");
-            int i = Conn.SQLDA.Fill(R.Tables["vperemeshku"]);
-            Conn.SQLDA.SelectCommand.CommandText = "select DATE_VOZV, IDREADER from Reservation_R..ISSUED where IDMAIN <> 0 and DATE_VOZV < '" + DateTime.Now.ToString("yyyyMMdd") + "' order by IDMAIN";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            i = Conn.SQLDA.Fill(R.Tables["distinct"]);
-
-            R.Tables.Add("postolbcam");
-            R.Tables["postolbcam"].Columns.Add("date");
-            R.Tables["postolbcam"].Columns.Add("num");
-            R.Tables["postolbcam"].Columns.Add("fam");
-            R.Tables["postolbcam"].Columns.Add("name");
-            R.Tables["postolbcam"].Columns.Add("secname");
-            R.Tables["postolbcam"].Columns.Add("Zagl");
-            R.Tables["postolbcam"].Columns.Add("Avtor");
-            R.Tables["postolbcam"].Columns.Add("ZagSort");
-            R.Tables["postolbcam"].Columns.Add("AvtorSort");
-            R.Tables["postolbcam"].Columns["date"].DataType = typeof(DateTime);
-
-            DataRow ARow = R.Tables["postolbcam"].NewRow();
-            string id = R.Tables["vperemeshku"].Rows[0]["IDMAIN"].ToString();
-            ARow["date"] = DateTime.Parse(R.Tables["vperemeshku"].Rows[0]["DATE_VOZV"].ToString()).ToString();
-            if (R.Tables["vperemeshku"].Rows[0]["IDREADER"].ToString() == "-1")
-            {
-                ARow["num"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                ARow["fam"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                ARow["name"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                ARow["secname"] = "Сведения из старой базы не приведены в соответствие с новой.";
-            }
-            else
-            {
-                Conn.ReaderDA.SelectCommand.CommandText = "select NumberReader, BarCode, FamilyName, Name, FatherName from main where NumberReader = " + R.Tables["vperemeshku"].Rows[0]["IDREADER"].ToString();
-                i = Conn.ReaderDA.Fill(D);
-                ARow["num"] = D.Tables[0].Rows[0]["NumberReader"].ToString();
-                ARow["fam"] = D.Tables[0].Rows[0]["FamilyName"].ToString();
-                ARow["name"] = D.Tables[0].Rows[0]["Name"].ToString();
-                ARow["secname"] = D.Tables[0].Rows[0]["FatherName"].ToString();
-            }
-            //ARow["sprash"] = R.Tables["vperemeshku"].Rows[0]["sp"].ToString();
-            foreach (DataRow row in R.Tables["vperemeshku"].Rows)
-            {
-                if (id != row["IDMAIN"].ToString())
+                //ARow["sprash"] = R.Tables["vperemeshku"].Rows[0]["sp"].ToString();
+                foreach (DataRow row in R.Tables["vperemeshku"].Rows)
                 {
-                    D.Clear();
-                    R.Tables["postolbcam"].Rows.Add(ARow);
-                    ARow = R.Tables["postolbcam"].NewRow();
-                    id = row["IDMAIN"].ToString();
-                    ARow["date"] = DateTime.Parse(row["DATE_VOZV"].ToString()).ToString("yyyy-MM-dd");
-                    if (row["IDREADER"].ToString() == "-1")
+                    if (id != row["IDMAIN"].ToString())
                     {
-                        ARow["num"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                        ARow["fam"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                        ARow["name"] = "Сведения из старой базы не приведены в соответствие с новой.";
-                        ARow["secname"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                        D.Clear();
+                        R.Tables["postolbcam"].Rows.Add(ARow);
+                        ARow = R.Tables["postolbcam"].NewRow();
+                        id = row["IDMAIN"].ToString();
+                        ARow["date"] = DateTime.Parse(row["DATE_VOZV"].ToString()).ToString("yyyy-MM-dd");
+                        if (row["IDREADER"].ToString() == "-1")
+                        {
+                            ARow["num"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                            ARow["fam"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                            ARow["name"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                            ARow["secname"] = "Сведения из старой базы не приведены в соответствие с новой.";
+                        }
+                        else
+                        {
+                            Conn.ReaderDA.SelectCommand.CommandText = "select NumberReader, BarCode, FamilyName, Name, FatherName from main where NumberReader = " + row["IDREADER"].ToString();
+                            i = Conn.ReaderDA.Fill(D);
+                            ARow["num"] = D.Tables[0].Rows[0]["NumberReader"].ToString();
+                            ARow["fam"] = D.Tables[0].Rows[0]["FamilyName"].ToString();
+                            ARow["name"] = D.Tables[0].Rows[0]["Name"].ToString();
+                            ARow["secname"] = D.Tables[0].Rows[0]["FatherName"].ToString();
+                        }
                     }
-                    else
+
+                    switch (row["MNFIELD"].ToString())
                     {
-                        Conn.ReaderDA.SelectCommand.CommandText = "select NumberReader, BarCode, FamilyName, Name, FatherName from main where NumberReader = " + row["IDREADER"].ToString();
-                        i = Conn.ReaderDA.Fill(D);
-                        ARow["num"] = D.Tables[0].Rows[0]["NumberReader"].ToString();
-                        ARow["fam"] = D.Tables[0].Rows[0]["FamilyName"].ToString();
-                        ARow["name"] = D.Tables[0].Rows[0]["Name"].ToString();
-                        ARow["secname"] = D.Tables[0].Rows[0]["FatherName"].ToString();
+                        case "200":
+                            ARow["Zagl"] = row["PLAIN"].ToString();
+                            ARow["ZagSort"] = row["SORT"].ToString();
+                            break;
+                        case "700":
+                            ARow["Avtor"] = row["PLAIN"].ToString();
+                            ARow["AvtorSort"] = row["SORT"].ToString();
+                            break;
                     }
                 }
+                R.Tables["postolbcam"].Rows.Add(ARow);
 
-                switch (row["MNFIELD"].ToString())
+                return R.Tables["postolbcam"];*/
+            }
+
+            internal void InsertActionISSUED(dbReader reader, dbBook book)
+            {
+
+                Conn.SQLDA.InsertCommand = new SqlCommand();
+                Conn.SQLDA.InsertCommand.Connection = Conn.ZakazCon;
+                if (Conn.ZakazCon.State != ConnectionState.Open) Conn.ZakazCon.Open();
+                Conn.SQLDA.InsertCommand.CommandText = "insert into Reservation_R..ABONEMENTACTIONS (ACTIONTYPE,BAR,IDEMP,IDREADER,DATEACT) " +
+                                                        " values (@ACTIONTYPE,@BAR,@IDEMP,@IDREADER,@DATEACT)";
+                Conn.SQLDA.InsertCommand.Parameters.Add("ACTIONTYPE", SqlDbType.Int);
+                Conn.SQLDA.InsertCommand.Parameters.Add("BAR", SqlDbType.NVarChar);
+                Conn.SQLDA.InsertCommand.Parameters.Add("IDEMP", SqlDbType.Int);
+                Conn.SQLDA.InsertCommand.Parameters.Add("IDREADER", SqlDbType.Int);
+                Conn.SQLDA.InsertCommand.Parameters.Add("DATEACT", SqlDbType.DateTime);
+                Conn.SQLDA.InsertCommand.Parameters["ACTIONTYPE"].Value = 1;
+                Conn.SQLDA.InsertCommand.Parameters["BAR"].Value = book.barcode;
+                Conn.SQLDA.InsertCommand.Parameters["IDEMP"].Value = this.F1.EmpID;
+                Conn.SQLDA.InsertCommand.Parameters["IDREADER"].Value = reader.id;
+                Conn.SQLDA.InsertCommand.Parameters["DATEACT"].Value = DateTime.Now;
+                try
                 {
-                    case "200":
-                        ARow["Zagl"] = row["PLAIN"].ToString();
-                        ARow["ZagSort"] = row["SORT"].ToString();
-                        break;
-                    case "700":
-                        ARow["Avtor"] = row["PLAIN"].ToString();
-                        ARow["AvtorSort"] = row["SORT"].ToString();
-                        break;
-                }
-            }
-            R.Tables["postolbcam"].Rows.Add(ARow);
-
-            return R.Tables["postolbcam"];*/
-        }
-
-        internal void InsertActionISSUED(dbReader reader,dbBook book)
-        {
-            
-            Conn.SQLDA.InsertCommand = new SqlCommand();
-            Conn.SQLDA.InsertCommand.Connection = Conn.ZakazCon;
-            if (Conn.ZakazCon.State != ConnectionState.Open) Conn.ZakazCon.Open();
-            Conn.SQLDA.InsertCommand.CommandText = "insert into Reservation_R..ABONEMENTACTIONS (ACTIONTYPE,BAR,IDEMP,IDREADER,DATEACT) " +
-                                                    " values (@ACTIONTYPE,@BAR,@IDEMP,@IDREADER,@DATEACT)";
-            Conn.SQLDA.InsertCommand.Parameters.Add("ACTIONTYPE", SqlDbType.Int);
-            Conn.SQLDA.InsertCommand.Parameters.Add("BAR", SqlDbType.NVarChar);
-            Conn.SQLDA.InsertCommand.Parameters.Add("IDEMP", SqlDbType.Int);
-            Conn.SQLDA.InsertCommand.Parameters.Add("IDREADER", SqlDbType.Int);
-            Conn.SQLDA.InsertCommand.Parameters.Add("DATEACT", SqlDbType.DateTime);
-            Conn.SQLDA.InsertCommand.Parameters["ACTIONTYPE"].Value = 1;
-            Conn.SQLDA.InsertCommand.Parameters["BAR"].Value = book.barcode;
-            Conn.SQLDA.InsertCommand.Parameters["IDEMP"].Value = this.F1.EmpID;
-            Conn.SQLDA.InsertCommand.Parameters["IDREADER"].Value = reader.id;
-            Conn.SQLDA.InsertCommand.Parameters["DATEACT"].Value = DateTime.Now;
-            try
-            {
-                Conn.SQLDA.InsertCommand.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + ". Не сработало протоколирование действия - выдача. Обратитесь к разработчику.");
-            }
-        }
-
-        internal void InsertActionRETURNED(dbReader reader, dbBook book)
-        {
-            Conn.SQLDA.InsertCommand = new SqlCommand();
-            Conn.SQLDA.InsertCommand.Connection = Conn.ZakazCon;
-            if (Conn.ZakazCon.State != ConnectionState.Open) Conn.ZakazCon.Open();
-            Conn.SQLDA.InsertCommand.CommandText = "insert into Reservation_R..ABONEMENTACTIONS (ACTIONTYPE,BAR,IDEMP,IDREADER,DATEACT) " +
-                                                    " values (@ACTIONTYPE,@BAR,@IDEMP,@IDREADER,@DATEACT)";
-            Conn.SQLDA.InsertCommand.Parameters.Add("ACTIONTYPE", SqlDbType.Int);
-            Conn.SQLDA.InsertCommand.Parameters.Add("BAR", SqlDbType.NVarChar);
-            Conn.SQLDA.InsertCommand.Parameters.Add("IDEMP", SqlDbType.Int);
-            Conn.SQLDA.InsertCommand.Parameters.Add("IDREADER", SqlDbType.Int);
-            Conn.SQLDA.InsertCommand.Parameters.Add("DATEACT", SqlDbType.DateTime);
-            Conn.SQLDA.InsertCommand.Parameters["ACTIONTYPE"].Value = 2;
-            Conn.SQLDA.InsertCommand.Parameters["BAR"].Value = book.barcode;
-            Conn.SQLDA.InsertCommand.Parameters["IDEMP"].Value = this.F1.EmpID;
-            Conn.SQLDA.InsertCommand.Parameters["IDREADER"].Value = book.rid;
-            Conn.SQLDA.InsertCommand.Parameters["DATEACT"].Value = DateTime.Now;
-            try
-            {
-                Conn.SQLDA.InsertCommand.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + ". Не сработало протоколирование действия - возврат. Обратитесь к разработчику.");
-            }
-        }
-
-        internal void InsertActionProlong(dbReader reader, dbBook book)
-        {
-            Conn.SQLDA.InsertCommand = new SqlCommand();
-            Conn.SQLDA.InsertCommand.Connection = Conn.ZakazCon;
-            if (Conn.ZakazCon.State != ConnectionState.Open) Conn.ZakazCon.Open();
-            Conn.SQLDA.InsertCommand.CommandText = "insert into Reservation_R..ABONEMENTACTIONS (ACTIONTYPE,BAR,IDEMP,IDREADER,DATEACT) " +
-                                                    " values (@ACTIONTYPE,@BAR,@IDEMP,@IDREADER,@DATEACT)";
-            Conn.SQLDA.InsertCommand.Parameters.Add("ACTIONTYPE", SqlDbType.Int);
-            Conn.SQLDA.InsertCommand.Parameters.Add("BAR", SqlDbType.NVarChar);
-            Conn.SQLDA.InsertCommand.Parameters.Add("IDEMP", SqlDbType.Int);
-            Conn.SQLDA.InsertCommand.Parameters.Add("IDREADER", SqlDbType.Int);
-            Conn.SQLDA.InsertCommand.Parameters.Add("DATEACT", SqlDbType.DateTime);
-            Conn.SQLDA.InsertCommand.Parameters["ACTIONTYPE"].Value = 3;
-            Conn.SQLDA.InsertCommand.Parameters["BAR"].Value = book.barcode;
-            Conn.SQLDA.InsertCommand.Parameters["IDEMP"].Value = this.F1.EmpID;
-            Conn.SQLDA.InsertCommand.Parameters["IDREADER"].Value = reader.id;
-            Conn.SQLDA.InsertCommand.Parameters["DATEACT"].Value = DateTime.Now;
-            try
-            {
-                Conn.SQLDA.InsertCommand.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + ". Не сработало протоколирование действия - продление. Обратитесь к разработчику.");
-            }
-        }
-
-        internal void InsertActionEMAIL(dbReader reader)
-        {
-            Conn.SQLDA.InsertCommand = new SqlCommand();
-            Conn.SQLDA.InsertCommand.Connection = Conn.ZakazCon;
-            if (Conn.ZakazCon.State != ConnectionState.Open) Conn.ZakazCon.Open();
-            Conn.SQLDA.InsertCommand.CommandText = "insert into Reservation_R..ABONEMENTACTIONS (ACTIONTYPE,BAR,IDEMP,IDREADER,DATEACT) " +
-                                                    " values (@ACTIONTYPE,@BAR,@IDEMP,@IDREADER,@DATEACT)";
-            Conn.SQLDA.InsertCommand.Parameters.Add("ACTIONTYPE", SqlDbType.Int);
-            Conn.SQLDA.InsertCommand.Parameters.Add("BAR", SqlDbType.NVarChar);
-            Conn.SQLDA.InsertCommand.Parameters.Add("IDEMP", SqlDbType.Int);
-            Conn.SQLDA.InsertCommand.Parameters.Add("IDREADER", SqlDbType.Int);
-            Conn.SQLDA.InsertCommand.Parameters.Add("DATEACT", SqlDbType.DateTime);
-            Conn.SQLDA.InsertCommand.Parameters["ACTIONTYPE"].Value = 4;
-            Conn.SQLDA.InsertCommand.Parameters["BAR"].Value = "email";
-            Conn.SQLDA.InsertCommand.Parameters["IDEMP"].Value = this.F1.EmpID;
-            Conn.SQLDA.InsertCommand.Parameters["IDREADER"].Value = reader.id;
-            Conn.SQLDA.InsertCommand.Parameters["DATEACT"].Value = DateTime.Now;
-            try
-            {
-                Conn.SQLDA.InsertCommand.ExecuteNonQuery();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + ". Не сработало протоколирование действия - Отправка email. Обратитесь к разработчику.");
-            }
-        }
-
-        internal object GetActions(DateTime start, DateTime end,int userID)
-        {
-            //Conn.SQLDA.SelectCommand.Parameters["@IDEMP"].Value = p;
-            Conn.SQLDA.SelectCommand.CommandText = "select A.ID, " +
-               " (case when ACTIONTYPE = 1 then 'Выдал' else" +
-               " case when ACTIONTYPE = 2 then 'Принял' else" +
-               " case when ACTIONTYPE = 3 then 'Продлил' else" +
-               " case when ACTIONTYPE = 4 then 'Отослал email'" +
-               " end " +
-               " end " +
-               " end " +
-               " end), case when avtp.PLAIN is null then zagp.PLAIN collate Cyrillic_General_CI_AI + "+
-               " ', '+ C.SORT else avtp.PLAIN collate Cyrillic_General_CI_AI + ', ' "+
-               " + zagp.PLAIN collate Cyrillic_General_CI_AI + ', '+ C.SORT end,A.IDREADER,A.DATEACT" +
-               " from Reservation_R..ABONEMENTACTIONS A  " +
-               " left join BJACC..DATAEXT B on B.SORT collate Cyrillic_General_CI_AI = A.BAR and B.MNFIELD = 899 and B.MSFIELD = '$w' " +
-               " left join BJACC..DATAEXT C on C.IDDATA = B.IDDATA and C.MNFIELD = 899 and C.MSFIELD = '$p' " +
-               " left join BJACC..DATAEXT zag on " +
-                                                " zag.MNFIELD = 200 and " +
-                                                " zag.MSFIELD = '$a' and " +
-                                                " zag.IDMAIN = B.IDMAIN " +
-               " left join BJACC..DATAEXT avt on " +
-                                                " avt.MNFIELD = 700 and " +
-                                                " avt.MSFIELD = '$a' " +
-                                                " and avt.IDMAIN = B.IDMAIN " +
-               " left join BJACC..DATAEXTPLAIN zagp on zagp.IDDATAEXT = zag.ID " +
-               " left join BJACC..DATAEXTPLAIN avtp on avtp.IDDATAEXT = avt.ID " +
-               " where A.IDEMP = "+userID.ToString()+
-               " and A.DATEACT between '"+start.ToString("dd.MM.yyyy")+"' and '"+end.AddDays(1).ToString("dd.MM.yyyy")+"'" ;
-
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            DataSet R = new DataSet();
-            int i = Conn.SQLDA.Fill(R);
-            return R.Tables[0];
-        }
-
-        internal string GetLastDateEmail(string p)
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select max(DATEACT) from Reservation_R..ABONEMENTACTIONS where IDREADER = '" + p + "' and ACTIONTYPE = 4";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(Conn.SQLDA);
-            DataSet B = new DataSet();
-            int t = Conn.SQLDA.Fill(B,"t");
-            string ret = (B.Tables[0].Rows[0][0] == DBNull.Value) ? "<нет>" : B.Tables[0].Rows[0][0].ToString();
-            return ret;
-                  
-        }
-
-        internal DataTable getOperators()
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select ID,[NAME] from BJACC..USERS where DEPT = 47";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            DataSet B = new DataSet();
-            int t = Conn.SQLDA.Fill(B, "t");
-            return B.Tables["t"];
-        }
-
-        internal void DeleteExceededOrders()//удалить заказы и переместить их в историю, которым больше 3 дней и которые попали в отказ
-        {
-            Conn.SQLDA.SelectCommand.CommandText = "select * from Reservation_O..Orders where DATEDIFF(day,Start_Date,getdate()) >3";
-            Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
-            DataSet B = new DataSet();
-            int t = Conn.SQLDA.Fill(B, "t");
-            foreach (DataRow r in B.Tables["t"].Rows)
-            {
-                Conn.SQLDA.SelectCommand.CommandText = "select * from BJACC..DATAEXT where MNFIELD = 899 and MSFIELD = '$a' and IDDATA = " + r["IDDATA"].ToString();
-                t = Conn.SQLDA.Fill(B, "ab");
-                if (t == 0)//не должно быть
-                    continue;
-                if (t > 1)//не должно быть
-                    continue;
-                if (B.Tables["ab"].Rows[0]["SORT"].ToString().Contains("Абонемент"))
-                {
-                    Conn.SQLDA.InsertCommand = new SqlCommand();
-                    Conn.SQLDA.InsertCommand.Connection = Conn.ZakazCon;
-                    Conn.SQLDA.InsertCommand.Connection.Open();
-                    Conn.SQLDA.InsertCommand.CommandText = "insert into Reservation_O..OrdHis " +
-                                    " select ID_Reader,ID_Book_EC,ID_Book_CC, Status,Start_Date, " +
-                                    " Change_Date,InvNumber,Form_Date,Duration,Who,ALGIDM,IDDATA,REFUSUAL " +
-                                    " from Reservation_O..Orders where ID = " + r["ID"].ToString();
                     Conn.SQLDA.InsertCommand.ExecuteNonQuery();
-                    Conn.SQLDA.InsertCommand.Connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + ". Не сработало протоколирование действия - выдача. Обратитесь к разработчику.");
+                }
+            }
+
+            internal void InsertActionRETURNED(dbReader reader, dbBook book)
+            {
+                Conn.SQLDA.InsertCommand = new SqlCommand();
+                Conn.SQLDA.InsertCommand.Connection = Conn.ZakazCon;
+                if (Conn.ZakazCon.State != ConnectionState.Open) Conn.ZakazCon.Open();
+                Conn.SQLDA.InsertCommand.CommandText = "insert into Reservation_R..ABONEMENTACTIONS (ACTIONTYPE,BAR,IDEMP,IDREADER,DATEACT) " +
+                                                        " values (@ACTIONTYPE,@BAR,@IDEMP,@IDREADER,@DATEACT)";
+                Conn.SQLDA.InsertCommand.Parameters.Add("ACTIONTYPE", SqlDbType.Int);
+                Conn.SQLDA.InsertCommand.Parameters.Add("BAR", SqlDbType.NVarChar);
+                Conn.SQLDA.InsertCommand.Parameters.Add("IDEMP", SqlDbType.Int);
+                Conn.SQLDA.InsertCommand.Parameters.Add("IDREADER", SqlDbType.Int);
+                Conn.SQLDA.InsertCommand.Parameters.Add("DATEACT", SqlDbType.DateTime);
+                Conn.SQLDA.InsertCommand.Parameters["ACTIONTYPE"].Value = 2;
+                Conn.SQLDA.InsertCommand.Parameters["BAR"].Value = book.barcode;
+                Conn.SQLDA.InsertCommand.Parameters["IDEMP"].Value = this.F1.EmpID;
+                Conn.SQLDA.InsertCommand.Parameters["IDREADER"].Value = book.rid;
+                Conn.SQLDA.InsertCommand.Parameters["DATEACT"].Value = DateTime.Now;
+                try
+                {
+                    Conn.SQLDA.InsertCommand.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + ". Не сработало протоколирование действия - возврат. Обратитесь к разработчику.");
+                }
+            }
+
+            internal void InsertActionProlong(dbReader reader, dbBook book)
+            {
+                Conn.SQLDA.InsertCommand = new SqlCommand();
+                Conn.SQLDA.InsertCommand.Connection = Conn.ZakazCon;
+                if (Conn.ZakazCon.State != ConnectionState.Open) Conn.ZakazCon.Open();
+                Conn.SQLDA.InsertCommand.CommandText = "insert into Reservation_R..ABONEMENTACTIONS (ACTIONTYPE,BAR,IDEMP,IDREADER,DATEACT) " +
+                                                        " values (@ACTIONTYPE,@BAR,@IDEMP,@IDREADER,@DATEACT)";
+                Conn.SQLDA.InsertCommand.Parameters.Add("ACTIONTYPE", SqlDbType.Int);
+                Conn.SQLDA.InsertCommand.Parameters.Add("BAR", SqlDbType.NVarChar);
+                Conn.SQLDA.InsertCommand.Parameters.Add("IDEMP", SqlDbType.Int);
+                Conn.SQLDA.InsertCommand.Parameters.Add("IDREADER", SqlDbType.Int);
+                Conn.SQLDA.InsertCommand.Parameters.Add("DATEACT", SqlDbType.DateTime);
+                Conn.SQLDA.InsertCommand.Parameters["ACTIONTYPE"].Value = 3;
+                Conn.SQLDA.InsertCommand.Parameters["BAR"].Value = book.barcode;
+                Conn.SQLDA.InsertCommand.Parameters["IDEMP"].Value = this.F1.EmpID;
+                Conn.SQLDA.InsertCommand.Parameters["IDREADER"].Value = reader.id;
+                Conn.SQLDA.InsertCommand.Parameters["DATEACT"].Value = DateTime.Now;
+                try
+                {
+                    Conn.SQLDA.InsertCommand.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + ". Не сработало протоколирование действия - продление. Обратитесь к разработчику.");
+                }
+            }
+
+            internal void InsertActionEMAIL(dbReader reader)
+            {
+                Conn.SQLDA.InsertCommand = new SqlCommand();
+                Conn.SQLDA.InsertCommand.Connection = Conn.ZakazCon;
+                if (Conn.ZakazCon.State != ConnectionState.Open) Conn.ZakazCon.Open();
+                Conn.SQLDA.InsertCommand.CommandText = "insert into Reservation_R..ABONEMENTACTIONS (ACTIONTYPE,BAR,IDEMP,IDREADER,DATEACT) " +
+                                                        " values (@ACTIONTYPE,@BAR,@IDEMP,@IDREADER,@DATEACT)";
+                Conn.SQLDA.InsertCommand.Parameters.Add("ACTIONTYPE", SqlDbType.Int);
+                Conn.SQLDA.InsertCommand.Parameters.Add("BAR", SqlDbType.NVarChar);
+                Conn.SQLDA.InsertCommand.Parameters.Add("IDEMP", SqlDbType.Int);
+                Conn.SQLDA.InsertCommand.Parameters.Add("IDREADER", SqlDbType.Int);
+                Conn.SQLDA.InsertCommand.Parameters.Add("DATEACT", SqlDbType.DateTime);
+                Conn.SQLDA.InsertCommand.Parameters["ACTIONTYPE"].Value = 4;
+                Conn.SQLDA.InsertCommand.Parameters["BAR"].Value = "email";
+                Conn.SQLDA.InsertCommand.Parameters["IDEMP"].Value = this.F1.EmpID;
+                Conn.SQLDA.InsertCommand.Parameters["IDREADER"].Value = reader.id;
+                Conn.SQLDA.InsertCommand.Parameters["DATEACT"].Value = DateTime.Now;
+                try
+                {
+                    Conn.SQLDA.InsertCommand.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + ". Не сработало протоколирование действия - Отправка email. Обратитесь к разработчику.");
+                }
+            }
+
+            internal object GetActions(DateTime start, DateTime end, int userID)
+            {
+                //Conn.SQLDA.SelectCommand.Parameters["@IDEMP"].Value = p;
+                Conn.SQLDA.SelectCommand.CommandText = "select A.ID, " +
+                   " (case when ACTIONTYPE = 1 then 'Выдал' else" +
+                   " case when ACTIONTYPE = 2 then 'Принял' else" +
+                   " case when ACTIONTYPE = 3 then 'Продлил' else" +
+                   " case when ACTIONTYPE = 4 then 'Отослал email'" +
+                   " end " +
+                   " end " +
+                   " end " +
+                   " end), case when avtp.PLAIN is null then zagp.PLAIN collate Cyrillic_General_CI_AI + " +
+                   " ', '+ C.SORT else avtp.PLAIN collate Cyrillic_General_CI_AI + ', ' " +
+                   " + zagp.PLAIN collate Cyrillic_General_CI_AI + ', '+ C.SORT end,A.IDREADER,A.DATEACT" +
+                   " from Reservation_R..ABONEMENTACTIONS A  " +
+                   " left join BJACC..DATAEXT B on B.SORT collate Cyrillic_General_CI_AI = A.BAR and B.MNFIELD = 899 and B.MSFIELD = '$w' " +
+                   " left join BJACC..DATAEXT C on C.IDDATA = B.IDDATA and C.MNFIELD = 899 and C.MSFIELD = '$p' " +
+                   " left join BJACC..DATAEXT zag on " +
+                                                    " zag.MNFIELD = 200 and " +
+                                                    " zag.MSFIELD = '$a' and " +
+                                                    " zag.IDMAIN = B.IDMAIN " +
+                   " left join BJACC..DATAEXT avt on " +
+                                                    " avt.MNFIELD = 700 and " +
+                                                    " avt.MSFIELD = '$a' " +
+                                                    " and avt.IDMAIN = B.IDMAIN " +
+                   " left join BJACC..DATAEXTPLAIN zagp on zagp.IDDATAEXT = zag.ID " +
+                   " left join BJACC..DATAEXTPLAIN avtp on avtp.IDDATAEXT = avt.ID " +
+                   " where A.IDEMP = " + userID.ToString() +
+                   " and A.DATEACT between '" + start.ToString("dd.MM.yyyy") + "' and '" + end.AddDays(1).ToString("dd.MM.yyyy") + "'";
+
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                DataSet R = new DataSet();
+                int i = Conn.SQLDA.Fill(R);
+                return R.Tables[0];
+            }
+
+            internal string GetLastDateEmail(string p)
+            {
+                Conn.SQLDA.SelectCommand.CommandText = "select max(DATEACT) from Reservation_R..ABONEMENTACTIONS where IDREADER = '" + p + "' and ACTIONTYPE = 4";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                SqlCommandBuilder cmdBuilder = new SqlCommandBuilder(Conn.SQLDA);
+                DataSet B = new DataSet();
+                int t = Conn.SQLDA.Fill(B, "t");
+                string ret = (B.Tables[0].Rows[0][0] == DBNull.Value) ? "<нет>" : B.Tables[0].Rows[0][0].ToString();
+                return ret;
+
+            }
+
+            internal DataTable getOperators()
+            {
+                Conn.SQLDA.SelectCommand.CommandText = "select ID,[NAME] from BJACC..USERS where DEPT = 47";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                DataSet B = new DataSet();
+                int t = Conn.SQLDA.Fill(B, "t");
+                return B.Tables["t"];
+            }
+
+            internal void DeleteExceededOrders()//удалить заказы и переместить их в историю, которым больше 3 дней и которые попали в отказ
+            {
+                Conn.SQLDA.SelectCommand.CommandText = "select * from Reservation_O..Orders where DATEDIFF(day,Start_Date,getdate()) >3";
+                Conn.SQLDA.SelectCommand.Connection = Conn.ZakazCon;
+                DataSet B = new DataSet();
+                int t = Conn.SQLDA.Fill(B, "t");
+                foreach (DataRow r in B.Tables["t"].Rows)
+                {
+                    Conn.SQLDA.SelectCommand.CommandText = "select * from BJACC..DATAEXT where MNFIELD = 899 and MSFIELD = '$a' and IDDATA = " + r["IDDATA"].ToString();
+                    t = Conn.SQLDA.Fill(B, "ab");
+                    if (t == 0)//не должно быть
+                        continue;
+                    if (t > 1)//не должно быть
+                        continue;
+                    if (B.Tables["ab"].Rows[0]["SORT"].ToString().Contains("Абонемент"))
+                    {
+                        Conn.SQLDA.InsertCommand = new SqlCommand();
+                        Conn.SQLDA.InsertCommand.Connection = Conn.ZakazCon;
+                        Conn.SQLDA.InsertCommand.Connection.Open();
+                        Conn.SQLDA.InsertCommand.CommandText = "insert into Reservation_O..OrdHis " +
+                                        " select ID_Reader,ID_Book_EC,ID_Book_CC, Status,Start_Date, " +
+                                        " Change_Date,InvNumber,Form_Date,Duration,Who,ALGIDM,IDDATA,REFUSUAL " +
+                                        " from Reservation_O..Orders where ID = " + r["ID"].ToString();
+                        Conn.SQLDA.InsertCommand.ExecuteNonQuery();
+                        Conn.SQLDA.InsertCommand.Connection.Close();
 
 
-                    Conn.SQLDA.DeleteCommand = new SqlCommand();
-                    Conn.SQLDA.DeleteCommand.Connection = Conn.ZakazCon;
-                    if (Conn.SQLDA.DeleteCommand.Connection.State == ConnectionState.Closed)
-                    {
-                        Conn.SQLDA.DeleteCommand.Connection.Open();
-                    }
-                    Conn.SQLDA.DeleteCommand.CommandText = "delete from Reservation_O..Orders where ID = " + r["ID"].ToString();
-                    Conn.SQLDA.DeleteCommand.ExecuteNonQuery();
-                    if (Conn.SQLDA.DeleteCommand.Connection.State == ConnectionState.Open)
-                    {
-                        Conn.SQLDA.DeleteCommand.Connection.Close();
+                        Conn.SQLDA.DeleteCommand = new SqlCommand();
+                        Conn.SQLDA.DeleteCommand.Connection = Conn.ZakazCon;
+                        if (Conn.SQLDA.DeleteCommand.Connection.State == ConnectionState.Closed)
+                        {
+                            Conn.SQLDA.DeleteCommand.Connection.Open();
+                        }
+                        Conn.SQLDA.DeleteCommand.CommandText = "delete from Reservation_O..Orders where ID = " + r["ID"].ToString();
+                        Conn.SQLDA.DeleteCommand.ExecuteNonQuery();
+                        if (Conn.SQLDA.DeleteCommand.Connection.State == ConnectionState.Open)
+                        {
+                            Conn.SQLDA.DeleteCommand.Connection.Close();
+                        }
                     }
                 }
             }
         }
     }
-}

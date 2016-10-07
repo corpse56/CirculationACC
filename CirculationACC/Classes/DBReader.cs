@@ -111,7 +111,7 @@ namespace Circulation
         internal DataTable GetReaderByFamily(string p)
         {
             DA.SelectCommand.CommandText = "select NumberReader, FamilyName, [Name], FatherName,DateBirth, RegistrationCity,RegistrationStreet, " +
-                                           " LiveEmail +'; '+RegistrationEmail from Readers..Main where lower(FamilyName) like lower('" + p + "')+'%'";
+                                           " Email from Readers..Main where lower(FamilyName) like lower('" + p + "')+'%'";
             DS = new DataSet();
             DA.Fill(DS, "t");
             return DS.Tables["t"];
@@ -125,9 +125,9 @@ namespace Circulation
             DA.UpdateCommand.ExecuteNonQuery();
             DA.UpdateCommand.Connection.Close();
         }
-        internal string GetLiveemail(ReaderVO reader)
+        internal string GetEmail(ReaderVO reader)
         {
-            DA.SelectCommand.CommandText = "select LiveEmail from Readers..Main where NumberReader = " + reader.ID;
+            DA.SelectCommand.CommandText = "select Email from Readers..Main where NumberReader = " + reader.ID;
             DataSet D = new DataSet();
             int i = DA.Fill(D);
             if (i == 0) return "";
@@ -149,37 +149,7 @@ namespace Circulation
                    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$");
         }
 
-        internal string GetWorkEmail(ReaderVO reader)
-        {
-            DA.SelectCommand.CommandText = "select WorkEmail from Readers..Main where NumberReader = " + reader.ID;
-            DataSet D = new DataSet();
-            int i = DA.Fill(D);
-            if (i == 0) return "";
-            if (this.IsValidEmail(D.Tables[0].Rows[0][0].ToString()))
-            {
-                return D.Tables[0].Rows[0][0].ToString();
-            }
-            else
-            {
-                return "";
-            }
-        }
-
-        internal string GetRegEmail(ReaderVO reader)
-        {
-            DA.SelectCommand.CommandText = "select RegistrationEmail from Readers..Main where NumberReader = " + reader.ID;
-            DataSet D = new DataSet();
-            int i = DA.Fill(D);
-            if (i == 0) return "";
-            if (this.IsValidEmail(D.Tables[0].Rows[0][0].ToString()))
-            {
-                return D.Tables[0].Rows[0][0].ToString();
-            }
-            else
-            {
-                return "";
-            }
-        }
+        
 
         internal string GetLastDateEmail(ReaderVO reader)
         {
