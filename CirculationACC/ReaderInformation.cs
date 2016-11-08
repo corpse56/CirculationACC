@@ -198,7 +198,7 @@ namespace Circulation
                 dataGridView1.Rows[i].Cells[0].Value = value;
                 i++;
             }
-            SQLDA.SelectCommand.CommandText = "select B.NameInterest intr from Readers..Interest A inner join Readers..InterestList B on A.IDInterest = B.IDInterest where IDReader = " + reader.ID;
+            /*SQLDA.SelectCommand.CommandText = "select B.NameInterest intr from Readers..Interest A inner join Readers..InterestList B on A.IDInterest = B.IDInterest where IDReader = " + reader.ID;
             SQLDA.Fill(DS, "itrs");
             foreach (DataRow r in DS.Tables["itrs"].Rows)
             {
@@ -215,7 +215,7 @@ namespace Circulation
                 dataGridView1.Rows[i].HeaderCell.Value = "Язык";
                 dataGridView1.Rows[i].Cells[0].Value = r["lng"].ToString();
                 i++;
-            }
+            }*/
         }
     }
 }
