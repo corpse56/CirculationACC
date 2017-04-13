@@ -161,5 +161,27 @@ namespace Circulation
             if (i == 0) return "не отправлялось";
             return Convert.ToDateTime(D.Tables["t"].Rows[0][0]).ToString("dd.MM.yyyy HH:mm");
         }
+
+        internal string GetRealIDByGuestBar(string bar)
+        {
+
+            DA.SelectCommand.CommandText = " SELECT top 1 A.IDReaderInput id FROM Readers..Input A " +
+                                 " where A.BarCodeInput = '" + bar + "'" +
+                                 " order by A.DateInInput desc";
+            DataSet DS = new DataSet();
+            int tt = DA.Fill(DS, "tt");
+            if (tt == 0) return "-1";
+            return (DS.Tables["tt"].Rows[0]["id"].ToString() == "0") ? "-1" : DS.Tables["tt"].Rows[0]["id"].ToString();
+        }
+
+        internal bool IsAlreadyMarked(string bar)
+        {
+            DA.SelectCommand.CommandText = "SELECT * FROM " + DB.BASENAME + "..ATTENDANCE_ACC " +
+                                                   " where Cast(Cast(DATEATT As VarChar(11)) As DateTime) = cast(cast(getdate() as varchar(11)) as datetime) " +
+                                                   " and BAR = '" + bar + "'";
+            DataSet DS = new DataSet();
+            int t = DA.Fill(DS, "t");
+            return (t > 0) ? true : false;
+        }
     }
 }

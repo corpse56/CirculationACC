@@ -100,28 +100,30 @@ namespace Circulation
         private void button1_Click(object sender, EventArgs e)
         {
             button1.Enabled = false;
-            SmtpClient client = new SmtpClient("neos.libfl.ru");
-            //client.EnableSsl = true;
-            client.Credentials = new NetworkCredential("abonement@libfl.ru", "abonement123");
-            MailAddress from = new MailAddress("abonement@libfl.ru", "ВГБИЛ", Encoding.UTF8);
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.EnableSsl = true;
+
+            client.Credentials = new NetworkCredential("no-reply@libfl.ru", "noreplayLIBFL");
+            //client.Credentials = new NetworkCredential("lingua_automail@libfl.ru", "automail");
+            MailAddress from = new MailAddress("no-reply@libfl.ru", "Библиотека Иностранной Литературы - Зал абонементного обслуживания", Encoding.UTF8);
             MailAddress to;
             MailMessage message = new MailMessage();
             message.From = from;
             message.IsBodyHtml = true;
-            //LiveEmail = "debarkader@gmail.com";
-            //WorkEmail = "debarkader@gmail.com";
             if (Email != "")
             {
                 to = new MailAddress(Email);
                 message.To.Add(to);
             }
-            
+
             message.Body = htmltext;
-            
+
             message.BodyEncoding = Encoding.UTF8;
-            message.Subject = "ВГБИЛ - Абонемент";
+            message.Subject = "ВГБИЛ";
             message.SubjectEncoding = Encoding.UTF8;
-            
+
             try
             {
                 client.Send(message);
@@ -133,6 +135,7 @@ namespace Circulation
             }
             message.Dispose();
             MessageBox.Show("Отправлено успешно!");
+            
             DBGeneral dbg = new DBGeneral();
             dbg.InsertSendEmailAction(f1.EmpID,reader.ID);
             Close();

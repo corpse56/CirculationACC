@@ -61,9 +61,6 @@ namespace Circulation
             this.button21 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.button16 = new System.Windows.Forms.Button();
-            this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
             this.label22 = new System.Windows.Forms.Label();
@@ -79,7 +76,6 @@ namespace Circulation
             this.DateIssue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateVozv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateVozvFact = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Penalt = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button12 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -87,24 +83,12 @@ namespace Circulation
             this.label18 = new System.Windows.Forms.Label();
             this.Statistics = new System.Windows.Forms.DataGridView();
             this.button7 = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
-            this.спрашиваемость онкретного»нвентарногоЌомераToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.yfqnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.списокЌарушителей—давшихЋитературузаѕериодToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.количествоЋитературычитателейзаѕериодToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.списокƒействий“екущегоќператора«јпериодToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sqlConnection1 = new System.Data.SqlClient.SqlConnection();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.toolTip2 = new System.Windows.Forms.ToolTip(this.components);
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
-            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.zAKAZBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.выданные нигиЌа“екущийћоментToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.просроченные нигиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -115,6 +99,9 @@ namespace Circulation
             this.обращаемость нигToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.список ниг— оторых—н€таќтветственностьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокЌарушителей—роковѕользовани€ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.Penalt = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.button5 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -128,9 +115,8 @@ namespace Circulation
             this.tabPage2.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Statistics)).BeginInit();
+            this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.contextMenuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.zAKAZBindingSource)).BeginInit();
             this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -171,6 +157,7 @@ namespace Circulation
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Location = new System.Drawing.Point(15, 138);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
@@ -383,9 +370,6 @@ namespace Circulation
             this.tabPage4.Controls.Add(this.button21);
             this.tabPage4.Controls.Add(this.button17);
             this.tabPage4.Controls.Add(this.button16);
-            this.tabPage4.Controls.Add(this.crystalReportViewer1);
-            this.tabPage4.Controls.Add(this.button13);
-            this.tabPage4.Controls.Add(this.button11);
             this.tabPage4.Controls.Add(this.button10);
             this.tabPage4.Controls.Add(this.numericUpDown3);
             this.tabPage4.Controls.Add(this.label22);
@@ -401,7 +385,6 @@ namespace Circulation
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "‘ормул€р читател€";
             this.tabPage4.UseVisualStyleBackColor = true;
-            this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
             // 
             // button4
             // 
@@ -475,40 +458,6 @@ namespace Circulation
             this.button16.Text = "»стори€ выдач";
             this.button16.UseVisualStyleBackColor = true;
             this.button16.Click += new System.EventHandler(this.button16_Click);
-            // 
-            // crystalReportViewer1
-            // 
-            this.crystalReportViewer1.ActiveViewIndex = -1;
-            this.crystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.crystalReportViewer1.Location = new System.Drawing.Point(10, 202);
-            this.crystalReportViewer1.Name = "crystalReportViewer1";
-            this.crystalReportViewer1.SelectionFormula = "";
-            this.crystalReportViewer1.Size = new System.Drawing.Size(109, 102);
-            this.crystalReportViewer1.TabIndex = 13;
-            this.crystalReportViewer1.ViewTimeSelectionFormula = "";
-            this.crystalReportViewer1.Visible = false;
-            // 
-            // button13
-            // 
-            this.button13.Location = new System.Drawing.Point(244, 113);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(196, 23);
-            this.button13.TabIndex = 12;
-            this.button13.Text = "–аспечатать формул€р";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Visible = false;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
-            // button11
-            // 
-            this.button11.Location = new System.Drawing.Point(11, 113);
-            this.button11.Name = "button11";
-            this.button11.Size = new System.Drawing.Size(227, 23);
-            this.button11.TabIndex = 11;
-            this.button11.Text = "„итатель потер€л книгу...";
-            this.button11.UseVisualStyleBackColor = true;
-            this.button11.Visible = false;
-            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // button10
             // 
@@ -654,15 +603,6 @@ namespace Circulation
             this.DateVozvFact.ReadOnly = true;
             this.DateVozvFact.Width = 80;
             // 
-            // Penalt
-            // 
-            this.Penalt.HeaderText = "Ќарушение";
-            this.Penalt.Name = "Penalt";
-            this.Penalt.ReadOnly = true;
-            this.Penalt.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Penalt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Penalt.Width = 85;
-            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.button12);
@@ -744,6 +684,38 @@ namespace Circulation
             this.button7.UseVisualStyleBackColor = true;
             this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.button5);
+            this.tabPage3.Controls.Add(this.label23);
+            this.tabPage3.Controls.Add(this.label21);
+            this.tabPage3.Location = new System.Drawing.Point(4, 25);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(1185, 495);
+            this.tabPage3.TabIndex = 4;
+            this.tabPage3.Text = "”чЄт посещаемости";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(349, 304);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(425, 17);
+            this.label23.TabIndex = 2;
+            this.label23.Text = "—читайте штрихкод читател€, чтобы увеличить посещаемость";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label21.Location = new System.Drawing.Point(243, 100);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(668, 31);
+            this.label21.TabIndex = 1;
+            this.label21.Text = "Ќа сегодн€ посещаемость составл€ет: 0 человек(а)";
+            // 
             // timer1
             // 
             this.timer1.Interval = 750;
@@ -769,108 +741,6 @@ namespace Circulation
             this.label10.TabIndex = 11;
             this.label10.Text = " ниговыдача: ÷ентр јмериканской  ультуры";
             // 
-            // contextMenuStrip1
-            // 
-            this.contextMenuStrip1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItem5,
-            this.спрашиваемость онкретного»нвентарногоЌомераToolStripMenuItem,
-            this.toolStripMenuItem3,
-            this.yfqnToolStripMenuItem,
-            this.списокЌарушителей—давшихЋитературузаѕериодToolStripMenuItem,
-            this.количествоЋитературычитателейзаѕериодToolStripMenuItem,
-            this.списокƒействий“екущегоќператора«јпериодToolStripMenuItem});
-            this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.contextMenuStrip1.ShowImageMargin = false;
-            this.contextMenuStrip1.Size = new System.Drawing.Size(376, 158);
-            // 
-            // toolStripMenuItem5
-            // 
-            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(375, 22);
-            this.toolStripMenuItem5.Text = " оличество выданных документов (за период)";
-            this.toolStripMenuItem5.Click += new System.EventHandler(this.toolStripMenuItem5_Click);
-            // 
-            // спрашиваемость онкретного»нвентарногоЌомераToolStripMenuItem
-            // 
-            this.спрашиваемость онкретного»нвентарногоЌомераToolStripMenuItem.Name = "спрашиваемость онкретного»нвентарногоЌомераToolStripMenuItem";
-            this.спрашиваемость онкретного»нвентарногоЌомераToolStripMenuItem.Size = new System.Drawing.Size(375, 22);
-            this.спрашиваемость онкретного»нвентарногоЌомераToolStripMenuItem.Text = "—прашиваемость конкретного инвентарного номера";
-            this.спрашиваемость онкретного»нвентарногоЌомераToolStripMenuItem.Visible = false;
-            this.спрашиваемость онкретного»нвентарногоЌомераToolStripMenuItem.Click += new System.EventHandler(this.спрашиваемость онкретного»нвентарногоЌомераToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(375, 22);
-            this.toolStripMenuItem3.Text = "—писок нарушителей (за период)";
-            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click_1);
-            // 
-            // yfqnToolStripMenuItem
-            // 
-            this.yfqnToolStripMenuItem.Name = "yfqnToolStripMenuItem";
-            this.yfqnToolStripMenuItem.Size = new System.Drawing.Size(375, 22);
-            this.yfqnToolStripMenuItem.Text = "Ќайти книгу по инвентарному номеру";
-            this.yfqnToolStripMenuItem.Visible = false;
-            this.yfqnToolStripMenuItem.Click += new System.EventHandler(this.yfqnToolStripMenuItem_Click);
-            // 
-            // списокЌарушителей—давшихЋитературузаѕериодToolStripMenuItem
-            // 
-            this.списокЌарушителей—давшихЋитературузаѕериодToolStripMenuItem.Name = "списокЌарушителей—давшихЋитературузаѕериодToolStripMenuItem";
-            this.списокЌарушителей—давшихЋитературузаѕериодToolStripMenuItem.Size = new System.Drawing.Size(375, 22);
-            this.списокЌарушителей—давшихЋитературузаѕериодToolStripMenuItem.Text = "—писок нарушителей, сдавших литературу (за период)";
-            this.списокЌарушителей—давшихЋитературузаѕериодToolStripMenuItem.Click += new System.EventHandler(this.списокЌарушителей—давшихЋитературузаѕериодToolStripMenuItem_Click);
-            // 
-            // количествоЋитературычитателейзаѕериодToolStripMenuItem
-            // 
-            this.количествоЋитературычитателейзаѕериодToolStripMenuItem.Name = "количествоЋитературычитателейзаѕериодToolStripMenuItem";
-            this.количествоЋитературычитателейзаѕериодToolStripMenuItem.Size = new System.Drawing.Size(375, 22);
-            this.количествоЋитературычитателейзаѕериодToolStripMenuItem.Text = " оличество литературы/читателей (за период)";
-            this.количествоЋитературычитателейзаѕериодToolStripMenuItem.Visible = false;
-            this.количествоЋитературычитателейзаѕериодToolStripMenuItem.Click += new System.EventHandler(this.количествоЋитературычитателейзаѕериодToolStripMenuItem_Click);
-            // 
-            // списокƒействий“екущегоќператора«јпериодToolStripMenuItem
-            // 
-            this.списокƒействий“екущегоќператора«јпериодToolStripMenuItem.Name = "списокƒействий“екущегоќператора«јпериодToolStripMenuItem";
-            this.списокƒействий“екущегоќператора«јпериодToolStripMenuItem.Size = new System.Drawing.Size(375, 22);
-            this.списокƒействий“екущегоќператора«јпериодToolStripMenuItem.Text = "—писок действий оператора (за период)";
-            this.списокƒействий“екущегоќператора«јпериодToolStripMenuItem.Click += new System.EventHandler(this.списокƒействий“екущегоќператора«јпериодToolStripMenuItem_Click);
-            // 
-            // sqlConnection1
-            // 
-            this.sqlConnection1.ConnectionString = "Data Source=192.168.3.62;Initial Catalog=BRIT_SOVET;Persist Security Info=True;Us" +
-                "er ID=circulation;Password=circfull";
-            this.sqlConnection1.FireInfoMessageEventOnUserErrors = false;
-            // 
-            // toolTip1
-            // 
-            this.toolTip1.AutomaticDelay = 300;
-            this.toolTip1.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
-            this.toolTip1.Draw += new System.Windows.Forms.DrawToolTipEventHandler(this.toolTip1_Draw);
-            // 
-            // backgroundWorker1
-            // 
-            this.backgroundWorker1.WorkerSupportsCancellation = true;
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            // 
-            // backgroundWorker2
-            // 
-            this.backgroundWorker2.WorkerReportsProgress = true;
-            this.backgroundWorker2.WorkerSupportsCancellation = true;
-            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
-            this.backgroundWorker2.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker2_ProgressChanged);
-            // 
-            // dataGridViewButtonColumn1
-            // 
-            this.dataGridViewButtonColumn1.HeaderText = "Ќарушение";
-            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
-            this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewButtonColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewButtonColumn1.Width = 85;
-            // 
             // contextMenuStrip2
             // 
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -884,7 +754,7 @@ namespace Circulation
             this.список ниг— оторых—н€таќтветственностьToolStripMenuItem,
             this.списокЌарушителей—роковѕользовани€ToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(331, 224);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(331, 202);
             // 
             // выданные нигиЌа“екущийћоментToolStripMenuItem
             // 
@@ -949,6 +819,33 @@ namespace Circulation
             this.списокЌарушителей—роковѕользовани€ToolStripMenuItem.Text = "—писок нарушителей сроков пользовани€";
             this.списокЌарушителей—роковѕользовани€ToolStripMenuItem.Click += new System.EventHandler(this.списокЌарушителей—роковѕользовани€ToolStripMenuItem_Click);
             // 
+            // dataGridViewButtonColumn1
+            // 
+            this.dataGridViewButtonColumn1.HeaderText = "Ќарушение";
+            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
+            this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewButtonColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewButtonColumn1.Width = 85;
+            // 
+            // Penalt
+            // 
+            this.Penalt.HeaderText = "Ќарушение";
+            this.Penalt.Name = "Penalt";
+            this.Penalt.ReadOnly = true;
+            this.Penalt.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Penalt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Penalt.Width = 85;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(1087, 465);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(92, 24);
+            this.button5.TabIndex = 8;
+            this.button5.Text = "эмул€ци€";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.bConfirm;
@@ -969,7 +866,6 @@ namespace Circulation
             this.Name = "Form1";
             this.Text = " ниговыдача ÷ентр јмериканской  ультуры";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -986,9 +882,9 @@ namespace Circulation
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Statistics)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.contextMenuStrip1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.zAKAZBindingSource)).EndInit();
             this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1018,11 +914,8 @@ namespace Circulation
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.DataGridView Statistics;
-        private System.Data.SqlClient.SqlConnection sqlConnection1;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
@@ -1032,8 +925,6 @@ namespace Circulation
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.NumericUpDown numericUpDown3;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.ToolTip toolTip2;
         private System.Windows.Forms.Label lFromularNumber;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.DataGridViewTextBoxColumn N;
@@ -1044,13 +935,7 @@ namespace Circulation
         private System.Windows.Forms.DataGridViewTextBoxColumn DateVozv;
         private System.Windows.Forms.DataGridViewTextBoxColumn DateVozvFact;
         private System.Windows.Forms.DataGridViewButtonColumn Penalt;
-        private System.Windows.Forms.Button button11;
         private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button13;
-        private System.Windows.Forms.BindingSource zAKAZBindingSource;
-        private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.Button button17;
@@ -1059,13 +944,7 @@ namespace Circulation
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.Button button21;
-        private System.Windows.Forms.ToolStripMenuItem спрашиваемость онкретного»нвентарногоЌомераToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
-        private System.Windows.Forms.ToolStripMenuItem yfqnToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem количествоЋитературычитателейзаѕериодToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem списокЌарушителей—давшихЋитературузаѕериодToolStripMenuItem;
         public System.Windows.Forms.DataGridView Formular;
-        private System.Windows.Forms.ToolStripMenuItem списокƒействий“екущегоќператора«јпериодToolStripMenuItem;
         private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.PictureBox RPhoto;
@@ -1082,6 +961,10 @@ namespace Circulation
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.ToolStripMenuItem список ниг— оторых—н€таќтветственностьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокЌарушителей—роковѕользовани€ToolStripMenuItem;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Button button5;
         //private Circulation.BRIT_SOVETDataSetTableAdapters.ZAKAZTableAdapter zAKAZTableAdapter;
         //private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
         //private CrystalReport1 CrystalReport11;

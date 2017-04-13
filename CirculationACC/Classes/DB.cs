@@ -11,6 +11,7 @@ namespace Circulation
     {
         public SqlDataAdapter DA;
         public DataSet DS;
+        public static string BASENAME;
         public DB()
         {
             DA = new SqlDataAdapter();

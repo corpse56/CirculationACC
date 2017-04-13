@@ -119,13 +119,6 @@
     <Compile Include="Classes\ReaderVO.cs" />
     <Compile Include="Classes\XmlConnections.cs" />
     <Compile Include="Classes\DBReference.cs" />
-    <Compile Include="CrystalReport1.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CrystalReport1.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DataGridViewPrinter.cs" />
     <Compile Include="Classes\DBBook.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -139,29 +132,11 @@
     <Compile Include="ChangeComment.Designer.cs">
       <DependentUpon>ChangeComment.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChangeNote.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ChangeNote.Designer.cs">
-      <DependentUpon>ChangeNote.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FindBookByInvNum.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FindBookByInvNum.Designer.cs">
-      <DependentUpon>FindBookByInvNum.cs</DependentUpon>
-    </Compile>
     <Compile Include="FindReaderBySurname.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FindReaderBySurname.Designer.cs">
       <DependentUpon>FindReaderBySurname.cs</DependentUpon>
-    </Compile>
-    <Compile Include="IssueWithoutBAR.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="IssueWithoutBAR.Designer.cs">
-      <DependentUpon>IssueWithoutBAR.cs</DependentUpon>
     </Compile>
     <Compile Include="Emulation.cs">
       <SubType>Form</SubType>
@@ -180,18 +155,6 @@
     </Compile>
     <Compile Include="ParolEmulation.Designer.cs">
       <DependentUpon>ParolEmulation.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FrequencyByInvNumber.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FrequencyByInvNumber.Designer.cs">
-      <DependentUpon>FrequencyByInvNumber.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ReaderRegistrationInMoscow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ReaderRegistrationInMoscow.Designer.cs">
-      <DependentUpon>ReaderRegistrationInMoscow.cs</DependentUpon>
     </Compile>
     <Compile Include="EmailSending.cs">
       <SubType>Form</SubType>
@@ -223,19 +186,8 @@
     <Compile Include="ReaderInformation.Designer.cs">
       <DependentUpon>ReaderInformation.cs</DependentUpon>
     </Compile>
-    <Compile Include="LostBook.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LostBook.Designer.cs">
-      <DependentUpon>LostBook.cs</DependentUpon>
-    </Compile>
-    <Compile Include="OPOSHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="CrystalReport1.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Form1.cs</DependentUpon>
@@ -244,20 +196,8 @@
       <DependentUpon>ChangeComment.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ChangeNote.resx">
-      <DependentUpon>ChangeNote.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FindBookByInvNum.resx">
-      <DependentUpon>FindBookByInvNum.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="FindReaderBySurname.resx">
       <DependentUpon>FindReaderBySurname.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IssueWithoutBAR.resx">
-      <DependentUpon>IssueWithoutBAR.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Emulation.resx">
@@ -270,14 +210,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ParolEmulation.resx">
       <DependentUpon>ParolEmulation.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FrequencyByInvNumber.resx">
-      <DependentUpon>FrequencyByInvNumber.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ReaderRegistrationInMoscow.resx">
-      <DependentUpon>ReaderRegistrationInMoscow.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="EmailSending.resx">
@@ -300,10 +232,6 @@
       <DependentUpon>ReaderInformation.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="LostBook.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>LostBook.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -311,14 +239,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RoundProgress.resx">
       <DependentUpon>RoundProgress.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="tst.rpt">
-      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>tst.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ActsandSpan.resx">
-      <DependentUpon>ActsandSpan.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="ViewFullSizePhoto.resx">
@@ -334,48 +254,16 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Reservation_RDataSet.xsc">
-      <DependentUpon>Reservation_RDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="Reservation_RDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>Reservation_RDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Reservation_RDataSet.xss">
-      <DependentUpon>Reservation_RDataSet.xsd</DependentUpon>
-    </None>
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Reservation_RDataSet.cs">
-      <DependentUpon>Reservation_RDataSet.xsd</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Reservation_RDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reservation_RDataSet.xsd</DependentUpon>
     </Compile>
     <Compile Include="RoundProgress.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="RoundProgress.designer.cs">
       <DependentUpon>RoundProgress.cs</DependentUpon>
-    </Compile>
-    <Compile Include="tst.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>tst.rpt</DependentUpon>
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="ActsandSpan.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ActsandSpan.Designer.cs">
-      <DependentUpon>ActsandSpan.cs</DependentUpon>
     </Compile>
     <Compile Include="ViewFullSizePhoto.cs">
       <SubType>Form</SubType>

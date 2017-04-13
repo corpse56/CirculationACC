@@ -109,5 +109,17 @@ namespace Circulation
             dbg.RemoveResposibility(idiss, EmpID);
             return;
         }
+
+        internal void AddAttendance(ReaderVO reader)
+        {
+            DBGeneral dbg = new DBGeneral();
+            dbg.AddAttendance(reader);
+        }
+
+        internal int GetAttendance()
+        {
+            DBGeneral dbg = new DBGeneral();
+            return dbg.GetAttendance();
+        }
     }
 }

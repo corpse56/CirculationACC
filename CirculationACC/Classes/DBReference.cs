@@ -47,7 +47,8 @@ namespace Circulation
                 " left join BJACC..DATAEXTPLAIN C on C.IDDATAEXT = CC.ID" +
                 " left join BJACC..DATAEXTPLAIN D on D.IDDATAEXT = DD.ID" +
                 " left join BJACC..DATAEXTPLAIN E on E.IDDATAEXT = EE.ID" +
-                " left join Reservation_R..ISSUED_ACC_ACTIONS EM on EM.IDISSUED_ACC = A.IDREADER and EM.IDACTION = 4" + // 4 - это ACTIONTYPE = сотрудник отослал емаил
+                " left join Reservation_R..ISSUED_ACC_ACTIONS EM on EM.IDISSUED_ACC = A.IDREADER and EM.IDACTION = 4 " + // 4 - это ACTIONTYPE = сотрудник отослал емаил
+                            " and EM.ID = (select max(z.ID) from Reservation_R..ISSUED_ACC_ACTIONS z where z.IDISSUED_ACC = A.IDREADER and z.IDACTION = 4)" +
                 " left join BJACC..DATAEXT INV on A.IDDATA = INV.IDDATA and INV.MNFIELD = 899 and INV.MSFIELD = '$w'" +
                 " where A.IDSTATUS = 1 and A.DATE_RETURN < getdate()";
             DS = new DataSet();

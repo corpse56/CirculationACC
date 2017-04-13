@@ -316,5 +316,29 @@ namespace Circulation
             DA.InsertCommand.ExecuteNonQuery();
             DA.InsertCommand.Connection.Close();
         }
+
+        internal void AddAttendance(ReaderVO reader)
+        {
+            DA.InsertCommand.Parameters.Clear();
+            DA.InsertCommand.Parameters.AddWithValue("BAR", reader.BAR);
+            if (reader.BAR[0] == 'G')
+                DA.InsertCommand.Parameters.AddWithValue("IDReader", -1);
+            else
+                DA.InsertCommand.Parameters.AddWithValue("IDReader", reader.ID);
+
+            DA.InsertCommand.CommandText = "insert into Reservation_R..ATTENDANCE_ACC (IDReader, DATEATT, BAR) values " +
+                                           " (@IDReader, getdate(), @BAR)";
+            DA.InsertCommand.Connection.Open();
+            DA.InsertCommand.ExecuteNonQuery();
+            DA.InsertCommand.Connection.Close();
+        }
+
+        internal int GetAttendance()
+        {
+            DA.SelectCommand.CommandText = " select (ID) from Reservation_R..ATTENDANCE_ACC A " +
+                                           " where cast(cast(A.DATEATT as varchar(11)) as datetime) between " +
+                                           " cast(cast(getdate() as varchar(11)) as datetime) and cast(cast(getdate() as varchar(11)) as datetime) ";
+            return DA.Fill(DS);
+        }
     }
 }
