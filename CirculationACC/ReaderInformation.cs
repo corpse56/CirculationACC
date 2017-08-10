@@ -206,8 +206,8 @@ namespace Circulation
                 dataGridView1.Rows[i].HeaderCell.Value = "Интерес";
                 dataGridView1.Rows[i].Cells[0].Value = r["intr"].ToString();
                 i++;
-            }
-            SQLDA.SelectCommand.CommandText = "select B.NameLanguage lng from Readers..Language A inner join Readers..LanguageList B on A.IDLanguage = B.IDLanguage where IDReader = " + reader.ID;
+            }*/
+            /*SQLDA.SelectCommand.CommandText = "select B.NameLanguage lng from Readers..Language A inner join Readers..LanguageList B on A.IDLanguage = B.IDLanguage where IDReader = " + reader.ID;
             SQLDA.Fill(DS, "lng");
             foreach (DataRow r in DS.Tables["lng"].Rows)
             {

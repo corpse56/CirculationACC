@@ -6,10 +6,12 @@ using System.Windows.Forms;
 
 namespace Circulation
 {
-    public enum BARTYPE { Book, Reader, NotExist }
+    public enum BARTYPE { BookACC, Reader, NotExist, BookBJVVV }
+    public enum ExpectingAction { WaitingBook, WaitingReader, WaitingConfimation }//0 - ожидается штрихкод книги, 1 - ожидается штрихкод читателя, 2 - ожидается подтверждение или отмена выдачи
+
     public class Department : DB
     {
-        public int ExpectedBar = 0; //0 - ожидается штрихкод книги, 1 - ожидается штрихкод читателя, 2 - ожидается подтверждение или отмена выдачи
+        public ExpectingAction ExpectedBar = ExpectingAction.WaitingBook;
 
         public Department() 
         {
@@ -34,7 +36,7 @@ namespace Circulation
         public int Circulate(string PortData)
         {
             BARTYPE ScannedType;
-            if (ExpectedBar == 2)
+            if (ExpectedBar == ExpectingAction.WaitingConfimation)//если ожидается подтверждение выдачи
             {
                 return 5;
             }
@@ -57,18 +59,18 @@ namespace Circulation
                 }
                 else
                 {
-                    ExpectedBar = 1;
+                    ExpectedBar = ExpectingAction.WaitingReader;
                     return 4;
                 }
             }
             else  //если сейчас ожидается штрихкод читателя
             {
-                if (ScannedType == BARTYPE.Book) //выяснить какой штрихкод сейчас считан: читатель или книга
+                if ((ScannedType == BARTYPE.BookACC) || (ScannedType == BARTYPE.BookBJVVV)) //выяснить какой штрихкод сейчас считан: читатель или книга
                 {
                     return 2;
                 }
                 ScannedReader = new ReaderVO(PortData);
-                ExpectedBar = 2;
+                ExpectedBar = ExpectingAction.WaitingConfimation;
                 return 5;
                 
             }
@@ -110,16 +112,18 @@ namespace Circulation
             return;
         }
 
+        internal int GetAttendance()
+        {
+            DBGeneral dbg = new DBGeneral();
+            return dbg.GetAttendance();
+        }
+
         internal void AddAttendance(ReaderVO reader)
         {
             DBGeneral dbg = new DBGeneral();
             dbg.AddAttendance(reader);
         }
 
-        internal int GetAttendance()
-        {
-            DBGeneral dbg = new DBGeneral();
-            return dbg.GetAttendance();
-        }
+
     }
 }

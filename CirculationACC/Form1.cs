@@ -8,23 +8,25 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using System.Data.OleDb;
-//using Test1;
 using System.Globalization;
 using System.Xml;
 using System.Windows.Forms.VisualStyles;
+using CrystalDecisions.CrystalReports.Engine;
 using System.Threading;
 using System.Net.Mail;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.IO.Ports;
 using System.IO;
-//using Circulation.Classes;
 namespace Circulation
 {
+    //public delegate void ScannedEventHandler();
+    public delegate void HeaderClick(object sender, DataGridViewCellMouseEventArgs ev);
 
     public partial class Form1 : Form
     {
         Department DEPARTMENT = new Department();
+
 
         public int EmpID;
         private Auth f2;
@@ -41,9 +43,15 @@ namespace Circulation
             this.StartPosition = FormStartPosition.CenterScreen;
             f2.ShowDialog();
 
+            //Form1.Scanned += new ScannedEventHandler(Form1_Scanned);
             this.bConfirm.Enabled = false;
             this.bCancel.Enabled = false;
             label4.Text = "Журнал событий " + DateTime.Now.ToShortDateString() + ":";
+
+
+
+           // Formular.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+         //   Formular.Columns.Clear();
 
             port = new SerialPort("COM1", 9600, Parity.None, 8, StopBits.One);
             port.DataReceived += new SerialDataReceivedEventHandler(port_DataReceived);
@@ -62,7 +70,7 @@ namespace Circulation
 
         }
         public delegate void ScanFuncDelegate(string data);
-
+        
         //public static event ScannedEventHandler Scanned;
 
         void port_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -73,8 +81,10 @@ namespace Circulation
             port.DiscardInBuffer();
             ScanFuncDelegate ScanDelegate;
             ScanDelegate = new ScanFuncDelegate(Form1_Scanned);
-            
+            //ScanDelegate.Invoke(sender, e);
+            //Invoke(ScanDelegate);
             this.Invoke(ScanDelegate, new object[] { FromPort });
+            //this.Invoke(
         }
 
 
@@ -90,69 +100,6 @@ namespace Circulation
 
                     #endregion
                     break;
-                #region old_formular
-
-                ////string _data = ((IOPOSScanner_1_10)sender).ScanData.ToString();
-                //string _data = fromport;
-                //if (!dbw.isReader(_data))
-                //{
-                //    MessageBox.Show("Неверный штрихкод читателя!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                //    return;
-                //}
-                ///*if (_data.Length < 20)
-                //    _data = _data.Remove(0, 1);*/
-                ////_data = _data.Remove(_data.Length - 1, 1);
-                //ReaderRecordFormular = new DBWork.dbReader(_data);
-
-                //if (ReaderRecordFormular.barcode == "notfoundbynumber")
-                //{
-                //    MessageBox.Show("Читатель не найден, либо неверный штрихкод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    return;
-                //}
-                //if (ReaderRecordFormular.barcode == "numsoc")
-                //{
-                //    MessageBox.Show("Читатель не найден, либо неверный штрикод!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    return;
-                //}
-                //if (ReaderRecordFormular.barcode == "sersoc")
-                //{
-                //    MessageBox.Show("Не соответствует серия социальной карты!Читатель заменил социальную карту!Номер социальной карты остался прежним, но сменилась серия! Новую социальную карту необходимо зарегистрировать в регистратуре!", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //    return;
-                //}
-                //label20.Text = ReaderRecordFormular.Surname + " " + ReaderRecordFormular.Name + " " + ReaderRecordFormular.SecondName;
-                ////textBox6.Text = ReaderRecordFormular.AbonType;
-                //label25.Text = ReaderRecordFormular.id;
-
-                ////dbw.SetPenalty(ReaderRecordFormular.id);
-                ////this.FormularColumnsForming(ReaderRecordFormular.id);
-
-                ///*Formular.Columns[1].Width = 100;
-                //Formular.Columns[2].Visible = false;
-                //Formular.Columns[4].Visible = false;
-                //Formular.Columns[3].HeaderText = "Автор";
-                //Formular.Columns[3].Width = 90;
-                //Formular.Columns[5].HeaderText = "Год издания";
-                //Formular.Columns[5].Width = 110;
-                //Formular.Columns[7].Visible = false;
-                //Formular.Columns[6].HeaderText = "Место Издания";
-                //Formular.Columns[6].Width = 170;
-                //Formular.Columns[8].HeaderText = "Дата выдачи";
-                //Formular.Columns[8].Width = 130;
-                //Formular.Columns[9].HeaderText = "Предполагаемая дата возврата";
-                //Formular.Columns[9].Width = 130;
-                //Formular.Columns[10].HeaderText = "Фактическая дата возврата";
-                //Formular.Columns[10].Width = 130;
-                //Formular.Columns[11].HeaderText = "Нарушение";
-                //Formular.Columns[11].Width = 130;*/
-
-
-                ////Formular.Columns[8].Visible = false;
-                ////Formular.Columns[9].Visible = false;
-                //Sorting.WhatStat = Stats.Formular;
-                //Sorting.AuthorSort = SortDir.None;
-                //Sorting.ZagSort = SortDir.None;
-                //break;
-                #endregion
 
                 case "Приём/выдача изданий":
                     #region priem
@@ -190,14 +137,16 @@ namespace Circulation
                     Log();
                     break;
                     #endregion
-                #region Учёт посещаемости
+
+                
 
                 case "Учёт посещаемости":
-
+                #region Учёт посещаемости
                     AttendanceScan(fromport);
 
                     break;
                 #endregion
+
             }
         }
 
@@ -253,6 +202,11 @@ namespace Circulation
             Formular.Columns["shifr"].Width = 90;
             Formular.Columns["idiss"].Visible = false;
             Formular.Columns["idr"].Visible = false;
+            Formular.Columns["DATE_ISSUE"].Visible = false;
+            Formular.Columns["fund"].HeaderText = "Фонд";
+            Formular.Columns["fund"].Width = 50;
+            Formular.Columns["prolonged"].HeaderText = "Продлено, раз";
+            Formular.Columns["prolonged"].Width = 80;
             pictureBox2.Image = reader.Photo;
             foreach (DataGridViewRow r in Formular.Rows)
             {
@@ -269,7 +223,7 @@ namespace Circulation
         {
             if (DEPARTMENT.ScannedReader.IsAlreadyIssuedMoreThanFourBooks())
             {
-                DialogResult res = MessageBox.Show("Читателю уже выдано более 4 наименований! Всё равно хотите выдать?", "Внимание", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                DialogResult res =  MessageBox.Show("Читателю уже выдано более 4 наименований! Всё равно хотите выдать?","Внимание", MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation);
                 if (res == DialogResult.No)
                 {
                     CancelIssue();
@@ -320,11 +274,13 @@ namespace Circulation
             dgvLOG.Columns["idr"].Width = 80;
             dgvLOG.Columns["st"].HeaderText = "Действие";
             dgvLOG.Columns["st"].Width = 100;
+            dgvLOG.Columns["fund"].HeaderText = "Фонд";
+            dgvLOG.Columns["fund"].Width = 80;
             foreach (DataGridViewColumn c in dgvLOG.Columns)
             {
                 c.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-
+            
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -348,12 +304,15 @@ namespace Circulation
             Prolong p = new Prolong();
             p.ShowDialog();
             if (p.Days == -99) return;
-            DEPARTMENT.Prolong((int)Formular.SelectedRows[0].Cells["idiss"].Value, p.Days, EmpID);
+            DEPARTMENT.Prolong((int)Formular.SelectedRows[0].Cells["idiss"].Value, p.Days,EmpID);
             ReaderVO reader = new ReaderVO((int)Formular.SelectedRows[0].Cells["idr"].Value);
             FillFormularGrid(reader);
 
         }
 
+
+
+       
         private void button2_Click(object sender, EventArgs e)
         {
             Close();
@@ -381,6 +340,8 @@ namespace Circulation
             label1.Visible = !label1.Visible;
         }
 
+       
+
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (tabControl1.SelectedTab.Text)
@@ -389,7 +350,7 @@ namespace Circulation
                     Log();
                     //CancelIssue();
                     label1.Enabled = true;
-
+                    
                     //label1.Text = "Считайте штрихкод издания";
                     break;
                 case "Справка":
@@ -405,16 +366,22 @@ namespace Circulation
                 case "Учёт посещаемости":
                     label21.Text = "На сегодня посещаемость составляет: " + DEPARTMENT.GetAttendance() + " человек(а)";
                     break;
+
             }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            // TODO: данная строка кода позволяет загрузить данные в таблицу "bRIT_SOVETDataSet.ZAKAZ". При необходимости она может быть перемещена или удалена.
+            //this.zAKAZTableAdapter.Fill(this.bRIT_SOVETDataSet.ZAKAZ);
+            //this.EmpID = "1";
             if (f2.Canceled)
             {
                 MessageBox.Show("Вы не авторизованы! Программа заканчивает свою работу", "Внимание!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
             }
+            //this.reportViewer1.RefreshReport();
+            //this.reportViewer2.RefreshReport();
         }
 
 
@@ -427,10 +394,9 @@ namespace Circulation
         }
 
 
-      
-
-
        
+
+        
         public void autoinc(DataGridView dgv)
         {
             int i = 0;
@@ -439,34 +405,64 @@ namespace Circulation
                 row.Cells[0].Value = ++i;
             }
         }
-       
+        
         private void Statistics_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (label19.Text.Contains("нарушит"))
-                foreach (DataGridViewRow r in Statistics.Rows)
-                {
-                    if (r.Cells[5].Value.ToString() == "true")
-                    {
-                        r.DefaultCellStyle.BackColor = Color.Yellow;
-                    }
-                }
-            if (label19.Text.Contains("просроч"))
-                foreach (DataGridViewRow r in Statistics.Rows)
-                {
-                    if (r.Cells[10].Value.ToString() == "true")
-                    {
-                        r.DefaultCellStyle.BackColor = Color.Yellow;
-                    }
-                }
+           
+            //if (label19.Text.Contains("просроч") || label19.Text.Contains("нарушит"))
+            //foreach (DataGridViewRow r in Statistics.Rows)
+            //{
+            //    if (r.Cells[10].Value.ToString() == "true")
+            //    {
+            //        r.DefaultCellStyle.BackColor = Color.Yellow;
+            //    }
+            //}
             autoinc(Statistics);
+            
         }
 
+        System.Drawing.Printing.PrintDocument pd;
+        DataGridViewPrinter prin;
+        DataGridView dgw2;
+        private bool SetupThePrinting()
+        {
+            PrintDialog MyPrintDialog = new PrintDialog();
+            MyPrintDialog.AllowCurrentPage = false;
+            MyPrintDialog.AllowPrintToFile = false;
+            MyPrintDialog.AllowSelection = false;
+            MyPrintDialog.AllowSomePages = false;
+            MyPrintDialog.PrintToFile = false;
+            MyPrintDialog.ShowHelp = false;
+            MyPrintDialog.ShowNetwork = false;
+
+            if (MyPrintDialog.ShowDialog() != DialogResult.OK)
+                return false;
+            pd = new System.Drawing.Printing.PrintDocument();
+            pd.DocumentName = "Сверка фонда";
+            //pd.PrinterSettings = MyPrintDialog.PrinterSettings;
+            pd.DefaultPageSettings = pd.PrinterSettings.DefaultPageSettings;
+            pd.DefaultPageSettings.Margins = new System.Drawing.Printing.Margins(20, 20, 20, 20);
+            pd.DefaultPageSettings.Landscape = true;
+            pd.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(pd_PrintPage);
+            prin = new DataGridViewPrinter(dgw2, pd, true, false, string.Empty, new Font("Tahoma", 18), Color.Black, false);
+            
+
+            return true;
+        }
+
+        void pd_PrintPage(object sender, System.Drawing.Printing.PrintPageEventArgs e)
+        {
+            bool more = prin.DrawDataGridView(e.Graphics);
+            if (more == true)
+                e.HasMorePages = true;
+        }
         class Span
         {
             public DateTime start;
             public DateTime end;
         }
         Span MyDateSpan;
+
         private void button12_Click(object sender, EventArgs e)
         {
             if (Statistics.Rows.Count == 0)
@@ -516,7 +512,6 @@ namespace Circulation
             }
         }
 
-       
         public string emul;
         public string pass;
         private void button14_Click(object sender, EventArgs e)
@@ -552,7 +547,7 @@ namespace Circulation
                 return;
             }
             ReaderVO reader = new ReaderVO(int.Parse(lFromularNumber.Text));
-            ReaderInformation f9 = new ReaderInformation(reader, this);
+            ReaderInformation f9 = new ReaderInformation(reader,this);
             f9.ShowDialog();
         }
 
@@ -562,12 +557,15 @@ namespace Circulation
             FindReaderBySurname f16 = new FindReaderBySurname(this);
             f16.ShowDialog();
         }
+        
+        
+       
+       
 
         private void Statistics_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-
             if (e.RowIndex == -1) return;
-            if ((label19.Text.IndexOf("Список просроченных документов на текущий момент") != -1))
+            if ((label19.Text.IndexOf("Список просроченных документов на текущий момент") != -1) )
             {
                 tabControl1.SelectedIndex = 1;
                 numericUpDown3.Value = int.Parse(Statistics.Rows[e.RowIndex].Cells[3].Value.ToString());
@@ -649,6 +647,8 @@ namespace Circulation
             Statistics.Columns[10].Visible = false;
             Statistics.Columns[11].HeaderText = "Расстановочный шифр";
             Statistics.Columns[11].Width = 100;
+            Statistics.Columns[12].HeaderText = "Фонд";
+            Statistics.Columns[12].Width = 50;
 
             button12.Enabled = true;
         }
@@ -705,6 +705,8 @@ namespace Circulation
             Statistics.Columns[11].Width = 85;
             Statistics.Columns[12].HeaderText = "Расстановочный шифр";
             Statistics.Columns[12].Width = 85;
+            Statistics.Columns[13].HeaderText = "Фонд";
+            Statistics.Columns[13].Width = 50;
             foreach (DataGridViewRow r in Statistics.Rows)
             {
                 object value = r.Cells[10].Value;
@@ -723,7 +725,7 @@ namespace Circulation
                 MessageBox.Show("Введите номер или считайте штрихкод читателя!");
                 return;
             }
-            ReaderVO reader = new ReaderVO(int.Parse(lFromularNumber.Text));
+            ReaderVO reader = new ReaderVO(int.Parse(lFromularNumber.Text)); 
             EmailSending es = new EmailSending(this, reader);
             if (es.canshow)
             {
@@ -741,7 +743,7 @@ namespace Circulation
             label19.Text = "";
             label19.Text = "Список действий оператора за период с " + f3.StartDate.ToString("dd.MM.yyyy") + " по " + f3.EndDate.ToString("dd.MM.yyyy") + ": ";
             DBGeneral dbg = new DBGeneral();
-
+            
             try
             {
                 Statistics.DataSource = dbg.GetOperatorActions(f3.StartDate, f3.EndDate, EmpID);
@@ -827,7 +829,7 @@ namespace Circulation
 
             //DatePeriod f3 = new DatePeriod();
             //f3.ShowDialog();
-            label19.Text = "Список всех документов Американского центра ";
+            label19.Text = "Список всех документов ЦАК + ОФ ";
             label18.Text = "";
             DBReference dbref = new DBReference();
             Statistics.DataSource = dbref.GetAllBooks();
@@ -847,6 +849,8 @@ namespace Circulation
             Statistics.Columns[2].Width = 200;
             Statistics.Columns[3].HeaderText = "Штрихкод";
             Statistics.Columns[3].Width = 100;
+            Statistics.Columns[4].HeaderText = "Фонд";
+            Statistics.Columns[4].Width = 150;
 
             button12.Enabled = true;
         }
@@ -861,7 +865,7 @@ namespace Circulation
 
             //DatePeriod f3 = new DatePeriod();
             //f3.ShowDialog();
-            label19.Text = "Обращаемость документов Американского центра ";
+            label19.Text = "Обращаемость документов ЦАК ";
             label18.Text = "";
             DBReference dbref = new DBReference();
             Statistics.DataSource = dbref.GetBookNegotiability();
@@ -883,6 +887,8 @@ namespace Circulation
             Statistics.Columns[3].Width = 100;
             Statistics.Columns[4].HeaderText = "Обращаемость";
             Statistics.Columns[4].Width = 100;
+            Statistics.Columns[5].HeaderText = "Фонд";
+            Statistics.Columns[5].Width = 70;
 
             button12.Enabled = true;
         }
@@ -912,7 +918,7 @@ namespace Circulation
 
             //DatePeriod f3 = new DatePeriod();
             //f3.ShowDialog();
-            label19.Text = "Обращаемость документов Американского центра ";
+            label19.Text = "Обращаемость документов ЦАК ";
             label18.Text = "";
             DBReference dbref = new DBReference();
             Statistics.DataSource = dbref.GetBooksWithRemovedResponsibility();
@@ -947,6 +953,8 @@ namespace Circulation
             Statistics.Columns[9].HeaderText = "Дата снятия ответственности";
             Statistics.Columns[9].DefaultCellStyle.Format = "dd.MM.yyyy";
             Statistics.Columns[9].Width = 85;
+            Statistics.Columns[10].HeaderText = "Фонд";
+            Statistics.Columns[10].Width = 80;
             button12.Enabled = true;
         }
 
@@ -996,13 +1004,25 @@ namespace Circulation
             }
         }
 
+        private void bComment_Click(object sender, EventArgs e)
+        {
+            if (lFromularNumber.Text == "")
+            {
+                MessageBox.Show("Введите номер или считайте штрихкод читателя!");
+                return;
+            }
+            ReaderVO reader = new ReaderVO(int.Parse(lFromularNumber.Text));
+
+            ChangeComment cc = new ChangeComment(reader);
+            cc.ShowDialog();
+
+        }
+
         private void button5_Click(object sender, EventArgs e)
         {
             button14_Click(sender, e);
         }
 
-  
-
-
     }
+  
 }

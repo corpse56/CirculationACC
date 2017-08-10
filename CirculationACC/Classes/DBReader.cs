@@ -51,7 +51,7 @@ namespace Circulation
 
         internal bool IsAlreadyIssuedMoreThanFourBooks(ReaderVO r)
         {
-            DA.SelectCommand.CommandText = "select * from Reservation_R..ISSUED_ACC where IDREADER = " + r.ID + " and IDSTATUS = 1";
+            DA.SelectCommand.CommandText = "select * from Reservation_R..ISSUED_ACC where IDREADER = " + r.ID + " and IDSTATUS in (1,6)";
             DS = new DataSet();
             int i = DA.Fill(DS, "t");
             if (i >= 4) return true; else return false;
@@ -59,13 +59,16 @@ namespace Circulation
 
         internal DataTable GetFormular(int ID)
         {
-            DA.SelectCommand.CommandText = "select ROW_NUMBER() over(order by A.DATE_ISSUE) num, " +
-                                           " bar.SORT bar, " +
-                                           " avtp.PLAIN avt, " +
-                                           " titp.PLAIN tit, " +
+            DA.SelectCommand.CommandText = "with acc as (select " +
+                                           " bar.SORT collate Cyrillic_general_ci_ai bar, " +
+                                           " avtp.PLAIN collate Cyrillic_general_ci_ai avt, " +
+                                           " titp.PLAIN collate Cyrillic_general_ci_ai tit, " +
                                            " cast(cast(A.DATE_ISSUE as varchar(11)) as datetime) iss, " +
-                                           " cast(cast(A.DATE_RETURN as varchar(11)) as datetime) ret , A.ID idiss, A.IDREADER idr,E.PLAIN shifr " +
+                                           " cast(cast(A.DATE_RETURN as varchar(11)) as datetime) ret , A.ID idiss, " +
+                                           " A.IDREADER idr,E.PLAIN collate Cyrillic_general_ci_ai shifr , 'ЦАК'  fund, A.DATE_ISSUE " +
+                                           " ,Reservation_R.dbo.GetProlongedTimes(A.ID, 'BJACC') prolonged" +
                                            "  from Reservation_R..ISSUED_ACC A " +
+                                           " left join Reservation_R..ISSUED_ACC_ACTIONS prolong on A.ID = prolong.IDISSUED_ACC and prolong.IDACTION = 3 " +
                                            " left join BJACC..DATAEXT tit on A.IDMAIN = tit.IDMAIN and tit.MNFIELD = 200 and tit.MSFIELD = '$a' " +
                                            " left join BJACC..DATAEXTPLAIN titp on tit.ID = titp.IDDATAEXT " +
                                            " left join BJACC..DATAEXT avt on A.IDMAIN = avt.IDMAIN and avt.MNFIELD = 700 and avt.MSFIELD = '$a' " +
@@ -73,8 +76,31 @@ namespace Circulation
                                            " left join BJACC..DATAEXT bar on A.IDDATA = bar.IDDATA and bar.MNFIELD = 899 and bar.MSFIELD = '$w' " +
                                            " left join BJACC..DATAEXT EE on A.IDDATA = EE.IDDATA and EE.MNFIELD = 899 and EE.MSFIELD = '$j'" +
                                            " left join BJACC..DATAEXTPLAIN E on E.IDDATAEXT = EE.ID" +
+                                           " where A.IDREADER = " + ID + " and A.IDSTATUS = 1)" +
 
-                                           " where A.IDREADER = " + ID + " and A.IDSTATUS = 1";
+                                           " , vvv as (" +
+                                           "select  " +
+                                           " bar.SORT collate Cyrillic_general_ci_ai bar, " +
+                                           " avtp.PLAIN collate Cyrillic_general_ci_ai avt, " +
+                                           " titp.PLAIN collate Cyrillic_general_ci_ai tit, " +
+                                           " cast(cast(A.DATE_ISSUE as varchar(11)) as datetime) iss, " +
+                                           " cast(cast(A.DATE_RETURN as varchar(11)) as datetime) ret , A.ID idiss, " +
+                                           " A.IDREADER idr,E.PLAIN collate Cyrillic_general_ci_ai shifr, 'ОФ'  fund, A.DATE_ISSUE " +
+                                           " ,Reservation_R.dbo.GetProlongedTimes(A.ID, 'BJACC') prolonged" +
+                                           "  from Reservation_R..ISSUED_ACC A " +
+                                           " left join BJVVV..DATAEXT tit on A.IDMAIN = tit.IDMAIN and tit.MNFIELD = 200 and tit.MSFIELD = '$a' " +
+                                           " left join BJVVV..DATAEXTPLAIN titp on tit.ID = titp.IDDATAEXT " +
+                                           " left join BJVVV..DATAEXT avt on A.IDMAIN = avt.IDMAIN and avt.MNFIELD = 700 and avt.MSFIELD = '$a' " +
+                                           " left join BJVVV..DATAEXTPLAIN avtp on avt.ID = avtp.IDDATAEXT " +
+                                           " left join BJVVV..DATAEXT bar on A.IDDATA = bar.IDDATA and bar.MNFIELD = 899 and bar.MSFIELD = '$w' " +
+                                           " left join BJVVV..DATAEXT EE on A.IDDATA = EE.IDDATA and EE.MNFIELD = 899 and EE.MSFIELD = '$j'" +
+                                           " left join BJVVV..DATAEXTPLAIN E on E.IDDATAEXT = EE.ID" +
+                                           " where A.IDREADER = " + ID + " and A.IDSTATUS = 6)" +
+                                           " , result as (" +
+                                           " select * from acc " +
+                                           " union all" +
+                                           " select * from vvv )" +
+                                           " select ROW_NUMBER() over(order by DATE_ISSUE) num, * from result";
             ;
             DS = new DataSet();
             int i = DA.Fill(DS, "formular");
@@ -111,7 +137,7 @@ namespace Circulation
         internal DataTable GetReaderByFamily(string p)
         {
             DA.SelectCommand.CommandText = "select NumberReader, FamilyName, [Name], FatherName,DateBirth, RegistrationCity,RegistrationStreet, " +
-                                           " Email from Readers..Main where lower(FamilyName) like lower('" + p + "')+'%'";
+                                           " ISNULL(Email,'') from Readers..Main where lower(FamilyName) like lower('" + p + "')+'%'";
             DS = new DataSet();
             DA.Fill(DS, "t");
             return DS.Tables["t"];
@@ -149,8 +175,9 @@ namespace Circulation
                    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,6}))$");
         }
 
-        
+       
 
+       
         internal string GetLastDateEmail(ReaderVO reader)
         {
             DA.SelectCommand.CommandText = "select top 1 DATEACTION from Reservation_R..ISSUED_ACC_ACTIONS where IDACTION = 4 and IDISSUED_ACC = " + reader.ID+" order by DATEACTION desc";//когда актион равен 4 - это значит емаил отослали. только в этом случае 
@@ -182,6 +209,46 @@ namespace Circulation
             DataSet DS = new DataSet();
             int t = DA.Fill(DS, "t");
             return (t > 0) ? true : false;
+        }
+
+        internal string GetComment(int IDReader)
+        {
+            DA.SelectCommand.CommandText = "SELECT Comment FROM " + DB.BASENAME + "..Comments_ACC " +
+                                                   " where IDReader = " + IDReader;
+            DataSet DS = new DataSet();
+            int t = DA.Fill(DS, "t");
+            if (t == 0) return "";
+            return DS.Tables["t"].Rows[0][0].ToString();
+        }
+
+        internal void ChangeComment(int IDReader, string comment)
+        {
+            DA.SelectCommand.CommandText = "SELECT ID, Comment FROM " + DB.BASENAME + "..Comments_ACC " +
+                                                   " where IDReader = " + IDReader;
+            DataSet DS = new DataSet();
+            int t = DA.Fill(DS, "t");
+            if (t == 0)
+            {
+                DA.InsertCommand.CommandText = "insert into " + DB.BASENAME + "..Comments_ACC (IDReader, Comment) values (@IDReader, @Comment)";
+                DA.InsertCommand.Parameters.Clear();
+                DA.InsertCommand.Parameters.AddWithValue("IDReader", IDReader);
+                DA.InsertCommand.Parameters.AddWithValue("Comment", comment);
+                DA.InsertCommand.Connection.Open();
+                DA.InsertCommand.ExecuteNonQuery();
+                DA.InsertCommand.Connection.Close();
+            }
+            else
+            {
+                DA.UpdateCommand.Parameters.Clear();
+                DA.UpdateCommand.Parameters.AddWithValue("IDReader", IDReader);
+                DA.UpdateCommand.Parameters.AddWithValue("Comment", comment);
+                DA.UpdateCommand.CommandText = " update " + DB.BASENAME + "..Comments_ACC " +
+                                               " set Comment = @Comment " +
+                                               " where IDReader = @IDReader";
+                DA.UpdateCommand.Connection.Open();
+                DA.UpdateCommand.ExecuteNonQuery();
+                DA.UpdateCommand.Connection.Close();
+            }
         }
     }
 }

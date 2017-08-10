@@ -11,7 +11,8 @@ namespace Circulation
     {
         public SqlDataAdapter DA;
         public DataSet DS;
-        public static string BASENAME;
+        public static string BASENAME = "Reservation_R";
+
         public DB()
         {
             DA = new SqlDataAdapter();

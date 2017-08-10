@@ -5,6 +5,8 @@ using System.Text;
 
 namespace Circulation
 {
+    public enum Bases { BJACC = 1, BJVVV };
+
     public class BookVO
     {
         public string BAR;
@@ -14,24 +16,31 @@ namespace Circulation
         public string TITLE;
         public string AUTHOR;
         public int IDISSUED;
+        public Bases FUND;
         public BookVO() { }
-        public BookVO(int IDMAIN)
+        public BookVO(int IDMAIN, Bases fund)
         {
             DBBook dbb = new DBBook();
-            this.BookRecord = dbb.GetBookByIDMAIN(IDMAIN);
+
+            this.BookRecord = dbb.GetBookByIDMAIN(IDMAIN, fund);
             this.IDMAIN = BookRecord[0].IDMAIN;
         }
+
         public BookVO(string BAR)
         {
             DBBook dbb = new DBBook();
             this.BookRecord = dbb.GetBookByBAR(BAR);
+            if (BookRecord[0].Fund == Bases.BJACC)
+                this.FUND = Bases.BJACC;
+            else
+                this.FUND = Bases.BJVVV;
             this.BAR = BAR;
             this.IDMAIN = BookRecord[0].IDMAIN;
-            IEnumerable<BJACCRecord> iddata = from BJACCRecord x in BookRecord
+            IEnumerable<BJRecord> iddata = from BJRecord x in BookRecord
                                               where x.SORT == this.BAR && x.MNFIELD == 899 && x.MSFIELD == "$w"
                                               select x;
             this.IDDATA = iddata.ToList()[0].IDDATA;
-            var title = from BJACCRecord x in BookRecord
+            var title = from BJRecord x in BookRecord
                         where x.MNFIELD == 200 && x.MSFIELD == "$a"
                         select x;
             this.TITLE = title.ToList()[0].PLAIN;
@@ -44,7 +53,7 @@ namespace Circulation
                 this.TITLE = title.ToList()[0].PLAIN;
             }
 
-            var author = from BJACCRecord x in BookRecord
+            var author = from BJRecord x in BookRecord
                          where x.MNFIELD == 700 && x.MSFIELD == "$a"
                          select x;
             if (author.Count() == 0)
@@ -55,23 +64,23 @@ namespace Circulation
             {
                 this.AUTHOR = author.ToList()[0].PLAIN;
             }
-            this.IDISSUED = dbb.GetIDISSUED(this.IDDATA);
+            this.IDISSUED = dbb.GetIDISSUED(this.IDDATA, this.FUND);
 
             
         }
 
-        public List<BJACCRecord> BookRecord;
+        public List<BJRecord> BookRecord;
 
 
 
         internal bool IsIssued()
         {
             DBBook dbb = new DBBook();
-            IEnumerable<BJACCRecord> iddata = from BJACCRecord x in BookRecord
+            IEnumerable<BJRecord> iddata = from BJRecord x in BookRecord
                          where x.SORT == this.BAR && x.MNFIELD == 899 && x.MSFIELD == "$w"
                          select x;
 
-            return dbb.IsIssued(iddata.ToList()[0].IDDATA);
+            return dbb.IsIssued(iddata.ToList()[0].IDDATA, this.FUND);
         }
     }
 

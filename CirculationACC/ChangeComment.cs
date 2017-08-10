@@ -16,8 +16,8 @@ namespace Circulation
         public ChangeComment(ReaderVO reader_)
         {
             InitializeComponent();
-            reader  =reader_;
-          
+            reader = reader_;
+            textBox1.Text = reader.GetComment();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -27,7 +27,10 @@ namespace Circulation
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
+            reader.ChangeComment(textBox1.Text);
+
+
+
             MessageBox.Show("Комментарий успешно сохранён!", "Информация", MessageBoxButtons.OK, MessageBoxIcon.Information);
             Close();
         }

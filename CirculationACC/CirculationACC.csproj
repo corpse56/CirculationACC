@@ -109,7 +109,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\BJACCRecord.cs" />
+    <Compile Include="Classes\BJRecord.cs" />
     <Compile Include="Classes\BookVO.cs" />
     <Compile Include="Classes\DataGridViewDisableButtonCell.cs" />
     <Compile Include="Classes\DB.cs" />
@@ -119,6 +119,13 @@
     <Compile Include="Classes\ReaderVO.cs" />
     <Compile Include="Classes\XmlConnections.cs" />
     <Compile Include="Classes\DBReference.cs" />
+    <Compile Include="CrystalReport1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalReport1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DataGridViewPrinter.cs" />
     <Compile Include="Classes\DBBook.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -188,6 +195,10 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CrystalReport1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <SubType>Designer</SubType>
       <DependentUpon>Form1.cs</DependentUpon>

@@ -48,9 +48,8 @@ namespace Circulation
             {
                 this.Photo = Properties.Resources.nofoto;
             }
-
-
         }
+
         public ReaderVO(string BAR)
         {
             this.BAR = BAR;
@@ -147,5 +146,16 @@ namespace Circulation
 
         }
 
+        internal string GetComment()
+        {
+            DBReader dbr = new DBReader();
+            return dbr.GetComment(this.ID);
+        }
+
+        internal void ChangeComment(string comment)
+        {
+            DBReader dbr = new DBReader();
+            dbr.ChangeComment(this.ID, comment);
+        }
     }
 }

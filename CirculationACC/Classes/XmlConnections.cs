@@ -14,7 +14,6 @@ namespace Circulation
         private static XmlDocument doc;
         public static string GetConnection(string s)
         {
-            //filename = "F:\\projects\\circulationACC_svn\\trunk\\CirculationACC\\bin\\debug\\dbconnections.xml";
             if (!File.Exists(filename))
             {
                 throw new Exception("Файл с подключениями 'DBConnections.xml' не найден."+filename);

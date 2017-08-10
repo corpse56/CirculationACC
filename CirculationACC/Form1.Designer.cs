@@ -54,6 +54,7 @@ namespace Circulation
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label4 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.bComment = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -76,6 +77,7 @@ namespace Circulation
             this.DateIssue = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateVozv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DateVozvFact = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Penalt = new System.Windows.Forms.DataGridViewButtonColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.button12 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -84,11 +86,13 @@ namespace Circulation
             this.Statistics = new System.Windows.Forms.DataGridView();
             this.button7 = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.button5 = new System.Windows.Forms.Button();
             this.label23 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.выданные нигиЌа“екущийћоментToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.просроченные нигиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,9 +103,6 @@ namespace Circulation
             this.обращаемость нигToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.список ниг— оторых—н€таќтветственностьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.списокЌарушителей—роковѕользовани€ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.Penalt = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.button5 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -162,7 +163,7 @@ namespace Circulation
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1193, 524);
+            this.tabControl1.Size = new System.Drawing.Size(1193, 561);
             this.tabControl1.TabIndex = 9;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
@@ -181,14 +182,14 @@ namespace Circulation
             this.tabPage1.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage1.Size = new System.Drawing.Size(1185, 495);
+            this.tabPage1.Size = new System.Drawing.Size(1185, 532);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "ѕриЄм/выдача изданий";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // button14
             // 
-            this.button14.Location = new System.Drawing.Point(1078, 464);
+            this.button14.Location = new System.Drawing.Point(1085, 503);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(92, 24);
             this.button14.TabIndex = 7;
@@ -198,7 +199,7 @@ namespace Circulation
             // 
             // bCancel
             // 
-            this.bCancel.Location = new System.Drawing.Point(501, 461);
+            this.bCancel.Location = new System.Drawing.Point(511, 494);
             this.bCancel.Name = "bCancel";
             this.bCancel.Size = new System.Drawing.Size(75, 31);
             this.bCancel.TabIndex = 6;
@@ -208,7 +209,7 @@ namespace Circulation
             // 
             // bConfirm
             // 
-            this.bConfirm.Location = new System.Drawing.Point(371, 461);
+            this.bConfirm.Location = new System.Drawing.Point(381, 494);
             this.bConfirm.Name = "bConfirm";
             this.bConfirm.Size = new System.Drawing.Size(116, 31);
             this.bConfirm.TabIndex = 1;
@@ -363,6 +364,7 @@ namespace Circulation
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.bComment);
             this.tabPage4.Controls.Add(this.button4);
             this.tabPage4.Controls.Add(this.button2);
             this.tabPage4.Controls.Add(this.pictureBox2);
@@ -381,10 +383,20 @@ namespace Circulation
             this.tabPage4.Location = new System.Drawing.Point(4, 25);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(1185, 495);
+            this.tabPage4.Size = new System.Drawing.Size(1185, 532);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "‘ормул€р читател€";
             this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // bComment
+            // 
+            this.bComment.Location = new System.Drawing.Point(951, 102);
+            this.bComment.Name = "bComment";
+            this.bComment.Size = new System.Drawing.Size(225, 31);
+            this.bComment.TabIndex = 23;
+            this.bComment.Text = " омментарий о читателе";
+            this.bComment.UseVisualStyleBackColor = true;
+            this.bComment.Click += new System.EventHandler(this.bComment_Click);
             // 
             // button4
             // 
@@ -413,7 +425,7 @@ namespace Circulation
             this.pictureBox2.InitialImage = global::Circulation.Properties.Resources.nofoto;
             this.pictureBox2.Location = new System.Drawing.Point(593, 9);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(100, 90);
+            this.pictureBox2.Size = new System.Drawing.Size(100, 105);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox2.TabIndex = 20;
             this.pictureBox2.TabStop = false;
@@ -461,7 +473,7 @@ namespace Circulation
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(749, 468);
+            this.button10.Location = new System.Drawing.Point(749, 505);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(230, 23);
             this.button10.TabIndex = 9;
@@ -471,7 +483,7 @@ namespace Circulation
             // 
             // numericUpDown3
             // 
-            this.numericUpDown3.Location = new System.Drawing.Point(593, 469);
+            this.numericUpDown3.Location = new System.Drawing.Point(593, 506);
             this.numericUpDown3.Maximum = new decimal(new int[] {
             1000000,
             0,
@@ -485,7 +497,7 @@ namespace Circulation
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label22.Location = new System.Drawing.Point(6, 468);
+            this.label22.Location = new System.Drawing.Point(6, 505);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(581, 24);
             this.label22.TabIndex = 5;
@@ -543,7 +555,7 @@ namespace Circulation
             this.DateVozv,
             this.DateVozvFact,
             this.Penalt});
-            this.Formular.Location = new System.Drawing.Point(3, 102);
+            this.Formular.Location = new System.Drawing.Point(0, 139);
             this.Formular.MultiSelect = false;
             this.Formular.Name = "Formular";
             this.Formular.ReadOnly = true;
@@ -603,6 +615,15 @@ namespace Circulation
             this.DateVozvFact.ReadOnly = true;
             this.DateVozvFact.Width = 80;
             // 
+            // Penalt
+            // 
+            this.Penalt.HeaderText = "Ќарушение";
+            this.Penalt.Name = "Penalt";
+            this.Penalt.ReadOnly = true;
+            this.Penalt.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Penalt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.Penalt.Width = 85;
+            // 
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.button12);
@@ -613,7 +634,7 @@ namespace Circulation
             this.tabPage2.Margin = new System.Windows.Forms.Padding(4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(4);
-            this.tabPage2.Size = new System.Drawing.Size(1185, 495);
+            this.tabPage2.Size = new System.Drawing.Size(1185, 532);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "—правка";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -621,7 +642,7 @@ namespace Circulation
             // button12
             // 
             this.button12.Enabled = false;
-            this.button12.Location = new System.Drawing.Point(771, 460);
+            this.button12.Location = new System.Drawing.Point(775, 497);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(234, 28);
             this.button12.TabIndex = 5;
@@ -669,14 +690,14 @@ namespace Circulation
             this.Statistics.ReadOnly = true;
             this.Statistics.RowHeadersVisible = false;
             this.Statistics.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.Statistics.Size = new System.Drawing.Size(1171, 410);
+            this.Statistics.Size = new System.Drawing.Size(1171, 447);
             this.Statistics.TabIndex = 1;
             this.Statistics.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Statistics_ColumnHeaderMouseClick);
             this.Statistics.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.Statistics_CellMouseDoubleClick);
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(1009, 459);
+            this.button7.Location = new System.Drawing.Point(1013, 496);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(169, 29);
             this.button7.TabIndex = 0;
@@ -692,28 +713,38 @@ namespace Circulation
             this.tabPage3.Location = new System.Drawing.Point(4, 25);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1185, 495);
+            this.tabPage3.Size = new System.Drawing.Size(1185, 532);
             this.tabPage3.TabIndex = 4;
             this.tabPage3.Text = "”чЄт посещаемости";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(1087, 502);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(92, 24);
+            this.button5.TabIndex = 11;
+            this.button5.Text = "эмул€ци€";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(349, 304);
+            this.label23.Location = new System.Drawing.Point(346, 302);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(425, 17);
-            this.label23.TabIndex = 2;
+            this.label23.TabIndex = 10;
             this.label23.Text = "—читайте штрихкод читател€, чтобы увеличить посещаемость";
             // 
             // label21
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label21.Location = new System.Drawing.Point(243, 100);
+            this.label21.Location = new System.Drawing.Point(240, 98);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(668, 31);
-            this.label21.TabIndex = 1;
+            this.label21.TabIndex = 9;
             this.label21.Text = "Ќа сегодн€ посещаемость составл€ет: 0 человек(а)";
             // 
             // timer1
@@ -737,9 +768,17 @@ namespace Circulation
             this.label10.Font = new System.Drawing.Font("Microsoft Sans Serif", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label10.Location = new System.Drawing.Point(181, 26);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(822, 42);
+            this.label10.Size = new System.Drawing.Size(842, 42);
             this.label10.TabIndex = 11;
             this.label10.Text = " ниговыдача: ÷ентр јмериканской  ультуры";
+            // 
+            // dataGridViewButtonColumn1
+            // 
+            this.dataGridViewButtonColumn1.HeaderText = "Ќарушение";
+            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
+            this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewButtonColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewButtonColumn1.Width = 85;
             // 
             // contextMenuStrip2
             // 
@@ -754,7 +793,7 @@ namespace Circulation
             this.список ниг— оторых—н€таќтветственностьToolStripMenuItem,
             this.списокЌарушителей—роковѕользовани€ToolStripMenuItem});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(331, 202);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(331, 224);
             // 
             // выданные нигиЌа“екущийћоментToolStripMenuItem
             // 
@@ -795,7 +834,7 @@ namespace Circulation
             // 
             this.все ниги÷ентрајмериканской ультурыToolStripMenuItem.Name = "все ниги÷ентрајмериканской ультурыToolStripMenuItem";
             this.все ниги÷ентрајмериканской ультурыToolStripMenuItem.Size = new System.Drawing.Size(330, 22);
-            this.все ниги÷ентрајмериканской ультурыToolStripMenuItem.Text = "¬се книги центра американской культуры";
+            this.все ниги÷ентрајмериканской ультурыToolStripMenuItem.Text = "¬се книги ÷ј ";
             this.все ниги÷ентрајмериканской ультурыToolStripMenuItem.Click += new System.EventHandler(this.все ниги÷ентрајмериканской ультурыToolStripMenuItem_Click);
             // 
             // обращаемость нигToolStripMenuItem
@@ -819,39 +858,12 @@ namespace Circulation
             this.списокЌарушителей—роковѕользовани€ToolStripMenuItem.Text = "—писок нарушителей сроков пользовани€";
             this.списокЌарушителей—роковѕользовани€ToolStripMenuItem.Click += new System.EventHandler(this.списокЌарушителей—роковѕользовани€ToolStripMenuItem_Click);
             // 
-            // dataGridViewButtonColumn1
-            // 
-            this.dataGridViewButtonColumn1.HeaderText = "Ќарушение";
-            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
-            this.dataGridViewButtonColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewButtonColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewButtonColumn1.Width = 85;
-            // 
-            // Penalt
-            // 
-            this.Penalt.HeaderText = "Ќарушение";
-            this.Penalt.Name = "Penalt";
-            this.Penalt.ReadOnly = true;
-            this.Penalt.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Penalt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.Penalt.Width = 85;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(1087, 465);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(92, 24);
-            this.button5.TabIndex = 8;
-            this.button5.Text = "эмул€ци€";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
             // Form1
             // 
             this.AcceptButton = this.bConfirm;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1221, 675);
+            this.ClientSize = new System.Drawing.Size(1221, 702);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.tabControl1);
@@ -864,7 +876,7 @@ namespace Circulation
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = " ниговыдача ÷ентр јмериканской  ультуры";
+            this.Text = " ниговыдача ÷ј ";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -962,9 +974,10 @@ namespace Circulation
         private System.Windows.Forms.ToolStripMenuItem список ниг— оторых—н€таќтветственностьToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem списокЌарушителей—роковѕользовани€ToolStripMenuItem;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button bComment;
         //private Circulation.BRIT_SOVETDataSetTableAdapters.ZAKAZTableAdapter zAKAZTableAdapter;
         //private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
         //private CrystalReport1 CrystalReport11;

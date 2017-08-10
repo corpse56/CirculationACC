@@ -39,6 +39,10 @@ namespace Circulation
 
 
             Email = reader.GetEmail();
+            //WorkEmail = reader.GetWorkEmail();
+            //RegEmail = reader.GetRegEmail();
+            //LiveEmail = "debarkader@gmail.com";
+            //WorkEmail = "debarkader@gmail.com";
 
             if (Email == "")
             {
@@ -70,13 +74,14 @@ namespace Circulation
             if (rownum == 0)
             {
                 MessageBox.Show("За читателем нет задоженностей!");
+                this.canshow = false;
                 this.Close();
                 return;
             }
-            richTextBox1.Text += rn + "Просим Вас в ближайшее время вернуть литературу в Центр американской культуры Библиотеки иностранной литературы." + rn +
+            richTextBox1.Text += rn + "Просим Вас в ближайшее время вернуть литературу в Центр Американской Культуры Библиотеки иностранной литературы." + rn +
                 "С уважением, " + rn +
-                "Центр американской культуры ВГБИЛ," + rn +
-                "тел. +7 (495) 926-4554" + rn +
+                "Центр Американской Культуры ВГБИЛ," + rn +
+                "тел. +7 (495) " + rn +
                 "пн-пт - с 11:00 до 20:45." + rn +
                 "субб - с 11:00 до 18:45";
 
@@ -107,7 +112,7 @@ namespace Circulation
 
             client.Credentials = new NetworkCredential("no-reply@libfl.ru", "noreplayLIBFL");
             //client.Credentials = new NetworkCredential("lingua_automail@libfl.ru", "automail");
-            MailAddress from = new MailAddress("no-reply@libfl.ru", "Библиотека Иностранной Литературы - Зал абонементного обслуживания", Encoding.UTF8);
+            MailAddress from = new MailAddress("noreply@libfl.ru", "Библиотека Иностранной Литературы - Зал абонементного обслуживания", Encoding.UTF8);
             MailAddress to;
             MailMessage message = new MailMessage();
             message.From = from;
@@ -135,7 +140,6 @@ namespace Circulation
             }
             message.Dispose();
             MessageBox.Show("Отправлено успешно!");
-            
             DBGeneral dbg = new DBGeneral();
             dbg.InsertSendEmailAction(f1.EmpID,reader.ID);
             Close();
